@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunAR - Jaime Serrano</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Override gradient for RunAR page with purple color */
+        html {
+            background-image: linear-gradient(180deg, 
+                rgba(254, 250, 224, 0) 0%, 
+                rgba(102, 66, 166, 0.3) 10%, 
+                rgba(102, 66, 166, 0.6) 30%, 
+                rgba(102, 66, 166, 0.8) 45%, 
+                rgba(102, 66, 166, 0.6) 60%, 
+                rgba(102, 66, 166, 0.3) 80%, 
+                rgba(254, 250, 224, 0) 100%);
+        }
+
+        .project-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            padding-top: 80px;
+        }
+
+        .project-sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 280px;
+            height: calc(100vh - 80px);
+            padding: 3rem 2rem;
+            background: transparent;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .project-title {
+            font-size: clamp(1.75rem, 2vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .project-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-nav li {
+            margin-bottom: 1rem;
+        }
+
+        .project-nav a {
+            color: #4a4a4a;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all var(--transition-smooth);
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .project-nav a:hover,
+        .project-nav a.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .project-main {
+            margin-left: 280px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-hero-image {
+            width: 100%;
+            padding: 2rem 3rem 0;
+        }
+
+        .project-hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-content {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .project-section {
+            margin-bottom: 8rem;
+        }
+
+        .project-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            color: #1a1a1a;
+        }
+
+        .project-section h3 {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .project-section h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555555;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-section p {
+            font-size: clamp(1rem, 1.2vw, 1.125rem);
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-section img {
+            width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-section .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-section .image-grid img {
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 4rem;
+            color: #1a1a1a;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 2px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all var(--transition-smooth);
+        }
+
+        .back-link:hover {
+            color: #6642A6;
+            border-bottom-color: #6642A6;
+        }
+
+        @media (max-width: 768px) {
+            .project-layout {
+                flex-direction: column;
+            }
+
+            .project-sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 2rem;
+            }
+
+            .project-main {
+                margin-left: 0;
+            }
+
+            .project-hero-image {
+                padding: 2rem 1.5rem 0;
+            }
+
+            .project-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-section {
+                margin-bottom: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="./">Jaime Serrano</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./">Home</a></li>
+                <li><a href="./#work">Work</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Layout -->
+    <div class="project-layout">
+        <!-- Left Sidebar -->
+        <aside class="project-sidebar">
+            <h1 class="project-title">RunAR</h1>
+            <ul class="project-nav">
+                <li><a href="#executive-summary" class="nav-link">Executive Summary</a></li>
+                <li><a href="#design-problem" class="nav-link">Design Problem</a></li>
+                <li><a href="#research" class="nav-link">Research Strategy</a></li>
+                <li><a href="#concepts" class="nav-link">Concepts</a></li>
+                <li><a href="#prototype" class="nav-link">Prototype Design</a></li>
+                <li><a href="#feedback" class="nav-link">Stakeholder Feedback</a></li>
+                <li><a href="#future" class="nav-link">Future Design Work</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="project-main">
+            <!-- Hero Image -->
+            <div class="project-hero-image">
+                <img src="images/Frame.jpg" alt="RunAR Project">
+            </div>
+
+            <!-- Scrollable Content -->
+            <section class="project-content">
+        <div class="project-section" id="executive-summary">
+            <h4>Executive Summary</h4>
+            <h2>RunAR: AR glasses concept for runners</h2>
+            <img src="images/Screenshot 2026-01-31 at 00-29-51 RunAR_report.pdf.png" alt="RunAR Project Overview">
+            <p>
+                RunAR is an AR glasses concept designed for runners, providing real-time performance data 
+                hands-free. The system displays key running metrics and features an AR ghost runner for 
+                motivation, addressing the limitations of current solutions that disrupt focus and require 
+                constant device interaction. By leveraging augmented reality technology, RunAR creates a 
+                seamless, non-intrusive experience that keeps runners engaged and informed without 
+                interrupting their stride.
+            </p>
+            <p>
+                Our development process involved structured ideation and concept evaluation using an 
+                Impact-Effort Matrix, assessing concepts based on usability, feasibility, desirability, 
+                and impact. We selected AR glasses as our platform and employed iterative prototyping 
+                methods including wireframes, cardboard models, and a Wizard of Oz prototype that was 
+                tested with real runners to gather authentic feedback.
+            </p>
+            <p>
+                User testing revealed strong interest in navigation cues and ghost runner motivation, 
+                with pace and navigation identified as the most valuable features. However, we also 
+                identified challenges including visual clutter and cognitive overload. Our roadmap 
+                focuses on simplifying hardware, reducing cognitive load, improving ghost runner 
+                animation, and positioning RunAR as a training tool rather than an everyday running 
+                replacement.
+            </p>
+        </div>
+
+        <div class="project-section" id="design-problem">
+            <h4>Design Problem</h4>
+            <h2>Runners struggle to stay motivated and track performance effectively</h2>
+            <img src="images/Screenshot 2026-01-31 at 00-30-03 RunAR_report.pdf.png" alt="Design Problem and Research Strategy">
+            <p>
+                Runners training for races struggle to stay motivated and track their performance 
+                effectively during runs. Existing solutions require runners to frequently check their 
+                phones or watches, disrupting their flow and focus.
+            </p>
+            <h3>Our challenge:</h3>
+            <p style="background: #f5f5f5; padding: 1.5rem; border-left: 3px solid var(--accent-color); margin: 1.5rem 0; color: #1a1a1a; font-size: 1.125rem;">
+                <strong>How might we help runners training for a race visualize real-time performance 
+                data in ways that keep them motivated?</strong>
+            </p>
+        </div>
+
+        <div class="project-section" id="research">
+            <h4>Research Strategy and Results</h4>
+            <h2>Scenario-Based Design approach combining surveys and interviews</h2>
+            <p>
+                We used a Scenario-Based Design approach combining surveys and interviews to understand 
+                how runners track, stay motivated, and interact with technology. These insights informed 
+                five semi-structured interviews exploring training habits, motivation, and technology frustrations.
+            </p>
+            
+            <h3>Key Findings</h3>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li>Mostly use Smartwatches or Phones</li>
+                <li>Key Metrics: Pace, Distance, and Heart Rate</li>
+                <li>Main challenge: Maintaining Consistency in Training</li>
+            </ul>
+
+            <h3>Survey Results</h3>
+            <p>
+                Our survey of 15 runners revealed that <strong>93.3%</strong> use smartwatches or GPS watches, 
+                and <strong>86.7%</strong> use phones during runs. When asked about their biggest training challenge, 
+                <strong>46.7%</strong> identified "Staying consistent with training" as the primary issue, followed 
+                by <strong>33.3%</strong> citing "Maintaining motivation." The most important metrics were consistently 
+                Pace, Distance, and Heart Rate, with all three ranked as "Most important" by the majority of respondents.
+            </p>
+
+            <h3>Semi-Structured Interview Topics</h3>
+            <p style="background: #f5f5f5; padding: 1.5rem; border-left: 3px solid var(--accent-color); margin: 1.5rem 0; color: #1a1a1a; font-size: 1rem; line-height: 1.8;">
+                1. Training Habits<br>
+                2. Motivation<br>
+                3. Technology Frustrations
+            </p>
+
+            <h3>Pain Points Identified</h3>
+            <p>From the interviews, we identified four major categories of pain points:</p>
+            
+            <h3>1. Real-Time Feedback Limitations</h3>
+            <p>
+                Many runners told us they were tired of constantly checking their watches and wanted more 
+                proactive, hands-free alerts.
+            </p>
+
+            <h3>2. Training Gaps</h3>
+            <p>
+                Users felt they lacked proper guidance on things like nutrition, hydration, warm-ups, and 
+                joint protection.
+            </p>
+
+            <h3>3. Motivation Barriers</h3>
+            <p>
+                Life disruptions and training alone made it hard for them to stay accountable.
+            </p>
+
+            <h3>4. Technology Issues</h3>
+            <p>
+                Users frequently experienced inconsistent data across devices, inaccurate heart rate zones, 
+                and even lost workout records.
+            </p>
+
+            <h3>Key Design Decisions</h3>
+            <p>Based on all of our research findings, we made three key design decisions:</p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li><strong>Shifting the focus</strong> toward runners who are training for races, rather than casual runners, 
+                since their needs for accuracy and consistency are much stronger</li>
+                <li><strong>Accurate tracking, hands-free metrics, and real-time alerts</strong> became must-have features</li>
+                <li><strong>Incorporating gamification and community features</strong> to support both motivation and retention</li>
+            </ul>
+        </div>
+
+        <div class="project-section" id="concepts">
+            <h4>Concepts and Preferred Approach</h4>
+            <h2>Structured ideation combining brainstorming with collaborative refinement</h2>
+            <p>
+                Our ideation process combined structured brainstorming with collaborative refinement. 
+                We began with a creative warm-up exercise, then used mind mapping to capture initial 
+                ideas without filtering.
+            </p>
+            <p>
+                Through Round Robin sessions, the team collaboratively built upon and strengthened 
+                promising concepts. Finally, we applied an Impact-Effort Matrix to prioritize solutions 
+                based on feasibility and potential impact.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-31-01 RunAR_report.pdf.png" alt="Research Strategy and Results - Survey Data and Charts">
+
+            <h3>Ideation Process</h3>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li><strong>Warm-up exercise (5 mins):</strong> Generated 100 brick use cases to activate creative thinking</li>
+                <li><strong>Mind mapping (10 mins):</strong> Brainstormed and documented all initial ideas and concepts</li>
+                <li><strong>Round Robin (10 mins):</strong> Collaboratively refined and built upon promising ideas</li>
+                <li><strong>Impact-Effort Matrix (10 mins):</strong> Evaluated and prioritized solutions based on implementation 
+                feasibility and potential user impact</li>
+            </ul>
+
+            <p>
+                The Impact-Effort Matrix helped us identify "Quick win" projects (High Impact, Low Effort) 
+                and "Robust solutions" (High Impact, High Effort), allowing us to focus our efforts on 
+                concepts that would deliver the most value to runners training for races.
+            </p>
+
+            <h3>Key Criteria for Design Decisions</h3>
+            <p>
+                We established four key criteria to guide our design decisions: usability (how easy the 
+                glasses are to use), feasibility (whether it's possible to create), desirability (will 
+                people actually want to use them), and impact (will they genuinely improve users' pace).
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-31-21 RunAR_report.pdf.png" alt="Research Strategy and Results - Pain Points and Design Decisions">
+
+            <h3>Three Design Concepts</h3>
+            <p>
+                Through ideation, we narrowed down three design concepts. The projection hat would project 
+                visual cues onto the runner's path but offered limited information display. The running 
+                companion robot would provide motivation and analytics but required too much effort to prototype. 
+                We chose AR Glasses, which allow runners to view key data and run with an AR ghost runner of 
+                themselves or friends, enhancing motivation and engagement.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-31-34 RunAR_report.pdf.png" alt="Ideation Process - Warm-up, Mind Mapping, Round Robin, and Impact-Effort Matrix">
+
+            <h3>Why AR Glasses?</h3>
+            <p>
+                We decided to proceed with AR Glasses due to their high impact, medium prototyping effort, 
+                ability to combine desired features, and display key runner data. The prototyping effort 
+                was also lower due to leveraging previous products like Meta Glasses.
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li>High impact & medium effort</li>
+                <li>Combines features users want</li>
+                <li>Reference previous products such as Meta Glasses</li>
+            </ul>
+            <img src="images/Screenshot 2026-01-31 at 00-31-46 RunAR_report.pdf.png" alt="Design Criteria - Usability, Feasibility, Desirability, Impact">
+        </div>
+
+        <div class="project-section" id="prototype">
+            <h4>Prototype Design</h4>
+            <h2>Creating wireframes and prototypes for testing key criteria</h2>
+            <p>
+                Each prototype served a purpose for testing key criteria. We created wireframes for physical 
+                and digital experiences, cardboard prototypes for hardware, and a Wizard of Oz prototype for 
+                user testing.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-31-58 RunAR_report.pdf.png" alt="Three Design Concepts - Projection Hat, Running Companion Robot, AR Glasses">
+
+            <h3>Hardware Wireframes and Cardboard Prototypes</h3>
+            <p>
+                These wireframes helped us get an idea of how we wanted to make our cardboard prototypes. 
+                We next created cardboard prototypes to test usability and feasibility. These low-fidelity 
+                physical models allowed us to quickly evaluate the ergonomics and comfort of the glasses design, 
+                assess whether users could naturally interact with the interface while running, and identify 
+                any practical constraints before investing in higher-fidelity prototypes.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-32-29 RunAR_report.pdf.png" alt="Prototype Design - Wireframes for Mode and Pace, In-Run View">
+            <img src="images/Screenshot 2026-01-31 at 00-32-40 RunAR_report.pdf.png" alt="Hardware Wireframes - Glasses Case and Hardware, Cardboard Prototypes">
+
+            <h3>Wizard of Oz Prototype</h3>
+            <p>
+                Finally, we developed a Wizard of Oz prototype to test usability and desirability in a realistic 
+                context. A team member held an iPad displaying the interface while the participant ran, simulating 
+                the AR glasses experience. This approach allowed us to assess whether runners found the glasses 
+                intuitive to use during actual runs and whether the features genuinely motivated them and enhanced 
+                their running experience.
+            </p>
+            <p style="font-style: italic; color: #333333; margin-top: 1rem;">
+                The Wizard of Oz testing was conducted during nighttime runs in an urban setting, allowing us 
+                to observe how users interacted with the interface in real-world conditions.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-33-00 RunAR_report.pdf.png" alt="Wizard of Oz Prototype Testing">
+        </div>
+
+        <div class="project-section" id="feedback">
+            <h4>Stakeholder Feedback</h4>
+            <h2>User testing revealed both strengths and limitations</h2>
+            <p>
+                User testing revealed both strengths and limitations of our AR glasses concept. Runners responded 
+                positively to navigation cues and the ghost runner feature, identifying pace and navigation as 
+                the most valuable information.
+            </p>
+            <p>
+                However, significant challenges emerged. Users experienced visual clutter and cognitive overload 
+                from too much simultaneous information. Caloric and heart rate data felt irrelevant, the ghost 
+                runner animation wasn't smooth enough to follow, and the bulky hardware raised comfort concerns. 
+                Runners appreciated the guidance concept but needed a more streamlined, focused interface.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-33-40 RunAR_report.pdf.png" alt="Stakeholder Feedback">
+        </div>
+
+        <div class="project-section" id="future">
+            <h4>Future Design Work</h4>
+            <h2>Planned iterations to address user feedback</h2>
+            <p>
+                For future iterations, we plan to simplify the hardware through a glasses-only solution with 
+                fewer setup steps. We'll reduce cognitive load by prioritizing essential information during 
+                runs and improve the ghost runner with smoother animation and clearer visual behavior. Finally, 
+                we'll strengthen our value proposition by positioning RunAR as a training tool rather than an 
+                everyday running replacement, emphasizing its hands-free advantage for specific use cases.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
+                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">01 Simplify Hardware</h4>
+                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                        <li>Explore glasses-only solution</li>
+                        <li>Move biometric sensors into the frames</li>
+                        <li>Reduce setup steps to match smartwatch simplicity</li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
+                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">02 Reduce Cognitive Load</h4>
+                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                        <li>Prioritize only: Pace, Navigation, Ghost Runner (optional mode)</li>
+                        <li>Hide or delay: Calories, Rapid heart rate updates, Secondary metrics</li>
+                        <li>Implement progressive disclosure of information</li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
+                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">03 Improve Ghost Runner Logic</h4>
+                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                        <li>Smoother pacing animation</li>
+                        <li>Clearer visual distance indicators</li>
+                        <li>More predictable behavior patterns</li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
+                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">04 Strengthen Core Value Proposition</h4>
+                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                        <li>Position RunAR as: A training tool, not an everyday running replacement</li>
+                        <li>Best for structured runs, intervals, and race prep</li>
+                        <li>Emphasize hands-free advantage for specific use cases</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Roadmap</h3>
+            <p>
+                Our roadmap prioritizes short-term prototype refinements by building a minimal UI and testing 
+                a glasses-only approach that shifts controls from the wristband to the frame. We'll conduct 
+                additional research by interviewing more athletes about gear tolerance and comfort, followed by 
+                second-round testing to evaluate the updated UI's readability during movement and validate 
+                cognitive load reduction.
+            </p>
+            <img src="images/Screenshot 2026-01-31 at 00-34-01 RunAR_report.pdf.png" alt="Future Design Work and Roadmap">
+        </div>
+
+                <a href="./#work" class="back-link">← Back to work</a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2 class="contact-title">Let's work together</h2>
+            <a href="mailto:jaimeserrano32@gmail.com" class="contact-email">jaimeserrano32@gmail.com</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Smooth scroll for section navigation
+        document.querySelectorAll('.project-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const contentArea = document.querySelector('.project-content');
+                    const offset = 20;
+                    const targetPosition = targetSection.offsetTop - offset;
+                    
+                    contentArea.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active state
+                    document.querySelectorAll('.project-nav a').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        const contentArea = document.querySelector('.project-content');
+        const sections = document.querySelectorAll('.project-section');
+        const navLinks = document.querySelectorAll('.project-nav a');
+
+        contentArea.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (contentArea.scrollTop >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

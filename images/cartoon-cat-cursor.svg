@@ -1,0 +1,25 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cartoon Cat Cursor -->
+  <!-- Cat head -->
+  <ellipse cx="16" cy="12" rx="10" ry="10" fill="#FF8C42" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Left ear (pointy) - larger and more prominent -->
+  <path d="M 9 2 L 6 8 L 12 8 Z" fill="#FF8C42" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Right ear (pointy) - larger and more prominent -->
+  <path d="M 23 2 L 26 8 L 20 8 Z" fill="#FF8C42" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Left eye -->
+  <ellipse cx="13" cy="11" rx="2" ry="2.5" fill="#2d3436"/>
+  <!-- Right eye -->
+  <ellipse cx="19" cy="11" rx="2" ry="2.5" fill="#2d3436"/>
+  <!-- Nose (triangle) -->
+  <path d="M 16 13 L 15 15 L 17 15 Z" fill="#2d3436"/>
+  <!-- Mouth -->
+  <path d="M 16 15 Q 14 17 12 16" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 16 15 Q 18 17 20 16" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="6" y1="12" x2="10" y2="12" stroke="#2d3436" stroke-width="1" stroke-linecap="round"/>
+  <line x1="6" y1="14" x2="10" y2="14" stroke="#2d3436" stroke-width="1" stroke-linecap="round"/>
+  <line x1="22" y1="12" x2="26" y2="12" stroke="#2d3436" stroke-width="1" stroke-linecap="round"/>
+  <line x1="22" y1="14" x2="26" y2="14" stroke="#2d3436" stroke-width="1" stroke-linecap="round"/>
+  <!-- Tail (pointing up like cursor) -->
+  <path d="M 16 22 Q 12 28 8 26" stroke="#2d3436" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

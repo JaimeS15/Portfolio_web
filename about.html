@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Jaime Serrano</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 3rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .about-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            line-height: 1.3;
+            color: #1a1a1a;
+        }
+
+        .about-content p {
+            font-size: clamp(1rem, 1.5vw, 1.125rem);
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .skills-section {
+            margin-top: 6rem;
+            padding-top: 6rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .skills-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .skill-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #555555;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            margin-bottom: 0.75rem;
+            color: #333333;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .timeline {
+            margin-top: 6rem;
+            padding-top: 6rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .timeline h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+            border-left: 1px solid var(--border-color);
+            transition: border-color var(--transition-smooth);
+        }
+
+        .timeline-item:hover {
+            border-left-color: var(--accent-color);
+        }
+
+        .timeline-date {
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .timeline-title {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #1a1a1a;
+        }
+
+        .timeline-desc {
+            color: #333333;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .education-section {
+            margin-top: 6rem;
+            padding-top: 6rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .education-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .education-item {
+            margin-bottom: 2.5rem;
+            padding-left: 2rem;
+            border-left: 1px solid var(--border-color);
+            transition: border-color var(--transition-smooth);
+        }
+
+        .education-item:hover {
+            border-left-color: var(--accent-color);
+        }
+
+        .education-date {
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .education-degree {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #1a1a1a;
+        }
+
+        .education-school {
+            color: #333333;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .projects-section {
+            margin-top: 6rem;
+            padding-top: 6rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .projects-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .project-item {
+            margin-bottom: 2.5rem;
+            padding-left: 2rem;
+            border-left: 1px solid var(--border-color);
+            transition: border-color var(--transition-smooth);
+        }
+
+        .project-item:hover {
+            border-left-color: var(--accent-color);
+        }
+
+        .project-date {
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .project-title {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #1a1a1a;
+        }
+
+        .project-desc {
+            color: #333333;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="./">Jaime Serrano</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./">Home</a></li>
+                <li><a href="./#work">Work</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="about-content">
+            <h1>About Me</h1>
+            <p>
+                I'm a researcher, designer, and developer with a passion for creating data-driven solutions 
+                and intuitive user experiences. Currently pursuing my Master of Science in Information Management 
+                at the University of Washington, I combine technical skills in programming and data analysis 
+                with design thinking to solve complex problems.
+            </p>
+            <p>
+                My work spans research analysis, geospatial data visualization, and user-centered design. 
+                I've contributed to environmental health research, developed automated data processing tools, 
+                and created AR prototypes that address real user needs. I believe in the power of combining 
+                quantitative analysis with qualitative insights to create meaningful solutions.
+            </p>
+            <p>
+                <a href="Jaime Serrano_12_2025.pdf" target="_blank" style="color: var(--primary-color); border-bottom: 1px solid var(--primary-color); padding-bottom: 2px; font-weight: 500;">Download my resume</a> to learn more about my experience and qualifications.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="about-content">
+        <div class="skills-section">
+            <h2>Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Programming Languages</h3>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Python (pandas)</li>
+                        <li>R (tidyverse, dplyr, ggplot2, shinyapp)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card">
+                    <h3>Data & Analysis Tools</h3>
+                    <ul>
+                        <li>Tableau</li>
+                        <li>ArcGIS</li>
+                        <li>Dedoose</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card">
+                    <h3>Design & Prototyping</h3>
+                    <ul>
+                        <li>Figma</li>
+                        <li>Adobe Illustrator</li>
+                        <li>Rhino</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card">
+                    <h3>Methodologies</h3>
+                    <ul>
+                        <li>Thematic Analysis</li>
+                        <li>Systems Thinking</li>
+                        <li>Design Thinking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="about-content">
+        <div class="education-section">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <div class="education-date">Jun 2027</div>
+                <div class="education-degree">Master of Science, Information Management</div>
+                <div class="education-school">University of Washington, The Information School</div>
+            </div>
+
+            <div class="education-item">
+                <div class="education-date">Jun 2024</div>
+                <div class="education-degree">B.A., Science, Technology, & Society</div>
+                <div class="education-school">University of Washington, School of Interdisciplinary Arts & Sciences</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="about-content">
+        <div class="timeline">
+            <h2>Experience</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">Jan 2024 - Mar 2025</div>
+                <div class="timeline-title">Research Analyst, Casey Lab</div>
+                <div class="timeline-desc">University of Washington, Department of Environmental & Occupational Health Sciences. Utilized R (tidyverse) to conduct evaluative data analysis on large environmental datasets. Created 100+ map files with ArcGIS using R-filtered data, delivering geospatial insights that informed research direction. Constructed multiple line grids within ArcGIS for Seattle and Chicago. Co-authored research paper using analysis results, collaborating with cross-functional teams.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Jul 2023 - Sep 2023</div>
+                <div class="timeline-title">Research Assistant, THINK Lab</div>
+                <div class="timeline-desc">University of Washington, Department of Civil & Environmental Engineering. Collaborated with researchers and product stakeholders to conduct literature review of 10+ quantitative methodologies. Fabricated 20+ ellipses in ArcGIS using confidence intervals and Python (pandas)-filtered datasets to reveal behavioral patterns. Developed Python scripts that automated ellipse creation across multiple files, reducing manual processing time.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="about-content">
+        <div class="projects-section">
+            <h2>University Projects</h2>
+            
+            <div class="project-item">
+                <div class="project-date">Sep 2025 - Dec 2025</div>
+                <div class="project-title">RunAR</div>
+                <div class="project-desc">University of Washington. Conducted user interviews focused on a hands-free running solution, resulting in identifying key wants and needs of users. Created 2 low-fi prototypes of the UI for our design of AR running glasses, resulting in a clearer vision of our testable prototype. Recorded multiple videos during our Wizard of Oz user testing, providing evidence of our product's strengths and weaknesses.</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-date">Jan 2024 - Jun 2024</div>
+                <div class="project-title">User Study Research</div>
+                <div class="project-desc">University of Washington. Coded 20+ excerpts from participants using Dedoose, increasing the accuracy of the previous research. Used a Likert-Scale to obtain quantitative results that showed what users preferred. Conducted qualitative research by using thematic analysis, resulting in 4 themes arising from the research.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2 class="contact-title">Let's work together</h2>
+            <a href="mailto:jaimeserrano32@gmail.com" class="contact-email">jaimeserrano32@gmail.com</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

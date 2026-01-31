@@ -1,0 +1,537 @@
+/* ========================================
+   MODERN MINIMAL PORTFOLIO STYLES
+   Inspired by minazavary.com
+   ======================================== */
+
+/* Reset and Root Variables */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #000000;
+    --secondary-color: #333333;
+    --accent-color: #FFEAA7;
+    --background-color: #fefae0;
+    --text-light: #555555;
+    --border-color: #e5e5e5;
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    min-height: 100%;
+    background-color: #fefae0;
+    background-image: linear-gradient(180deg, rgba(254, 250, 224, 0) 0%, rgba(246, 251, 239, 0.5) 10%, rgba(230, 240, 223, 0.7) 20%, rgba(198, 216, 175, 0.8) 30%, rgba(180, 200, 160, 0.7) 40%, rgba(230, 240, 223, 0.5) 50%, rgba(246, 251, 239, 0.3) 60%, rgba(230, 240, 223, 0.6) 70%, rgba(198, 216, 175, 0.7) 80%, rgba(246, 251, 239, 0.4) 90%, rgba(254, 250, 224, 0) 100%);
+    background-attachment: scroll;
+    background-size: 100% 200vh;
+    background-repeat: repeat-y;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background-color: transparent;
+    color: var(--primary-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: url('images/cartoon-cat-cursor.svg') 16 16, auto;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all var(--transition-smooth);
+    cursor: url('images/cartoon-cat-cursor.svg') 16 16, pointer;
+}
+
+button, .portfolio-card, .experiment-card {
+    cursor: url('images/cartoon-cat-cursor.svg') 16 16, pointer;
+}
+
+input, textarea, select {
+    cursor: url('images/cartoon-cat-cursor.svg') 16 16, text;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    z-index: 1000;
+    transition: all var(--transition-smooth);
+}
+
+.navbar.scrolled {
+    border-bottom-color: var(--border-color);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+.logo a {
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.nav-links a {
+    font-size: 1rem;
+    color: #4a4a4a;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary-color);
+    transition: width var(--transition-smooth);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 3rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    overflow: visible;
+}
+
+
+.hero-content {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f5f5f5;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    border: 3px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.hero-line {
+    display: block;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.1s;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    color: #333333;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 400;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+/* ========================================
+   WORK SECTION
+   ======================================== */
+
+.work {
+    padding: 2rem 3rem 8rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.work-container {
+    width: 100%;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 0;
+}
+
+.portfolio-card {
+    display: block;
+    border: none;
+    background: transparent;
+    padding: 0;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: visible;
+    z-index: 2;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-2px);
+}
+
+.portfolio-card:hover .portfolio-media img {
+    transform: scale(1.02);
+}
+
+.portfolio-media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin-bottom: 0;
+    background: #f5f5f5;
+    display: block;
+}
+
+.portfolio-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+}
+
+.portfolio-info {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 2rem 0;
+    background: transparent;
+}
+
+.portfolio-category {
+    font-size: 0.875rem;
+    color: #555555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.portfolio-info h3 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    color: #1a1a1a;
+}
+
+/* ========================================
+   CONTACT SECTION
+   ======================================== */
+
+.contact {
+    padding: 8rem 3rem;
+    text-align: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-color);
+}
+
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+    color: #1a1a1a;
+}
+
+.contact-email {
+    display: inline-block;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 500;
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 2px;
+    transition: all var(--transition-smooth);
+}
+
+.contact-email:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+    padding: 3rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--background-color);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    color: #555555;
+}
+
+.footer-content a {
+    color: #555555;
+    transition: color var(--transition-smooth);
+}
+
+.footer-content a:hover {
+    color: var(--primary-color);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Fade in on scroll animation */
+.fade-in-on-scroll {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Ensure portfolio cards are visible by default */
+.portfolio-card {
+    opacity: 1 !important;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .nav-container {
+        padding: 1.5rem 2rem;
+    }
+
+    .nav-links {
+        gap: 2rem;
+    }
+
+    .hero {
+        padding: 6rem 2rem 4rem;
+    }
+
+    .work {
+        padding: 6rem 2rem;
+    }
+
+    .contact {
+        padding: 6rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 1.25rem 1.5rem;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        padding: 5rem 1.5rem 2rem;
+        min-height: auto;
+    }
+
+    .hero-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 1rem;
+    }
+
+    .work {
+        padding: 4rem 1.5rem;
+    }
+
+    .portfolio-grid {
+        gap: 2rem;
+    }
+
+    .portfolio-info {
+        padding: 2rem 2rem;
+    }
+
+    .portfolio-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .portfolio-category {
+        min-width: auto;
+    }
+
+    .contact {
+        padding: 4rem 1.5rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .hero {
+        padding: 4rem 1rem 1.5rem;
+    }
+
+    .hero-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-image {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 1.5rem;
+    }
+
+    .work {
+        padding: 3rem 1rem;
+    }
+
+    .portfolio-grid {
+        gap: 1.5rem;
+    }
+
+    .portfolio-info {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .contact {
+        padding: 3rem 1rem;
+    }
+}
+
+/* Selection styling */
+::selection {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f5d794;
+}

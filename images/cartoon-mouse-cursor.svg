@@ -1,0 +1,22 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cartoon Mouse Cursor -->
+  <!-- Mouse body -->
+  <ellipse cx="16" cy="20" rx="10" ry="8" fill="#FFEAA7" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Mouse head -->
+  <ellipse cx="16" cy="10" rx="8" ry="10" fill="#FFEAA7" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Left ear -->
+  <ellipse cx="10" cy="6" rx="4" ry="5" fill="#FFEAA7" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Right ear -->
+  <ellipse cx="22" cy="6" rx="4" ry="5" fill="#FFEAA7" stroke="#2d3436" stroke-width="1.5"/>
+  <!-- Left eye -->
+  <circle cx="13" cy="9" r="2" fill="#2d3436"/>
+  <!-- Right eye -->
+  <circle cx="19" cy="9" r="2" fill="#2d3436"/>
+  <!-- Nose -->
+  <ellipse cx="16" cy="12" rx="1.5" ry="1" fill="#2d3436"/>
+  <!-- Mouth -->
+  <path d="M 16 13 Q 14 15 12 14" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 16 13 Q 18 15 20 14" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Tail (pointing up like cursor) -->
+  <path d="M 16 28 Q 12 32 8 30" stroke="#2d3436" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>
