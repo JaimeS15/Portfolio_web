@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - /bin/cp -R * $HOME/public_html/
+    - /bin/cp -R .[^.]* $HOME/public_html/ 2>/dev/null || true
