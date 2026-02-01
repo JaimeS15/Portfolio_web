@@ -2,15 +2,31 @@
 // PORTFOLIO WEBSITE JAVASCRIPT
 // ========================================
 
-// Navbar scroll effect
+// Navbar scroll effect - hide on scroll down, show on scroll up
+let lastScrollTop = 0;
+
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Add scrolled class for styling
+    if (scrollTop > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-});
+    
+    // Hide/show navbar based on scroll direction
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+        // Scrolling down - hide navbar
+        navbar.classList.add('navbar-hidden');
+    } else {
+        // Scrolling up - show navbar
+        navbar.classList.remove('navbar-hidden');
+    }
+    
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+}, false);
 
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -322,3 +338,4 @@ function initCartoonCursor() {
 
 // Initialize cursor on page load
 document.addEventListener('DOMContentLoaded', initCartoonCursor);
+

@@ -1,0 +1,9 @@
+DirectoryIndex index.html
+
+# Force index.html as default
+<IfModule mod_dir.c>
+    DirectoryIndex index.html index.php
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
