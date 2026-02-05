@@ -105,6 +105,143 @@ document.querySelectorAll('.portfolio-card').forEach(card => {
     });
 });
 
+// ========================================
+// HERO CAROUSEL AUTO-SCROLL
+// ========================================
+
+function initHeroCarousel() {
+    const carousel = document.querySelector('.hero-carousel');
+    const track = document.querySelector('.hero-carousel-track');
+
+    if (!carousel || !track) return;
+
+    let isHovering = false;
+    let isUserScrolling = false;
+    let idleTimeout = null;
+    let lastTimestamp = null;
+    let offset = 0;
+
+    const pixelsPerSecond = 60; // auto-scroll speed
+
+    function applyTransform() {
+        track.style.transform = `translateY(${offset}px)`;
+    }
+
+    function markUserScrolling() {
+        isUserScrolling = true;
+        if (idleTimeout) {
+            clearTimeout(idleTimeout);
+        }
+        idleTimeout = setTimeout(() => {
+            isUserScrolling = false;
+        }, 800);
+    }
+
+    function step(timestamp) {
+        if (!lastTimestamp) {
+            lastTimestamp = timestamp;
+        }
+        const deltaSeconds = (timestamp - lastTimestamp) / 1000;
+        lastTimestamp = timestamp;
+
+        const trackHeight = track.scrollHeight;
+        const visibleHeight = carousel.clientHeight;
+        const loopOffset = -(trackHeight / 2); // because we duplicated cards
+
+        if (!isHovering && !isUserScrolling && trackHeight > visibleHeight) {
+            offset -= pixelsPerSecond * deltaSeconds;
+            if (offset <= loopOffset) {
+                offset = 0;
+            }
+            applyTransform();
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    carousel.addEventListener('mouseenter', () => {
+        isHovering = true;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        isHovering = false;
+    });
+
+    carousel.addEventListener('wheel', (e) => {
+        const trackHeight = track.scrollHeight;
+        const visibleHeight = carousel.clientHeight;
+        const minOffset = -(trackHeight - visibleHeight);
+
+        if (trackHeight > visibleHeight) {
+            offset -= e.deltaY;
+            if (offset > 0) offset = 0;
+            if (offset < minOffset) offset = minOffset;
+            applyTransform();
+        }
+
+        markUserScrolling();
+    }, { passive: true });
+
+    carousel.addEventListener('touchstart', (e) => {
+        carousel.__touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    carousel.addEventListener('touchmove', (e) => {
+        const startY = carousel.__touchStartY;
+        if (startY == null) return;
+
+        const currentY = e.touches[0].clientY;
+        const delta = currentY - startY;
+
+        const trackHeight = track.scrollHeight;
+        const visibleHeight = carousel.clientHeight;
+        const minOffset = -(trackHeight - visibleHeight);
+
+        if (trackHeight > visibleHeight) {
+            offset += delta;
+            if (offset > 0) offset = 0;
+            if (offset < minOffset) offset = minOffset;
+            applyTransform();
+        }
+
+        carousel.__touchStartY = currentY;
+        markUserScrolling();
+    }, { passive: true });
+
+    window.addEventListener('keydown', (e) => {
+        if (!carousel.matches(':hover')) return;
+        const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+        if (!keys.includes(e.key)) return;
+
+        const trackHeight = track.scrollHeight;
+        const visibleHeight = carousel.clientHeight;
+        const minOffset = -(trackHeight - visibleHeight);
+        const stepSize = 40;
+
+        if (trackHeight > visibleHeight) {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                offset -= stepSize;
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                offset += stepSize;
+            } else if (e.key === 'Home') {
+                offset = 0;
+            } else if (e.key === 'End') {
+                offset = minOffset;
+            }
+
+            if (offset > 0) offset = 0;
+            if (offset < minOffset) offset = minOffset;
+            applyTransform();
+        }
+
+        markUserScrolling();
+        e.preventDefault();
+    });
+
+    applyTransform();
+    requestAnimationFrame(step);
+}
+
 // Mobile menu toggle (if needed in future)
 function initMobileMenu() {
     const navToggle = document.querySelector('.nav-toggle');
@@ -127,11 +264,41 @@ function initMobileMenu() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
+    initHeroCarousel();
     
     // Add animation to elements with animation classes
     const animatedElements = document.querySelectorAll('[class*="animate"]');
     animatedElements.forEach(el => {
         observer.observe(el);
+    });
+
+    // Page transition: fade out on same-site link navigation
+    const transitionDuration = 300; // ms, keep in sync with CSS
+    const links = document.querySelectorAll('a[href]');
+
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Skip in-page anchors, mailto/tel, and new tab links
+        if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') {
+            return;
+        }
+
+        link.addEventListener('click', function(e) {
+            // Respect modifier keys (open in new tab/window)
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                return;
+            }
+
+            e.preventDefault();
+
+            document.body.classList.add('page-fade-out');
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, transitionDuration);
+        });
     });
 });
 

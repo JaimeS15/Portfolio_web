@@ -60,14 +60,24 @@
             font-size: 1rem;
             transition: all var(--transition-smooth);
             display: block;
-            padding: 0.5rem 0;
+            padding: 0.5rem 0 0.5rem 0.75rem;
             border-bottom: 1px solid transparent;
+            border-left: 2px solid transparent;
         }
 
-        .project-nav a:hover,
+        .project-nav a:hover {
+            color: var(--primary-color);
+        }
+
         .project-nav a.active {
             color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
+            border-left-width: 3px;
+            border-left-color: var(--primary-color);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+            font-weight: 650;
+            background-color: rgba(102, 66, 166, 0.06);
         }
 
         .project-main {
@@ -92,7 +102,6 @@
         .project-content {
             flex: 1;
             padding: 3rem;
-            overflow-y: auto;
             max-width: 900px;
             margin: 0 auto;
             width: 100%;
@@ -209,9 +218,7 @@
         <div class="nav-container">
             <ul class="nav-links">
                 <li><a href="./">Home</a></li>
-                <li><a href="./#work">Work</a></li>
                 <li><a href="./about.html">About</a></li>
-                <li><a href="./#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -529,18 +536,10 @@
             <img src="images/Screenshot 2026-01-31 at 00-34-01 RunAR_report.pdf.png" alt="Future Design Work and Roadmap" loading="lazy">
         </div>
 
-                <a href="./#work" class="back-link">← Back to work</a>
+                <a href="./" class="back-link">← Back to work</a>
             </section>
         </main>
     </div>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="contact-container">
-            <h2 class="contact-title">Let's work together</h2>
-            <a href="mailto:jaimeserrano32@gmail.com" class="contact-email">jaimeserrano32@gmail.com</a>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -552,53 +551,179 @@
 
     <script src="script.js"></script>
     <script>
-        // Smooth scroll for section navigation
-        document.querySelectorAll('.project-nav a').forEach(link => {
+        const navLinks = document.querySelectorAll('.project-nav a');
+        const sections = document.querySelectorAll('.project-section');
+
+        // Smooth scroll for section navigation (window-based scrolling) + set active on click
+        navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
                 
                 if (targetSection) {
-                    const contentArea = document.querySelector('.project-content');
-                    const offset = 20;
+                    const offset = 90; // account for fixed navbar
                     const targetPosition = targetSection.offsetTop - offset;
                     
-                    contentArea.scrollTo({
+                    window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
-                    
-                    // Update active state
-                    document.querySelectorAll('.project-nav a').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
                 }
+
+                // Always set active state on click
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                // #region agent log
+                fetch('http://127.0.0.1/ingest/986653cc-0545-4b3c-ad1-10681f80f4b2',{
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({
+                        sessionId:'debug-session',
+                        runId:'run2',
+                        hypothesisId:'H4',
+                        location:'runar.html:clickHandler',
+                        message:'Nav link clicked',
+                        data:{href:this.getAttribute('href')},
+                        timestamp:Date.now()
+                    })
+                }).catch(()=>{});
+                // #endregion
             });
         });
 
-        // Update active nav link on scroll
-        const contentArea = document.querySelector('.project-content');
-        const sections = document.querySelectorAll('.project-section');
-        const navLinks = document.querySelectorAll('.project-nav a');
+        // Highlight active nav link based on visible section using IntersectionObserver
 
-        contentArea.addEventListener('scroll', () => {
-            let current = '';
-            
+        const observerOptions = {
+            root: null,          // viewport
+            threshold: 0.3       // 30% of section visible
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+
+                    // #region agent log
+                    fetch('http://127.0.0.1:7242/ingest/986653cc-0545-4b3c-adc1-10681f80f4b2',{
+                        method:'POST',
+                        headers:{'Content-Type':'application/json'},
+                        body:JSON.stringify({
+                            sessionId:'debug-session',
+                            runId:'run1',
+                            hypothesisId:'H1',
+                            location:'runar.html:sectionObserver',
+                            message:'Section intersecting',
+                            data:{id},
+                            timestamp:Date.now()
+                        })
+                    }).catch(()=>{});
+                    // #endregion
+
+                    navLinks.forEach(link => {
+                        const isMatch = (link.getAttribute('href') === `#${id}`);
+                        if (isMatch) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+
+                    // #region agent log
+                    const activeIds = Array.from(navLinks)
+                        .filter(l => l.classList.contains('active'))
+                        .map(l => l.getAttribute('href'));
+                    fetch('http://127.0.0.1:7242/ingest/986653cc-0545-4b3c-adc1-10681f80f4b2',{
+                        method:'POST',
+                        headers:{'Content-Type':'application/json'},
+                        body:JSON.stringify({
+                            sessionId:'debug-session',
+                            runId:'run1',
+                            hypothesisId:'H2',
+                            location:'runar.html:navUpdate',
+                            message:'Updated active nav links',
+                            data:{activeIds},
+                            timestamp:Date.now()
+                        })
+                    }).catch(()=>{});
+                    // #endregion
+                }
+            });
+        }, observerOptions);
+
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/986653cc-0545-4b3c-adc1-10681f80f4b2',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                sessionId:'debug-session',
+                runId:'run1',
+                hypothesisId:'H0',
+                location:'runar.html:initObserver',
+                message:'Initializing section observer',
+                data:{sectionCount:sections.length,navLinkCount:navLinks.length},
+                timestamp:Date.now()
+            })
+        }).catch(()=>{});
+        // #endregion
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // Fallback/manual highlight based on scroll position using viewport rects
+        // Start with empty so first run will always set the initial active section
+        let currentSectionId = '';
+
+        function updateActiveFromScroll() {
+            if (!sections.length) return;
+
+            let newCurrent = currentSectionId;
+            const viewportProbe = window.innerHeight * 0.25; // 25% down from top
+
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (contentArea.scrollTop >= sectionTop - 100) {
-                    current = section.getAttribute('id');
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= viewportProbe && rect.bottom >= viewportProbe) {
+                    newCurrent = section.getAttribute('id');
                 }
             });
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
+            if (!newCurrent) {
+                newCurrent = sections[0].getAttribute('id');
+            }
+
+            if (newCurrent !== currentSectionId) {
+                currentSectionId = newCurrent;
+
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // #region agent log
+                fetch('http://127.0.0.1:7242/ingest/986653cc-0545-4b3c-adc1-10681f80f4b2',{
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({
+                        sessionId:'debug-session',
+                        runId:'run1',
+                        hypothesisId:'H3',
+                        location:'runar.html:scrollHandler',
+                        message:'Manual scroll updated active section (rect-based)',
+                        data:{currentSectionId},
+                        timestamp:Date.now()
+                    })
+                }).catch(()=>{});
+                // #endregion
+            }
+        }
+
+        // Run once on load to set initial active state
+        updateActiveFromScroll();
+
+        window.addEventListener('scroll', updateActiveFromScroll);
     </script>
 </body>
 </html>
