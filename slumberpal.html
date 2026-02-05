@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlumberPal - Jaime Serrano</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Override gradient for SlumberPal page with calming blue color */
+        html {
+            background-image: linear-gradient(180deg, 
+                rgba(254, 250, 224, 0) 0%, 
+                rgba(59, 130, 246, 0.3) 10%, 
+                rgba(59, 130, 246, 0.6) 30%, 
+                rgba(59, 130, 246, 0.8) 45%, 
+                rgba(59, 130, 246, 0.6) 60%, 
+                rgba(59, 130, 246, 0.3) 80%, 
+                rgba(254, 250, 224, 0) 100%);
+        }
+
+        .project-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            padding-top: 80px;
+        }
+
+        .project-sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 280px;
+            height: calc(100vh - 80px);
+            padding: 3rem 2rem;
+            background: transparent;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .project-title {
+            font-size: clamp(1.75rem, 2vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .project-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-nav li {
+            margin-bottom: 1rem;
+        }
+
+        .project-nav a {
+            color: #4a4a4a;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all var(--transition-smooth);
+            display: block;
+            padding: 0.5rem 0 0.5rem 0.75rem;
+            border-bottom: 1px solid transparent;
+            border-left: 2px solid transparent;
+        }
+
+        .project-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .project-nav a.active {
+            color: var(--primary-color);
+            border-left-width: 3px;
+            border-left-color: var(--primary-color);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+            font-weight: 650;
+            background-color: rgba(59, 130, 246, 0.06);
+        }
+
+        .project-main {
+            margin-left: 280px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-hero-image {
+            width: 100%;
+            padding: 2rem 3rem 0;
+        }
+
+        .project-hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-content {
+            flex: 1;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .project-section {
+            margin-bottom: 8rem;
+        }
+
+        .project-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            color: #1a1a1a;
+        }
+
+        .project-section h3 {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .project-section h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555555;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-section p {
+            font-size: clamp(1rem, 1.2vw, 1.125rem);
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-section img {
+            width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-section .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-section .image-grid img {
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 4rem;
+            color: #1a1a1a;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 2px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all var(--transition-smooth);
+        }
+
+        .back-link:hover {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .project-layout {
+                flex-direction: column;
+            }
+
+            .project-sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 2rem;
+            }
+
+            .project-main {
+                margin-left: 0;
+            }
+
+            .project-hero-image {
+                padding: 2rem 1.5rem 0;
+            }
+
+            .project-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-section {
+                margin-bottom: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="./">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Layout -->
+    <div class="project-layout">
+        <!-- Left Sidebar -->
+        <aside class="project-sidebar">
+            <h1 class="project-title">SlumberPal</h1>
+            <ul class="project-nav">
+                <li><a href="#about-product" class="nav-link">About the product</a></li>
+                <li><a href="#inspiration" class="nav-link">Our inspiration</a></li>
+                <li><a href="#paper-prototype" class="nav-link">Paper Prototype</a></li>
+                <li><a href="#digital-prototype" class="nav-link">Digital Prototype</a></li>
+                <li><a href="#textile-prototype" class="nav-link">Textile Prototype</a></li>
+                <li><a href="#video-prototype" class="nav-link">Video Prototype</a></li>
+                <li><a href="#conclusion" class="nav-link">Conclusion</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="project-main">
+            <!-- Hero Image -->
+            <div class="project-hero-image">
+                <img src="images/slumberpal_images/slumberpal_main.jpg" alt="SlumberPal project" loading="eager">
+            </div>
+
+            <!-- Scrollable Content -->
+            <section class="project-content">
+        <div class="project-section" id="about-product">
+            <h4>About the product</h4>
+            <h2>SlumberPal: Sleep tracking app with plush toy companion</h2>
+            <p>
+                For our final project in HCDE 451, we created SlumberPal, a sleep tracking app featuring a plush toy companion 
+                that allows parents to monitor their children's sleep patterns.
+            </p>
+            <p>
+                The toy uses motion (and sound) sensors to determine when a child is asleep and analyze sleep stages throughout 
+                the night. This information is relayed to the child's parent(s) through the app, providing essential data to keep 
+                them informed about their child's health.
+            </p>
+            <p>
+                Additionally, the toy is designed to enhance a child's sleep experience with calming aromatherapy and white noise. 
+                While the sleep tracker is more suitable for toddlers and older children with consistent sleep patterns, the soothing 
+                features are appropriate for children of all ages, including infants.
+            </p>
+            <p>
+                This project comprises four prototyping techniques–paper, digital, textile, and video prototyping. This process log 
+                will detail each prototyping technique, outlining the goals, implementation methods, and the subsequent evaluation and 
+                analysis of each.
+            </p>
+        </div>
+
+        <div class="project-section" id="inspiration">
+            <h4>Our inspiration</h4>
+            <h2>Fostering healthy sleep habits for children's wellbeing</h2>
+            <p>
+                Inspired by the UN's third goal for sustainable development of Good Health and Wellbeing, this project aims to 
+                foster healthy lifestyles for all, beginning with the youngest members of our community. Adequate but also restful 
+                sleep is crucial for a child's growth, cognitive development, and emotional wellbeing.
+            </p>
+        </div>
+
+        <div class="project-section" id="paper-prototype">
+            <h4>Paper Prototype</h4>
+            
+            <h3>Concept</h3>
+            <p>
+                We started with a paper prototype for the app component, with the intent to gather feedback and make rapid iterations 
+                before committing to a higher fidelity prototype.
+            </p>
+            <p>
+                This initial prototype was shaped by findings from background research on other sleep tracking apps. Our exploration 
+                of these apps revealed common features and functionalities that users found valuable, such as graphical representations 
+                of sleep patterns, daily mood journals, and customizable sleep settings.
+            </p>
+            <img src="images/slumberpal_images/Appscreen2.webp" alt="SlumberPal app screen" loading="lazy">
+            
+            <h3>Goals</h3>
+            <p>
+                Our purpose in creating the paper prototype was to gather preliminary data on the desirability and usability of the 
+                features that we, through research, chose to include in our own app product.
+            </p>
+            <p>
+                We wanted to evaluate the effectiveness of each feature, identify potential improvements, and examine how users interacted 
+                with or perceived our app's overall functionality.
+            </p>
+            <p>
+                The insights gained from this prototype could then be used to guide us in refining and enhancing features for our next 
+                prototype, a digital prototype in slightly higher fidelity.
+            </p>
+            
+            <h3>Implementation</h3>
+            <img src="images/slumberpal_images/design_sketches.webp" alt="Initial design sketches for the paper prototype" loading="lazy">
+            <p>
+                We chose to focus on the design of four screens associated with key user flows for the app:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li><strong>Tracking/tracking history</strong>—to view previous tracking history along with important stats such as sleep score, sleep stages, wake up times, and time spent sleeping</li>
+                <li><strong>Sound control</strong>—to adjust the type and volume of sound emitted from the toy throughout the night</li>
+                <li><strong>Scheduling</strong>—to set the time for the toy to track the child's sleep or an alarm to wake up the child</li>
+                <li><strong>Mood journal</strong>—to keep track of noteworthy changes in the child's mood or behavior, potentially related to sleep quality</li>
+            </ul>
+            <p>
+                We transferred all digital sketches onto paper and cut them to scale to simulate realism for subsequent user testing.
+            </p>
+            <img src="images/slumberpal_images/paper_prototype.gif" alt="Paper prototype" loading="lazy">
+            
+            <h3>Evaluation</h3>
+            <p>
+                To evaluate this prototype for our goals of desirability and usability, we conducted user testing. This involved asking 
+                our test user to accomplish tasks related to each feature while thinking aloud, and following up with questions to gauge 
+                the ease of task execution. We took note of when the user was not able to identify the function or meaning of an icon or 
+                component, in order to rework it for the next prototype.
+            </p>
+            
+            <h3>Analysis</h3>
+            <p>
+                After the user testing of our prototype, we discovered a few aspects of the prototype that worked well:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li>Broad spectrum of information—from sleep duration to quality</li>
+                <li>Mood emoticons—visually entertaining, effective in conveying emotion without the need for words</li>
+            </ul>
+            <p>
+                However, there was much to be improved as well, including:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li>Confusing icons—nav bar icons are not standard to other apps, reducing user familiarity</li>
+                <li>Continuous sleep graph—more intuitive for sleep stages to be graphed as discrete rather than continuous</li>
+                <li>Manual text entry—overly complicates the journal feature</li>
+                <li>Lack of home screen—unclear what the main feature of the app is</li>
+            </ul>
+            <p>
+                If we were to make another paper prototype, we might prioritize navigation, reducing the emphasis on individual features 
+                in order to further refine the user journey and craft a more seamless interactive experience with the app.
+            </p>
+        </div>
+
+        <div class="project-section" id="digital-prototype">
+            <h4>Digital Prototype</h4>
+            
+            <h3>Concept</h3>
+            <p>
+                After creating a paper prototype, we moved on to a low fidelity digital prototype of the SlumberPal sleep tracking app and 
+                focused on clarifying aspects of our paper prototype that were confusing during user testing.
+            </p>
+            <p>
+                Features of the digital prototype consisted of a clear home screen with a visual of the previous night's sleep score and 
+                timeline, a sleep history page to view trends in sleep quality, a mood journal to track alongside sleep trends, and a 
+                sleep schedule to set tracking time and desired ambient sounds to accompany the child's sleep.
+            </p>
+            <img src="images/slumberpal_images/App_wireframes.png" alt="SlumberPal digital prototype wireframes" loading="lazy">
+            
+            <h3>Goals</h3>
+            <p>
+                The purpose of the digital prototype was to evaluate desirability of the app's various features and interactive elements, 
+                along with more effectively evaluating usability compared to the paper prototype.
+            </p>
+            <p>
+                We wanted to see if users would find the features we designed desirable and easy to use, and verify that the overall flow 
+                of the app prototype was simple and intuitive. Because we started with a paper prototype, we developed a solid understanding 
+                of what did and didn't work, and used that to guide a better, more detailed iteration of the app to be tested and evaluated.
+            </p>
+            <p>
+                Aside from our evaluation goals, this prototype was necessary for demonstration in our video prototype. We decided a lo-fi 
+                digital prototype would be adequate for communicating a use case for the app in a short video scenario because it looks 
+                cleaner and more realistic than a paper prototype but still fits our time constraints.
+            </p>
+            
+            <h3>Implementation</h3>
+            <p>
+                We created an interactive digital prototype in Figma, with key features like:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li><strong>Home</strong> — Displays a timeline visualizing the previous night's sleep, which is broken down into the various 
+                sleep stages so users can quickly scan the data for sleep and wake times. Also includes an overall sleep quality score.</li>
+                <li><strong>Sleep History</strong> — Accessed via nav bar. Consists of a line graph depicting sleep score history, with 
+                adjustable time range, for users interested in trends over longer periods of time.</li>
+                <li><strong>Mood Journal</strong> — Accessed via nav bar. A space for users to track the factors that influence, or are 
+                influenced, by sleep, such as activity, stress, and wake-up mood.</li>
+                <li><strong>Sleep Schedule</strong> — Accessed via nav bar. Where users can set a tracking schedule for the SlumberPal plushie 
+                and select the ambient sounds that it will play, such as rain or white noise.</li>
+            </ul>
+            <img src="images/slumberpal_images/prototype_interactions.webp" alt="Digital prototype with all interactive elements highlighted" loading="lazy">
+            
+            <h3>Evaluation</h3>
+            <p>
+                To evaluate the effectiveness of this prototype in satisfying our goals of desirability and usability, we recruited a 
+                participant to test the app. We let this user explore the app with little guidance except for some initial context on the 
+                purpose of the app. This allowed us to see how intuitive and easy-to-use the app is. After giving the user time to explore 
+                the app, we conducted a short post-session interview asking them for their thoughts on various aspects of the app, including 
+                iconography, the general flow of the app, and more.
+            </p>
+            
+            <h3>Analysis</h3>
+            <p>
+                Our user testing provided a lot of valuable feedback on this prototype. Some things that worked well for our test user were:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li>Clear iconography for the mood journal</li>
+                <li>An intuitive sleep schedule screen</li>
+                <li>A clear understanding of the overall purpose and uses of the app</li>
+            </ul>
+            <p>
+                Compared to our feedback on the paper prototype, this prototype featured more consistency in its design, had a clearly-defined 
+                home screen, and had clearer iconography overall. However, there were still several areas of improvement that our user raised, 
+                including:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li>The moon icon for the sleep history page — thought the icon would take them to sleep history, not sleep schedule</li>
+                <li>Redundancy between home screen and nav bar buttons</li>
+                <li>More detail on the home screen — suggested that we add sleep history to the home screen to reduce the effort of navigating 
+                to a separate page</li>
+            </ul>
+            <p>
+                With this feedback in mind, we would continue to iterate on the home page, making it a more effective, efficient display that 
+                contains core information that users want to be able to quickly, and frequently, access. We would also make some small 
+                adjustments to the iconography of the app to improve usability.
+            </p>
+        </div>
+
+        <div class="project-section" id="textile-prototype">
+            <h4>Textile Prototype</h4>
+            
+            <h3>Concept</h3>
+            <p>
+                Once we made sufficient progress with the app prototypes, we shifted gears to work on the plushie that the child would 
+                hold to sleep. We aimed to create two iterations for a toy bear with the most comforting, cuddle-friendly design.
+            </p>
+            <img src="images/slumberpal_images/physical_sketches.webp" alt="Pattern sketches for the plushie (F—front, B—back)" loading="lazy">
+            
+            <h3>Goals</h3>
+            <p>
+                For both prototype iterations, the goal was to evaluate the desirability of the toy's physical form and materials, as well 
+                as the feasibility of incorporating additional components like scent and sound functionality.
+            </p>
+            <p>
+                We wanted the look and feel of the toy to appeal to children, regardless of age or gender, and help establish a positive, 
+                enjoyable association with their sleep environment.
+            </p>
+            <p>
+                Like the digital prototype, this prototype was also necessary for our video prototype to showcase its integration into the 
+                overall user experience. As such, we worked on refining not only the physical aspects of the toy but also its interactive elements.
+            </p>
+            
+            <h3>Implementation</h3>
+            <p>
+                We first sketched out the pattern for each piece of the plushie. There were four pieces total, including two front pieces 
+                and two back pieces. We then cut the fabric and sewed everything together using a sewing machine.
+            </p>
+            <img src="images/slumberpal_images/physcial_sketch1.webp" alt="Initial design sketches for the textile prototype" loading="lazy">
+            <p>
+                The first iteration was made out of pink felt with a safety pin closure at the back, while the second iteration was made 
+                with purple fleece and a velcro closure. The second iteration was scaled up in size by approximately 1.5 times.
+            </p>
+            <img src="images/slumberpal_images/front_physical.gif" alt="Textile prototype front view" loading="lazy">
+            <img src="images/slumberpal_images/back_physical.gif" alt="Textile prototype back view" loading="lazy">
+            <p>
+                Both iterations included a small styrofoam cube, representing a speaker, and a scented tea bag. The first iteration used a rooibos tea bag, 
+                but the second iteration used a jasmine tea bag. A cardboard rectangle on the second iteration was also meant to represent 
+                a sleep sensor.
+            </p>
+            <img src="images/slumberpal_images/physical_open.gif" alt="Textile prototype with speaker and tea bag" loading="lazy">
+            
+            <h3>Evaluation</h3>
+            <p>
+                The evaluation of the prototype's desirability was focused on getting feedback on the aesthetics and tactile qualities of the 
+                toy. We gave a test user the toy to examine closely, and asked them for their impressions of its size, shape, and texture, 
+                along with whether or not they could see themselves comfortably holding it to sleep.
+            </p>
+            <p>
+                The feasibility assessment factored in the practical aspects of incorporating scent and sound features into the toy. We asked 
+                the test user to perform the action of adding the speaker and tea bag into the toy through the velcro opening in the back and 
+                then describe the ease of the task. We also had them sniff the toy and comment on the strength and calming properties of the scent.
+            </p>
+            
+            <h3>Analysis</h3>
+            <p>
+                Here is general feedback we received on the first iteration of the prototype, which we used to improve the design of our 
+                second prototype:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li>The size is too small for holding and carrying the internal components</li>
+                <li>The felt makes the plushie feel firm and slightly rough to the touch</li>
+                <li>The scent is a little astringent, which makes it less relaxing to smell</li>
+            </ul>
+            <p>
+                When we tested our second prototype, the feedback was much more positive. Specifically, what worked well was:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li>Scaling up in size—made it easier to hold and much more plush</li>
+                <li>Selecting a material more neutral in color and blanket-like in terms of feel</li>
+                <li>Adding a velcro closure—compared to a safety pin, it felt more secure and user friendly</li>
+            </ul>
+            <p>
+                However, there were still several potential areas of improvement, including:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li>Scent strength—expected the scent to waft out without having to inhale into it</li>
+                <li>Lack of an internal (lined) pocket for the speaker and tea bag</li>
+                <li>Method of attaching velcro—suggested the velcro be sewed on, instead of stuck on using adhesive</li>
+            </ul>
+            <p>
+                If there were to be a next iteration, we would work on making adjustments to the closures and internal elements of the plushie, 
+                since we didn't have time to address those aspects thoroughly in the second iteration, and they came up as problem areas in 
+                feedback sessions.
+            </p>
+        </div>
+
+        <div class="project-section" id="video-prototype">
+            <h4>Video Prototype</h4>
+            
+            <h3>Concept</h3>
+            <p>
+                To close out the project, we thought a video prototype could be used to present a key use case for the SlumberPal product 
+                and demonstrate the prototypes for the toy and app working together in tandem.
+            </p>
+            <p>
+                The scenario we chose was: A parent is concerned about their child's unusual sleeping habits and uses the app to check their 
+                sleep quality. When they see that their child is sleeping poorly, they add an aromatherapy pouch to the toy to aid their sleep. 
+                The next morning, the parent checks the app again to find that their sleep score has improved.
+            </p>
+            
+            <h3>Goals</h3>
+            <p>
+                The goal for the video prototype was primarily to assess the desirability and impact of our project's concept and execution.
+            </p>
+            <p>
+                Specifically, we aimed to measure the emotional response of our audience to a scenario designed to be relatable and show off 
+                the functionality of our product in a real-world context. Through the video, we sought to answer the question: "Is our product 
+                really providing a practical solution to a common concern among our target users?"
+            </p>
+            
+            <h3>Implementation</h3>
+            <p>
+                The first step in our process was to draft storyboards according to the scenario of our video. Once our storyboards were 
+                established, with each frame corresponding to a shot, we could begin filming and editing shots together.
+            </p>
+            <img src="images/slumberpal_images/storyboard1.webp" alt="Storyboard sketches for the video prototype (1)" loading="lazy">
+            <img src="images/slumberpal_images/storyboard2.webp" alt="Storyboard sketches for the video prototype (2)" loading="lazy">
+            <p>
+                For filming, we made sure to have at least two people, one actor and one cameraman, so we could get the right distance and 
+                camera angles with limited equipment. Another person was in charge of editing in CapCut, where we added transitions and made 
+                trims wherever necessary.
+            </p>
+            <img src="images/slumberpal_images/video_prototype.webp" alt="Video prototype" loading="lazy">
+            
+            <h3>Evaluation</h3>
+            <p>
+                To evaluate this prototype with desirability and impact in mind, we played the video for a test user with minimal context, 
+                observing their facial expressions and noting any verbal commentary to capture their authentic reactions. We then prompted the 
+                user to describe, in their own words, what they perceived the product to be and what they felt watching the video.
+            </p>
+            <p>
+                In the second phase of our evaluation, we provided the user with a more detailed explanation of the product and asked them to 
+                rewatch the video. We asked them to pinpoint moments where our messaging was either clear or unclear to gather insights into 
+                their interpretation and understanding of the video's content.
+            </p>
+            
+            <h3>Analysis</h3>
+            <p>
+                From our user testing, these are the aspects of our video that worked well:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+                <li>Text transition slides—helped with understanding the narrative</li>
+                <li>Close-ups of app frames—highlighted the improvement in sleep score/quality</li>
+                <li>Clear and straightforward sequence of events</li>
+            </ul>
+            <p>
+                These are the aspects that could use improvement:
+            </p>
+            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+                <li>Color use in the app prototype—lack of color takes away from app's desirability</li>
+                <li>Shot lighting—some shots are really dark, making it hard to see what's going on</li>
+                <li>Depictions of toy functionality—almost seems like the toy is a sleep aid rather than a sleep tracker</li>
+            </ul>
+            <p>
+                If we could have done something differently in the process of creating this prototype, we would have recruited an actual child 
+                to act in the video to be able to expand on our scenario and add more shot variety.
+            </p>
+        </div>
+
+        <div class="project-section" id="conclusion">
+            <h4>Conclusion</h4>
+            <h2>Refining the product through iterative prototyping</h2>
+            <p>
+                Through the course of several iterations and test sessions, our team was able to make informed decisions about the design 
+                and prototyping of our product, and ultimately refined it to meet our core prototyping goals of desirability, feasibility, 
+                usability, and impact.
+            </p>
+        </div>
+
+                <a href="./" class="back-link">← Back to work</a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const navLinks = document.querySelectorAll('.project-nav a');
+        const sections = document.querySelectorAll('.project-section');
+
+        // Smooth scroll for section navigation (window-based scrolling) + set active on click
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const offset = 90; // account for fixed navbar
+                    const targetPosition = targetSection.offsetTop - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Always set active state on click
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Highlight active nav link based on visible section using IntersectionObserver
+        const observerOptions = {
+            root: null,          // viewport
+            threshold: 0.3       // 30% of section visible
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+
+                    navLinks.forEach(link => {
+                        const isMatch = (link.getAttribute('href') === `#${id}`);
+                        if (isMatch) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // Fallback/manual highlight based on scroll position using viewport rects
+        let currentSectionId = '';
+
+        function updateActiveFromScroll() {
+            if (!sections.length) return;
+
+            let newCurrent = currentSectionId;
+            const viewportProbe = window.innerHeight * 0.25; // 25% down from top
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= viewportProbe && rect.bottom >= viewportProbe) {
+                    newCurrent = section.getAttribute('id');
+                }
+            });
+
+            if (!newCurrent) {
+                newCurrent = sections[0].getAttribute('id');
+            }
+
+            if (newCurrent !== currentSectionId) {
+                currentSectionId = newCurrent;
+
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // Run once on load to set initial active state
+        updateActiveFromScroll();
+
+        window.addEventListener('scroll', updateActiveFromScroll);
+    </script>
+</body>
+</html>
