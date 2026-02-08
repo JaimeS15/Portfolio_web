@@ -219,7 +219,6 @@ function initHeroCarousel() {
 
         const trackHeight = track.scrollHeight;
         const visibleHeight = carousel.clientHeight;
-        const halfTrack = trackHeight / 2;
         const stepSize = 40;
 
         if (trackHeight > visibleHeight) {
@@ -230,7 +229,7 @@ function initHeroCarousel() {
             } else if (e.key === 'Home') {
                 offset = 0;
             } else if (e.key === 'End') {
-                offset = -halfTrack + visibleHeight;
+                offset = -(trackHeight - visibleHeight);
             }
 
             clampAndLoop();
