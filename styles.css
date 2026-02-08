@@ -82,20 +82,20 @@ input, textarea, select {
 
 .nav-container {
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: 2rem 3rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .nav-links {
     display: flex;
-    width: 100%;
-    max-width: 1400px;
+    width: auto;
     list-style: none;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 1.5rem;
     position: relative;
     padding: 0;
     margin: 0;
@@ -147,6 +147,7 @@ input, textarea, select {
 .page-home .hero-visual {
     margin-top: -8rem;
     align-self: stretch;
+    position: relative;
 }
 
 .page-home .hero-carousel {
@@ -154,22 +155,22 @@ input, textarea, select {
     position: relative;
 }
 
-/* Waterfall fade: overlay works in all browsers (Firefox, Safari, Chrome) */
-.page-home .hero-carousel::before,
-.page-home .hero-carousel::after {
+/* Waterfall fade: thin overlay at top and bottom, on parent so they don't stick during scroll */
+.page-home .hero-visual::before,
+.page-home .hero-visual::after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    height: 10%;
+    height: 3%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
 }
-.page-home .hero-carousel::before {
+.page-home .hero-visual::before {
     top: 0;
     background: linear-gradient(to bottom, rgba(255, 240, 245, 0.98) 0%, transparent 100%);
 }
-.page-home .hero-carousel::after {
+.page-home .hero-visual::after {
     bottom: 0;
     background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, transparent 100%);
 }
@@ -343,10 +344,17 @@ input, textarea, select {
     background: #ffffff;
 }
 
+.hero-project-media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
 .hero-project-media img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
 }
 
 .hero-project-body {
@@ -1231,8 +1239,8 @@ input, textarea, select {
     .nav-links {
         flex-direction: column;
         gap: 1rem;
-        text-align: center;
-        justify-content: center;
+        text-align: left;
+        justify-content: flex-start;
     }
 
     .nav-links li {

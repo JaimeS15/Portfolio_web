@@ -167,15 +167,21 @@ function initHeroCarousel() {
         isHovering = false;
     });
 
+    // Clamp at top (first card); seamless loop only when scrolling down past the duplicate set
+    function clampAndLoop() {
+        const trackHeight = track.scrollHeight;
+        const halfTrack = trackHeight / 2;
+        if (offset > 0) offset = 0;
+        if (offset <= -halfTrack) offset += halfTrack;
+    }
+
     carousel.addEventListener('wheel', (e) => {
         const trackHeight = track.scrollHeight;
         const visibleHeight = carousel.clientHeight;
-        const minOffset = -(trackHeight - visibleHeight);
 
         if (trackHeight > visibleHeight) {
             offset -= e.deltaY;
-            if (offset > 0) offset = 0;
-            if (offset < minOffset) offset = minOffset;
+            clampAndLoop();
             applyTransform();
         }
 
@@ -195,12 +201,10 @@ function initHeroCarousel() {
 
         const trackHeight = track.scrollHeight;
         const visibleHeight = carousel.clientHeight;
-        const minOffset = -(trackHeight - visibleHeight);
 
         if (trackHeight > visibleHeight) {
             offset += delta;
-            if (offset > 0) offset = 0;
-            if (offset < minOffset) offset = minOffset;
+            clampAndLoop();
             applyTransform();
         }
 
@@ -215,7 +219,7 @@ function initHeroCarousel() {
 
         const trackHeight = track.scrollHeight;
         const visibleHeight = carousel.clientHeight;
-        const minOffset = -(trackHeight - visibleHeight);
+        const halfTrack = trackHeight / 2;
         const stepSize = 40;
 
         if (trackHeight > visibleHeight) {
@@ -226,11 +230,10 @@ function initHeroCarousel() {
             } else if (e.key === 'Home') {
                 offset = 0;
             } else if (e.key === 'End') {
-                offset = minOffset;
+                offset = -halfTrack + visibleHeight;
             }
 
-            if (offset > 0) offset = 0;
-            if (offset < minOffset) offset = minOffset;
+            clampAndLoop();
             applyTransform();
         }
 
