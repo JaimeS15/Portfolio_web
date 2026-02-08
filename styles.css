@@ -69,7 +69,7 @@ input, textarea, select {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
+    width: 50%;
     background: transparent;
     z-index: 1000;
     transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
@@ -117,6 +117,37 @@ input, textarea, select {
 
 .nav-links a:hover {
     color: #666666;
+}
+
+/* Homepage: smaller navbar, Home only on the left */
+.page-home .nav-container {
+    padding: 1rem 1.5rem;
+    justify-content: flex-start;
+}
+
+.page-home .nav-links {
+    justify-content: flex-start;
+    max-width: none;
+}
+
+.page-home .nav-links a {
+    font-size: 0.8125rem;
+}
+
+/* Homepage: carousel extends over top and to bottom with waterfall fade */
+.page-home .hero-visual {
+    margin-top: -8rem;
+    align-self: stretch;
+}
+
+.page-home .hero-carousel {
+    height: 100vh;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 }
 
 /* ========================================
@@ -169,11 +200,12 @@ input, textarea, select {
 }
 
 .hero-subtitle {
-    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 600;
     color: #1a1a1a;
-    line-height: 1.8;
+    line-height: 1.7;
     max-width: 540px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .hero-tags {
@@ -235,6 +267,21 @@ input, textarea, select {
     color: #ffffff;
 }
 
+.hero-works-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    opacity: 0.85;
+    margin: 0;
+}
+
+.hero-works-arrow {
+    display: inline-block;
+    margin-left: 0.35rem;
+    font-size: 1rem;
+}
+
 .hero-visual {
     flex: 0.9;
     max-width: 460px;
@@ -245,32 +292,31 @@ input, textarea, select {
     height: 430px;
     overflow-y: auto;
     overflow-x: hidden;
+    background: transparent;
 }
 
 .hero-carousel-track {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    background: transparent;
 }
 
 .hero-project-card {
     display: block;
     border-radius: 1.5rem;
     overflow: hidden;
-    background: linear-gradient(135deg, #111827, #1f2937);
-    color: #f9fafb;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+    background: #ffffff;
+    color: #1a1a1a;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     text-decoration: none;
     transform: translateZ(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hero-project-card:nth-child(2) {
-    background: linear-gradient(135deg, #0f172a, #1d4ed8);
-}
-
+.hero-project-card:nth-child(2),
 .hero-project-card:nth-child(3) {
-    background: linear-gradient(135deg, #022c22, #16a34a);
+    background: #ffffff;
 }
 
 .hero-project-media img {
@@ -304,7 +350,7 @@ input, textarea, select {
 
 .hero-project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* ========================================

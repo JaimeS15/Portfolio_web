@@ -58,26 +58,32 @@
             color: #4a4a4a;
             text-decoration: none;
             font-size: 1rem;
-            transition: all var(--transition-smooth);
+            transition: color 0.2s ease, background-color 0.2s ease;
             display: block;
             padding: 0.5rem 0 0.5rem 0.75rem;
-            border-bottom: 1px solid transparent;
-            border-left: 2px solid transparent;
+            border-left: 3px solid transparent;
+            border-radius: 0 6px 6px 0;
         }
 
         .project-nav a:hover {
-            color: var(--primary-color);
+            color: #1d4ed8;
         }
 
-        .project-nav a.active {
-            color: var(--primary-color);
-            border-left-width: 3px;
-            border-left-color: var(--primary-color);
-            text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 4px;
-            font-weight: 650;
-            background-color: rgba(59, 130, 246, 0.06);
+        .project-nav a.active,
+        .project-nav a.active:hover {
+            color: #1e40af;
+            font-weight: 700;
+            border-left: 4px solid #3b82f6;
+            background-color: rgba(59, 130, 246, 0.15);
+            text-decoration: none;
+        }
+
+        .project-nav a.active::before {
+            content: "●";
+            color: #3b82f6;
+            font-size: 0.5rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
         }
 
         .project-main {
@@ -630,91 +636,53 @@
         const navLinks = document.querySelectorAll('.project-nav a');
         const sections = document.querySelectorAll('.project-section');
 
-        // Smooth scroll for section navigation (window-based scrolling) + set active on click
+        let ignoreScrollUntil = 0; // don’t update active from scroll right after a click
+
+        // Smooth scroll + set active on click and keep it
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
-                
+
                 if (targetSection) {
-                    const offset = 90; // account for fixed navbar
+                    const offset = 90;
                     const targetPosition = targetSection.offsetTop - offset;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
 
-                // Always set active state on click
                 navLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
+                currentSectionId = targetId;
+                ignoreScrollUntil = Date.now() + 600; // keep this link active until scroll settles
             });
         });
 
-        // Highlight active nav link based on visible section using IntersectionObserver
-        const observerOptions = {
-            root: null,          // viewport
-            threshold: 0.3       // 30% of section visible
-        };
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-
-                    navLinks.forEach(link => {
-                        const isMatch = (link.getAttribute('href') === `#${id}`);
-                        if (isMatch) {
-                            link.classList.add('active');
-                        } else {
-                            link.classList.remove('active');
-                        }
-                    });
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => sectionObserver.observe(section));
-
-        // Fallback/manual highlight based on scroll position using viewport rects
         let currentSectionId = '';
+        const navOffset = 100;
 
-        function updateActiveFromScroll() {
-            if (!sections.length) return;
-
-            let newCurrent = currentSectionId;
-            const viewportProbe = window.innerHeight * 0.25; // 25% down from top
-
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= viewportProbe && rect.bottom >= viewportProbe) {
-                    newCurrent = section.getAttribute('id');
-                }
+        function setActiveLink(sectionId) {
+            if (sectionId === currentSectionId) return;
+            currentSectionId = sectionId;
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
             });
-
-            if (!newCurrent) {
-                newCurrent = sections[0].getAttribute('id');
-            }
-
-            if (newCurrent !== currentSectionId) {
-                currentSectionId = newCurrent;
-
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${currentSectionId}`) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
-            }
         }
 
-        // Run once on load to set initial active state
-        updateActiveFromScroll();
+        function updateActiveFromScroll() {
+            if (!sections.length || Date.now() < ignoreScrollUntil) return;
+            let activeId = sections[0].getAttribute('id');
+            const probe = navOffset;
+            for (let i = 0; i < sections.length; i++) {
+                const rect = sections[i].getBoundingClientRect();
+                if (rect.top <= probe) activeId = sections[i].getAttribute('id');
+            }
+            setActiveLink(activeId);
+        }
 
+        updateActiveFromScroll();
         window.addEventListener('scroll', updateActiveFromScroll);
+        window.addEventListener('resize', updateActiveFromScroll);
     </script>
 </body>
 </html>
