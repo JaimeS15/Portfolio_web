@@ -249,18 +249,113 @@
         }
 
         @media (max-width: 768px) {
+            .about-hero {
+                padding: 6rem 2rem 3rem;
+                min-height: auto;
+            }
+            .about-content {
+                padding: 0 0.5rem;
+            }
             .about-image {
                 width: 150px;
                 height: 150px;
                 margin-bottom: 2rem;
             }
+            .about-content h1 {
+                font-size: clamp(2rem, 6vw, 2.75rem);
+                margin-bottom: 2rem;
+            }
+            .about-content p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .skills-section,
+            .timeline,
+            .education-section,
+            .projects-section {
+                margin-top: 4rem;
+                padding-top: 4rem;
+            }
+            .skills-section h2,
+            .timeline h2,
+            .education-section h2,
+            .projects-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .timeline-item,
+            .education-item,
+            .project-item {
+                padding-left: 1.25rem;
+                margin-bottom: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
+            .about-hero {
+                padding: 5.5rem 1.25rem 2rem;
+            }
+            .about-content {
+                padding: 0;
+            }
             .about-image {
                 width: 120px;
                 height: 120px;
                 margin-bottom: 1.5rem;
+            }
+            .about-content h1 {
+                font-size: 1.75rem;
+                margin-bottom: 1.5rem;
+            }
+            .about-content p {
+                font-size: 0.9375rem;
+                margin-bottom: 1.25rem;
+            }
+            .skills-section,
+            .timeline,
+            .education-section,
+            .projects-section {
+                margin-top: 3rem;
+                padding-top: 3rem;
+            }
+            .skills-section h2,
+            .timeline h2,
+            .education-section h2,
+            .projects-section h2 {
+                font-size: 1.35rem;
+                margin-bottom: 1.5rem;
+            }
+            .skill-card h3 {
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
+            }
+            .skill-card li {
+                font-size: 0.9375rem;
+            }
+            .timeline-item,
+            .education-item,
+            .project-item {
+                padding-left: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .timeline-date,
+            .education-date,
+            .project-date {
+                font-size: 0.875rem;
+            }
+            .timeline-title,
+            .education-degree,
+            .project-title {
+                font-size: 1.1rem;
+            }
+            .timeline-desc,
+            .education-school,
+            .project-desc {
+                font-size: 0.9375rem;
             }
         }
     </style>
