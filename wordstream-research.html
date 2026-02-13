@@ -453,7 +453,7 @@
             var zoomInBtn = document.getElementById('research-zoom-in');
             var zoomOutBtn = document.getElementById('research-zoom-out');
 
-            if (!btn || !lightbox || !viewer || !img) return;
+            if (!btn || !lightbox || !viewer || !img || !closeBtn || !zoomInBtn || !zoomOutBtn) return;
 
             var zoom = 1, panX = 0, panY = 0;
             var minZoom = 1, maxZoom = 4, zoomStep = 0.35;
