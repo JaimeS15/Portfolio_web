@@ -42,6 +42,143 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
+        .research-main-image-wrap {
+            cursor: pointer;
+            display: block;
+            line-height: 0;
+        }
+
+        .research-main-image-wrap:hover img {
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .research-main-image-wrap:focus {
+            outline: 2px solid rgba(20, 118, 110, 0.6);
+            outline-offset: 4px;
+        }
+
+        /* Lightbox modal */
+        .research-lightbox {
+            display: flex;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: zoom-out;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s ease, background 0.35s ease, visibility 0.35s ease;
+        }
+
+        .research-lightbox.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .research-lightbox-viewer {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            max-width: 95%;
+            max-height: 95vh;
+            cursor: grab;
+        }
+
+        .research-lightbox-viewer.zoomed {
+            cursor: grab;
+        }
+
+        .research-lightbox-viewer.dragging {
+            cursor: grabbing;
+        }
+
+        .research-lightbox img {
+            max-width: 95%;
+            max-height: 95vh;
+            object-fit: contain;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0;
+            transform-origin: center center;
+            transition: opacity 0.3s ease 0.08s;
+        }
+
+        .research-lightbox.active img {
+            opacity: 1;
+        }
+
+        .research-lightbox.active img.zoomable {
+            transition: none;
+        }
+
+        .research-lightbox-zoom-controls {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .research-lightbox-zoom-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1.25rem;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .research-lightbox-zoom-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .research-lightbox-zoom-btn:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .research-lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .research-lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .research-lightbox-close:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
         .research-main {
             flex: 1;
             min-width: 0;
@@ -204,8 +341,22 @@
 
     <div class="research-layout">
         <aside class="research-image-column">
-            <img src="images/Research_images/Final_research_poster.jpg" alt="Research poster: Evaluating Wordstream-Based Visualization Tools for Text-Based Qualitative Research" loading="eager">
+            <button type="button" class="research-main-image-wrap" aria-label="View research poster at full size">
+                <img src="images/Research_images/Final_research_poster.jpg" alt="Research poster: Evaluating Wordstream-Based Visualization Tools for Text-Based Qualitative Research" loading="eager">
+            </button>
         </aside>
+
+        <!-- Lightbox for full-size image view -->
+        <div class="research-lightbox" id="research-lightbox" role="dialog" aria-modal="true" aria-label="Full-size research poster">
+            <button type="button" class="research-lightbox-close" aria-label="Close">×</button>
+            <div class="research-lightbox-viewer" id="research-lightbox-viewer">
+                <img src="images/Research_images/Final_research_poster.jpg" alt="Research poster (full size)" id="research-lightbox-img">
+            </div>
+            <div class="research-lightbox-zoom-controls">
+                <button type="button" class="research-lightbox-zoom-btn" id="research-zoom-out" aria-label="Zoom out">−</button>
+                <button type="button" class="research-lightbox-zoom-btn" id="research-zoom-in" aria-label="Zoom in">+</button>
+            </div>
+        </div>
         <main class="research-main">
             <p class="research-label">User Research Study</p>
             <h1 class="research-title">Evaluating Wordstream-Based Visualization Tools for Text-Based Qualitative Research</h1>
@@ -292,5 +443,127 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        (function() {
+            var btn = document.querySelector('.research-main-image-wrap');
+            var lightbox = document.getElementById('research-lightbox');
+            var closeBtn = document.querySelector('.research-lightbox-close');
+            var viewer = document.getElementById('research-lightbox-viewer');
+            var img = document.getElementById('research-lightbox-img');
+            var zoomInBtn = document.getElementById('research-zoom-in');
+            var zoomOutBtn = document.getElementById('research-zoom-out');
+
+            if (!btn || !lightbox || !viewer || !img) return;
+
+            var zoom = 1, panX = 0, panY = 0;
+            var minZoom = 1, maxZoom = 4, zoomStep = 0.35;
+            var isDragging = false, startX, startY, startPanX, startPanY;
+
+            function applyTransform() {
+                img.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + zoom + ')';
+                viewer.classList.toggle('zoomed', zoom > 1);
+            }
+
+            function resetZoom() {
+                zoom = 1;
+                panX = 0;
+                panY = 0;
+                img.classList.remove('zoomable');
+                applyTransform();
+            }
+
+            function openLightbox() {
+                resetZoom();
+                img.classList.add('zoomable');
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                resetZoom();
+            }
+
+            function doZoom(delta, centerX, centerY) {
+                var newZoom = Math.min(maxZoom, Math.max(minZoom, zoom + delta));
+                if (newZoom === zoom) return;
+                var factor = newZoom / zoom;
+                panX = centerX - (centerX - panX) * factor;
+                panY = centerY - (centerY - panY) * factor;
+                zoom = newZoom;
+                applyTransform();
+            }
+
+            btn.addEventListener('click', openLightbox);
+
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeLightbox();
+            });
+
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            zoomInBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                doZoom(zoomStep, 0, 0);
+            });
+
+            zoomOutBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                doZoom(-zoomStep, 0, 0);
+            });
+
+            viewer.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                if (e.ctrlKey || e.metaKey) {
+                    var rect = viewer.getBoundingClientRect();
+                    var centerX = e.clientX - rect.left - rect.width / 2;
+                    var centerY = e.clientY - rect.top - rect.height / 2;
+                    doZoom(e.deltaY > 0 ? -zoomStep : zoomStep, centerX, centerY);
+                } else if (zoom > 1) {
+                    panX -= e.deltaX;
+                    panY -= e.deltaY;
+                    applyTransform();
+                } else {
+                    var rect = viewer.getBoundingClientRect();
+                    var centerX = e.clientX - rect.left - rect.width / 2;
+                    var centerY = e.clientY - rect.top - rect.height / 2;
+                    doZoom(e.deltaY > 0 ? -zoomStep : zoomStep, centerX, centerY);
+                }
+            }, { passive: false });
+
+            viewer.addEventListener('mousedown', function(e) {
+                if (zoom <= 1) return;
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                startPanX = panX;
+                startPanY = panY;
+                viewer.classList.add('dragging');
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                panX = startPanX + (e.clientX - startX);
+                panY = startPanY + (e.clientY - startY);
+                applyTransform();
+            });
+
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+                viewer.classList.remove('dragging');
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    if (zoom > 1) resetZoom();
+                    else closeLightbox();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
