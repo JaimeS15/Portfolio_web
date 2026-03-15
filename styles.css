@@ -349,8 +349,9 @@ a {
    ======================================== */
 
 .hero-visual {
-    flex: 0.9;
-    max-width: 460px;
+    flex: 1.8;
+    min-width: 0;
+    max-width: none;
 }
 
 .hud-readout {
@@ -488,7 +489,7 @@ a {
     margin-top: -5.5rem;
     align-self: stretch;
     position: relative;
-    max-width: 420px;
+    max-width: none;
 }
 
 .page-home .hero-carousel {
@@ -1466,7 +1467,7 @@ a {
     }
 
     .hero-visual {
-        max-width: 380px;
+        max-width: none;
     }
 
     .work {
