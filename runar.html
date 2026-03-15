@@ -4,253 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunAR - Jaime Serrano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Override gradient for RunAR page with purple color */
-        html {
-            background-image: linear-gradient(180deg, 
-                rgba(254, 250, 224, 0) 0%, 
-                rgba(102, 66, 166, 0.3) 10%, 
-                rgba(102, 66, 166, 0.6) 30%, 
-                rgba(102, 66, 166, 0.8) 45%, 
-                rgba(102, 66, 166, 0.6) 60%, 
-                rgba(102, 66, 166, 0.3) 80%, 
-                rgba(254, 250, 224, 0) 100%);
-        }
+        html { background: #0a0a0a; background-image: none; }
 
-        .project-layout {
-            display: flex;
-            min-height: calc(100vh - 80px);
-            padding-top: 80px;
-        }
-
-        .project-sidebar {
-            position: fixed;
-            left: 0;
-            top: 80px;
-            width: 280px;
-            height: calc(100vh - 80px);
-            padding: 3rem 2rem;
-            background: transparent;
-            border-right: 1px solid var(--border-color);
-            overflow-y: auto;
-        }
-
-        .project-title {
-            font-size: clamp(1.75rem, 2vw, 2.25rem);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 3rem;
-            color: #1a1a1a;
-        }
-
-        .project-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .project-nav li {
-            margin-bottom: 1rem;
-        }
-
-        .project-nav a {
-            color: #4a4a4a;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all var(--transition-smooth);
-            display: block;
-            padding: 0.5rem 0 0.5rem 0.75rem;
-            border-bottom: 1px solid transparent;
-            border-left: 2px solid transparent;
-        }
-
-        .project-nav a:hover {
-            color: var(--primary-color);
-        }
-
-        .project-nav a.active {
-            color: var(--primary-color);
-            border-left-width: 3px;
-            border-left-color: var(--primary-color);
-            text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 4px;
-            font-weight: 650;
-            background-color: rgba(102, 66, 166, 0.06);
-        }
-
-        .project-main {
-            margin-left: 280px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-hero-image {
-            width: 100%;
-            padding: 2rem 3rem 0;
-        }
-
-        .project-hero-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-content {
-            flex: 1;
-            padding: 3rem;
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .project-section {
-            margin-bottom: 8rem;
-        }
-
-        .project-section h2 {
-            font-size: clamp(1.75rem, 3vw, 2.5rem);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-            line-height: 1.3;
-            color: #1a1a1a;
-        }
-
-        .project-section h3 {
-            font-size: clamp(1.25rem, 2vw, 1.5rem);
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            margin-bottom: 1.5rem;
-            color: #1a1a1a;
-        }
-
-        .project-section h4 {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #555555;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .project-section p {
-            font-size: clamp(1rem, 1.2vw, 1.125rem);
-            line-height: 1.8;
-            color: #333333;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-section img {
-            width: 100%;
-            height: auto;
-            margin: 2rem 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-section .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .project-section .image-grid img {
-            margin: 0;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 4rem;
-            color: #1a1a1a;
-            border-bottom: 2px solid #1a1a1a;
-            padding-bottom: 2px;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all var(--transition-smooth);
-        }
-
-        .back-link:hover {
-            color: #6642A6;
-            border-bottom-color: #6642A6;
-        }
-
+        .project-layout { display: flex; min-height: calc(100vh - 44px); padding-top: 44px; }
+        .project-sidebar { position: fixed; left: 0; top: 44px; width: 260px; height: calc(100vh - 44px); padding: 2.5rem 1.75rem; background: #0a0a0a; border-right: 1px solid #636363; overflow-y: auto; }
+        .project-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 2rem; color: #dedede; border-left: 2px solid #c8f000; padding-left: 0.75rem; }
+        .project-nav { list-style: none; padding: 0; margin: 0; }
+        .project-nav li { margin-bottom: 0.4rem; }
+        .project-nav a { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; display: block; padding: 0.35rem 0 0.35rem 0.75rem; border-left: 2px solid transparent; transition: color 100ms linear, border-color 100ms linear, background-color 100ms linear; }
+        .project-nav a:hover { color: #c8f000; border-left-color: #c8f000; }
+        .project-nav a.active { color: #c8f000; border-left-color: #c8f000; background: rgba(200, 240, 0, 0.05); }
+        .project-main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; }
+        .project-hero-image { width: 100%; padding: 2rem 2.5rem 0; }
+        .project-hero-image img { width: 100%; height: auto; filter: grayscale(20%) contrast(1.05); border: 1px solid #2e2e2e; }
+        .project-content { flex: 1; padding: 2.5rem 2.5rem 4rem; max-width: 860px; margin: 0 auto; width: 100%; }
+        .project-section { margin-bottom: 5rem; padding-top: 2.5rem; border-top: 1px solid #2e2e2e; }
+        .project-section:first-child { border-top: none; padding-top: 0; }
+        .project-section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 1.25rem; color: #dedede; }
+        .project-section h3 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.85rem; margin-top: 2rem; color: #dedede; }
+        .project-section h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.22em; color: #c8f000; margin-bottom: 0.6rem; font-weight: 400; }
+        .project-section p { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; line-height: 1.9; color: #a8a8a8; margin-bottom: 1.1rem; }
+        .project-section ul { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; line-height: 1.9; margin-left: 1.25rem; margin-bottom: 1.25rem; font-size: 0.78rem; }
+        .project-section img { width: 100%; height: auto; margin: 1.5rem 0; filter: grayscale(15%) contrast(1.04) brightness(0.92); border: 1px solid #2e2e2e; display: block; }
+        .project-section .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin: 1.5rem 0; }
+        .project-section .image-grid img { margin: 0; }
+        .back-link { font-family: 'IBM Plex Mono', monospace; display: inline-block; margin-top: 3rem; color: #c8f000; border: 1px solid #c8f000; padding: 0.45rem 1rem; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; transition: background-color 100ms linear, color 100ms linear; text-decoration: none; }
+        .back-link:hover { background: #c8f000; color: #0a0a0a; }
         @media (max-width: 768px) {
-            .project-layout {
-                flex-direction: column;
-            }
-
-            .project-sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                top: 0;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                padding: 2rem;
-            }
-
-            .project-main {
-                margin-left: 0;
-            }
-
-            .project-hero-image {
-                padding: 2rem 1.5rem 0;
-            }
-
-            .project-content {
-                padding: 2rem 1.5rem;
-            }
-
-            .project-section {
-                margin-bottom: 5rem;
-            }
+            .project-layout { flex-direction: column; }
+            .project-sidebar { position: relative; width: 100%; height: auto; top: 0; border-right: none; border-bottom: 1px solid #636363; padding: 1.5rem; }
+            .project-main { margin-left: 0; }
+            .project-hero-image { padding: 1.5rem 1.25rem 0; }
+            .project-content { padding: 1.5rem 1.25rem 3rem; }
+            .project-section { margin-bottom: 4rem; }
         }
-
         @media (max-width: 480px) {
-            .project-sidebar {
-                padding: 1.25rem 1rem;
-            }
-            .project-title {
-                font-size: 1.5rem;
-                margin-bottom: 2rem;
-            }
-            .project-nav a {
-                font-size: 0.9375rem;
-                padding: 0.4rem 0 0.4rem 0.5rem;
-            }
-            .project-hero-image {
-                padding: 1.25rem 1rem 0;
-            }
-            .project-content {
-                padding: 1.25rem 1rem;
-            }
-            .project-section {
-                margin-bottom: 3.5rem;
-            }
-            .project-section h2 {
-                font-size: 1.25rem;
-            }
-            .project-section h4 {
-                font-size: 0.875rem;
-            }
-            .project-section p {
-                font-size: 0.9375rem;
-            }
+            .project-sidebar { padding: 1.1rem 1rem; }
+            .project-title { font-size: 1.35rem; margin-bottom: 1.5rem; }
+            .project-nav a { font-size: 0.6rem; }
+            .project-hero-image { padding: 1.1rem 1rem 0; }
+            .project-content { padding: 1.1rem 1rem 2.5rem; }
+            .project-section { margin-bottom: 3rem; }
+            .project-section h2 { font-size: 1.2rem; }
+            .project-section p { font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
+    <div class="scanline-overlay" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <ul class="nav-links">
                 <li><a href="./">Jaime Serrano</a></li>
             </ul>
+            <span class="nav-sys-readout">SYS: 00.4 // LOC: ACTIVE</span>
         </div>
     </nav>
 
@@ -318,7 +131,7 @@
                 phones or watches, disrupting their flow and focus.
             </p>
             <h3>Our challenge:</h3>
-            <p style="background: #f5f5f5; padding: 1.5rem; border-left: 3px solid var(--accent-color); margin: 1.5rem 0; color: #1a1a1a; font-size: 1.125rem;">
+            <p style="background: #111111; padding: 1.25rem; border-left: 2px solid #c8f000; margin: 1.5rem 0; color: #dedede;">
                 <strong>How might we help runners training for a race visualize real-time performance 
                 data in ways that keep them motivated?</strong>
             </p>
@@ -334,7 +147,7 @@
             </p>
             
             <h3>Key Findings</h3>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul>
                 <li>Mostly use Smartwatches or Phones</li>
                 <li>Key Metrics: Pace, Distance, and Heart Rate</li>
                 <li>Main challenge: Maintaining Consistency in Training</li>
@@ -350,7 +163,7 @@
             </p>
 
             <h3>Semi-Structured Interview Topics</h3>
-            <p style="background: #f5f5f5; padding: 1.5rem; border-left: 3px solid var(--accent-color); margin: 1.5rem 0; color: #1a1a1a; font-size: 1rem; line-height: 1.8;">
+            <p style="background: #111111; padding: 1.25rem; border-left: 2px solid #c8f000; margin: 1.5rem 0; color: #a8a8a8; line-height: 1.9;">
                 1. Training Habits<br>
                 2. Motivation<br>
                 3. Technology Frustrations
@@ -384,7 +197,7 @@
 
             <h3>Key Design Decisions</h3>
             <p>Based on all of our research findings, we made three key design decisions:</p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul>
                 <li><strong>Shifting the focus</strong> toward runners who are training for races, rather than casual runners, 
                 since their needs for accuracy and consistency are much stronger</li>
                 <li><strong>Accurate tracking, hands-free metrics, and real-time alerts</strong> became must-have features</li>
@@ -408,7 +221,7 @@
             <img src="images/Screenshot 2026-01-31 at 00-31-01 RunAR_report.pdf.png" alt="Research Strategy and Results - Survey Data and Charts" loading="lazy">
 
             <h3>Ideation Process</h3>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul>
                 <li><strong>Warm-up exercise (5 mins):</strong> Generated 100 brick use cases to activate creative thinking</li>
                 <li><strong>Mind mapping (10 mins):</strong> Brainstormed and documented all initial ideas and concepts</li>
                 <li><strong>Round Robin (10 mins):</strong> Collaboratively refined and built upon promising ideas</li>
@@ -446,7 +259,7 @@
                 ability to combine desired features, and display key runner data. The prototyping effort 
                 was also lower due to leveraging previous products like Meta Glasses.
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul>
                 <li>High impact & medium effort</li>
                 <li>Combines features users want</li>
                 <li>Reference previous products such as Meta Glasses</li>
@@ -483,7 +296,7 @@
                 intuitive to use during actual runs and whether the features genuinely motivated them and enhanced 
                 their running experience.
             </p>
-            <p style="font-style: italic; color: #333333; margin-top: 1rem;">
+            <p style="font-style: italic; color: #a8a8a8; margin-top: 1rem;">
                 The Wizard of Oz testing was conducted during nighttime runs in an urban setting, allowing us 
                 to observe how users interacted with the interface in real-world conditions.
             </p>
@@ -518,37 +331,37 @@
                 everyday running replacement, emphasizing its hands-free advantage for specific use cases.
             </p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
-                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
-                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">01 Simplify Hardware</h4>
-                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2px; margin: 2rem 0;">
+                <div style="padding: 1.25rem; border: 1px solid #2e2e2e; background: #111111;">
+                    <h4 style="margin-bottom: 0.75rem;">01 Simplify Hardware</h4>
+                    <ul>
                         <li>Explore glasses-only solution</li>
                         <li>Move biometric sensors into the frames</li>
                         <li>Reduce setup steps to match smartwatch simplicity</li>
                     </ul>
                 </div>
                 
-                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
-                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">02 Reduce Cognitive Load</h4>
-                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                <div style="padding: 1.25rem; border: 1px solid #2e2e2e; background: #111111;">
+                    <h4 style="margin-bottom: 0.75rem;">02 Reduce Cognitive Load</h4>
+                    <ul>
                         <li>Prioritize only: Pace, Navigation, Ghost Runner (optional mode)</li>
                         <li>Hide or delay: Calories, Rapid heart rate updates, Secondary metrics</li>
                         <li>Implement progressive disclosure of information</li>
                     </ul>
                 </div>
                 
-                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
-                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">03 Improve Ghost Runner Logic</h4>
-                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                <div style="padding: 1.25rem; border: 1px solid #2e2e2e; background: #111111;">
+                    <h4 style="margin-bottom: 0.75rem;">03 Improve Ghost Runner Logic</h4>
+                    <ul>
                         <li>Smoother pacing animation</li>
                         <li>Clearer visual distance indicators</li>
                         <li>More predictable behavior patterns</li>
                     </ul>
                 </div>
                 
-                <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background: #f9f9f9;">
-                    <h4 style="margin-bottom: 1rem; color: #1a1a1a; font-size: 1rem; font-weight: 600;">04 Strengthen Core Value Proposition</h4>
-                    <ul style="color: #333333; line-height: 1.8; margin-left: 1.5rem; font-size: 1rem;">
+                <div style="padding: 1.25rem; border: 1px solid #2e2e2e; background: #111111;">
+                    <h4 style="margin-bottom: 0.75rem;">04 Strengthen Core Value Proposition</h4>
+                    <ul>
                         <li>Position RunAR as: A training tool, not an everyday running replacement</li>
                         <li>Best for structured runs, intervals, and race prep</li>
                         <li>Emphasize hands-free advantage for specific use cases</li>

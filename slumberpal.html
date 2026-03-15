@@ -4,259 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SlumberPal - Jaime Serrano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Override gradient for SlumberPal page with calming blue color */
-        html {
-            background-image: linear-gradient(180deg, 
-                rgba(254, 250, 224, 0) 0%, 
-                rgba(59, 130, 246, 0.3) 10%, 
-                rgba(59, 130, 246, 0.6) 30%, 
-                rgba(59, 130, 246, 0.8) 45%, 
-                rgba(59, 130, 246, 0.6) 60%, 
-                rgba(59, 130, 246, 0.3) 80%, 
-                rgba(254, 250, 224, 0) 100%);
-        }
-
-        .project-layout {
-            display: flex;
-            min-height: calc(100vh - 80px);
-            padding-top: 80px;
-        }
-
-        .project-sidebar {
-            position: fixed;
-            left: 0;
-            top: 80px;
-            width: 280px;
-            height: calc(100vh - 80px);
-            padding: 3rem 2rem;
-            background: transparent;
-            border-right: 1px solid var(--border-color);
-            overflow-y: auto;
-        }
-
-        .project-title {
-            font-size: clamp(1.75rem, 2vw, 2.25rem);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 3rem;
-            color: #1a1a1a;
-        }
-
-        .project-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .project-nav li {
-            margin-bottom: 1rem;
-        }
-
-        .project-nav a {
-            color: #4a4a4a;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.2s ease, background-color 0.2s ease;
-            display: block;
-            padding: 0.5rem 0 0.5rem 0.75rem;
-            border-left: 3px solid transparent;
-            border-radius: 0 6px 6px 0;
-        }
-
-        .project-nav a:hover {
-            color: #1d4ed8;
-        }
-
-        .project-nav a.active,
-        .project-nav a.active:hover {
-            color: #1e40af;
-            font-weight: 700;
-            border-left: 4px solid #3b82f6;
-            background-color: rgba(59, 130, 246, 0.15);
-            text-decoration: none;
-        }
-
-        .project-nav a.active::before {
-            content: "●";
-            color: #3b82f6;
-            font-size: 0.5rem;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
-
-        .project-main {
-            margin-left: 280px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-hero-image {
-            width: 100%;
-            padding: 2rem 3rem 0;
-        }
-
-        .project-hero-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-content {
-            flex: 1;
-            padding: 3rem;
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .project-section {
-            margin-bottom: 8rem;
-        }
-
-        .project-section h2 {
-            font-size: clamp(1.75rem, 3vw, 2.5rem);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-            line-height: 1.3;
-            color: #1a1a1a;
-        }
-
-        .project-section h3 {
-            font-size: clamp(1.25rem, 2vw, 1.5rem);
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            margin-bottom: 1.5rem;
-            color: #1a1a1a;
-        }
-
-        .project-section h4 {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #555555;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .project-section p {
-            font-size: clamp(1rem, 1.2vw, 1.125rem);
-            line-height: 1.8;
-            color: #333333;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-section img {
-            width: 100%;
-            height: auto;
-            margin: 2rem 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-section .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .project-section .image-grid img {
-            margin: 0;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 4rem;
-            color: #1a1a1a;
-            border-bottom: 2px solid #1a1a1a;
-            padding-bottom: 2px;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all var(--transition-smooth);
-        }
-
-        .back-link:hover {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
-        }
-
+        html { background: #0a0a0a; background-image: none; }
+        .project-layout { display: flex; min-height: calc(100vh - 44px); padding-top: 44px; }
+        .project-sidebar { position: fixed; left: 0; top: 44px; width: 260px; height: calc(100vh - 44px); padding: 2.5rem 1.75rem; background: #0a0a0a; border-right: 1px solid #636363; overflow-y: auto; }
+        .project-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 2rem; color: #dedede; border-left: 2px solid #c8f000; padding-left: 0.75rem; }
+        .project-nav { list-style: none; padding: 0; margin: 0; }
+        .project-nav li { margin-bottom: 0.4rem; }
+        .project-nav a { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; display: block; padding: 0.35rem 0 0.35rem 0.75rem; border-left: 2px solid transparent; transition: color 100ms linear, border-color 100ms linear, background-color 100ms linear; }
+        .project-nav a:hover { color: #c8f000; border-left-color: #c8f000; }
+        .project-nav a.active, .project-nav a.active:hover { color: #c8f000; border-left-color: #c8f000; background: rgba(200, 240, 0, 0.05); font-weight: 400; }
+        .project-nav a.active::before { content: none; }
+        .project-main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; }
+        .project-hero-image { width: 100%; padding: 2rem 2.5rem 0; }
+        .project-hero-image img { width: 100%; height: auto; filter: grayscale(20%) contrast(1.05); border: 1px solid #2e2e2e; }
+        .project-content { flex: 1; padding: 2.5rem 2.5rem 4rem; max-width: 860px; margin: 0 auto; width: 100%; }
+        .project-section { margin-bottom: 5rem; padding-top: 2.5rem; border-top: 1px solid #2e2e2e; }
+        .project-section:first-child { border-top: none; padding-top: 0; }
+        .project-section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 1.25rem; color: #dedede; }
+        .project-section h3 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.85rem; margin-top: 2rem; color: #dedede; }
+        .project-section h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.22em; color: #c8f000; margin-bottom: 0.6rem; font-weight: 400; }
+        .project-section p { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; line-height: 1.9; color: #a8a8a8; margin-bottom: 1.1rem; }
+        .project-section ul { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; line-height: 1.9; margin-left: 1.25rem; margin-bottom: 1.25rem; font-size: 0.78rem; }
+        .project-section img { width: 100%; height: auto; margin: 1.5rem 0; filter: grayscale(15%) contrast(1.04) brightness(0.92); border: 1px solid #2e2e2e; display: block; }
+        .project-section .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin: 1.5rem 0; }
+        .project-section .image-grid img { margin: 0; }
+        .back-link { font-family: 'IBM Plex Mono', monospace; display: inline-block; margin-top: 3rem; color: #c8f000; border: 1px solid #c8f000; padding: 0.45rem 1rem; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; transition: background-color 100ms linear, color 100ms linear; text-decoration: none; }
+        .back-link:hover { background: #c8f000; color: #0a0a0a; }
         @media (max-width: 768px) {
-            .project-layout {
-                flex-direction: column;
-            }
-
-            .project-sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                top: 0;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                padding: 2rem;
-            }
-
-            .project-main {
-                margin-left: 0;
-            }
-
-            .project-hero-image {
-                padding: 2rem 1.5rem 0;
-            }
-
-            .project-content {
-                padding: 2rem 1.5rem;
-            }
-
-            .project-section {
-                margin-bottom: 5rem;
-            }
+            .project-layout { flex-direction: column; }
+            .project-sidebar { position: relative; width: 100%; height: auto; top: 0; border-right: none; border-bottom: 1px solid #636363; padding: 1.5rem; }
+            .project-main { margin-left: 0; }
+            .project-hero-image { padding: 1.5rem 1.25rem 0; }
+            .project-content { padding: 1.5rem 1.25rem 3rem; }
+            .project-section { margin-bottom: 4rem; }
         }
-
         @media (max-width: 480px) {
-            .project-sidebar {
-                padding: 1.25rem 1rem;
-            }
-            .project-title {
-                font-size: 1.5rem;
-                margin-bottom: 2rem;
-            }
-            .project-nav a {
-                font-size: 0.9375rem;
-                padding: 0.4rem 0 0.4rem 0.5rem;
-            }
-            .project-hero-image {
-                padding: 1.25rem 1rem 0;
-            }
-            .project-content {
-                padding: 1.25rem 1rem;
-            }
-            .project-section {
-                margin-bottom: 3.5rem;
-            }
-            .project-section h2 {
-                font-size: 1.25rem;
-            }
-            .project-section h4 {
-                font-size: 0.875rem;
-            }
-            .project-section p {
-                font-size: 0.9375rem;
-            }
+            .project-sidebar { padding: 1.1rem 1rem; }
+            .project-title { font-size: 1.35rem; margin-bottom: 1.5rem; }
+            .project-nav a { font-size: 0.6rem; }
+            .project-hero-image { padding: 1.1rem 1rem 0; }
+            .project-content { padding: 1.1rem 1rem 2.5rem; }
+            .project-section { margin-bottom: 3rem; }
+            .project-section h2 { font-size: 1.2rem; }
+            .project-section p { font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
+    <div class="scanline-overlay" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <ul class="nav-links">
                 <li><a href="./">Jaime Serrano</a></li>
             </ul>
+            <span class="nav-sys-readout">SYS: 00.4 // LOC: ACTIVE</span>
         </div>
     </nav>
 
@@ -353,7 +160,7 @@
             <p>
                 We chose to focus on the design of four screens associated with key user flows for the app:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul>
                 <li><strong>Tracking/tracking history</strong>—to view previous tracking history along with important stats such as sleep score, sleep stages, wake up times, and time spent sleeping</li>
                 <li><strong>Sound control</strong>—to adjust the type and volume of sound emitted from the toy throughout the night</li>
                 <li><strong>Scheduling</strong>—to set the time for the toy to track the child's sleep or an alarm to wake up the child</li>
@@ -376,14 +183,14 @@
             <p>
                 After the user testing of our prototype, we discovered a few aspects of the prototype that worked well:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul>
                 <li>Broad spectrum of information—from sleep duration to quality</li>
                 <li>Mood emoticons—visually entertaining, effective in conveying emotion without the need for words</li>
             </ul>
             <p>
                 However, there was much to be improved as well, including:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul>
                 <li>Confusing icons—nav bar icons are not standard to other apps, reducing user familiarity</li>
                 <li>Continuous sleep graph—more intuitive for sleep stages to be graphed as discrete rather than continuous</li>
                 <li>Manual text entry—overly complicates the journal feature</li>
@@ -430,7 +237,7 @@
             <p>
                 We created an interactive digital prototype in Figma, with key features like:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul>
                 <li><strong>Home</strong> — Displays a timeline visualizing the previous night's sleep, which is broken down into the various 
                 sleep stages so users can quickly scan the data for sleep and wake times. Also includes an overall sleep quality score.</li>
                 <li><strong>Sleep History</strong> — Accessed via nav bar. Consists of a line graph depicting sleep score history, with 
@@ -455,7 +262,7 @@
             <p>
                 Our user testing provided a lot of valuable feedback on this prototype. Some things that worked well for our test user were:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul>
                 <li>Clear iconography for the mood journal</li>
                 <li>An intuitive sleep schedule screen</li>
                 <li>A clear understanding of the overall purpose and uses of the app</li>
@@ -465,7 +272,7 @@
                 home screen, and had clearer iconography overall. However, there were still several areas of improvement that our user raised, 
                 including:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul>
                 <li>The moon icon for the sleep history page — thought the icon would take them to sleep history, not sleep schedule</li>
                 <li>Redundancy between home screen and nav bar buttons</li>
                 <li>More detail on the home screen — suggested that we add sleep history to the home screen to reduce the effort of navigating 
@@ -538,7 +345,7 @@
                 Here is general feedback we received on the first iteration of the prototype, which we used to improve the design of our 
                 second prototype:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul style="">
                 <li>The size is too small for holding and carrying the internal components</li>
                 <li>The felt makes the plushie feel firm and slightly rough to the touch</li>
                 <li>The scent is a little astringent, which makes it less relaxing to smell</li>
@@ -546,7 +353,7 @@
             <p>
                 When we tested our second prototype, the feedback was much more positive. Specifically, what worked well was:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul style="">
                 <li>Scaling up in size—made it easier to hold and much more plush</li>
                 <li>Selecting a material more neutral in color and blanket-like in terms of feel</li>
                 <li>Adding a velcro closure—compared to a safety pin, it felt more secure and user friendly</li>
@@ -554,7 +361,7 @@
             <p>
                 However, there were still several potential areas of improvement, including:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul style="">
                 <li>Scent strength—expected the scent to waft out without having to inhale into it</li>
                 <li>Lack of an internal (lined) pocket for the speaker and tea bag</li>
                 <li>Method of attaching velcro—suggested the velcro be sewed on, instead of stuck on using adhesive</li>
@@ -620,7 +427,7 @@
             <p>
                 From our user testing, these are the aspects of our video that worked well:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 1.5rem; font-size: 1rem;">
+            <ul style="">
                 <li>Text transition slides—helped with understanding the narrative</li>
                 <li>Close-ups of app frames—highlighted the improvement in sleep score/quality</li>
                 <li>Clear and straightforward sequence of events</li>
@@ -628,7 +435,7 @@
             <p>
                 These are the aspects that could use improvement:
             </p>
-            <ul style="color: #333333; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem; font-size: 1rem;">
+            <ul style="">
                 <li>Color use in the app prototype—lack of color takes away from app's desirability</li>
                 <li>Shot lighting—some shots are really dark, making it hard to see what's going on</li>
                 <li>Depictions of toy functionality—almost seems like the toy is a sleep aid rather than a sleep tracker</li>
