@@ -10,57 +10,273 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         html { background: #0a0a0a; background-image: none; }
-        .research-layout { padding-top: 44px; min-height: calc(100vh - 44px); display: flex; }
-        .research-image-column { position: sticky; top: 44px; width: 45%; max-width: 520px; height: calc(100vh - 44px); padding: 2rem 2rem 2rem 2.5rem; flex-shrink: 0; }
-        .research-image-column img { width: 100%; height: auto; max-height: calc(100vh - 100px); object-fit: contain; object-position: left center; filter: grayscale(10%) contrast(1.04); border: 1px solid #2e2e2e; transition: border-color 100ms linear; }
-        .research-main-image-wrap { cursor: pointer; display: block; line-height: 0; background: transparent; border: none; padding: 0; width: 100%; }
-        .research-main-image-wrap:hover img { border-color: #c8f000; }
-        .research-main-image-wrap:focus { outline: 1px solid #c8f000; outline-offset: 2px; }
-        .research-lightbox { display: flex; position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0); align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 100ms linear, background 100ms linear, visibility 100ms linear; }
-        .research-lightbox.active { opacity: 1; visibility: visible; pointer-events: auto; background: rgba(0,0,0,0.95); }
-        .research-lightbox-viewer { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; max-width: 95%; max-height: 95vh; cursor: grab; }
-        .research-lightbox-viewer.zoomed { cursor: grab; }
-        .research-lightbox-viewer.dragging { cursor: grabbing; }
-        .research-lightbox img { max-width: 95%; max-height: 95vh; object-fit: contain; pointer-events: none; opacity: 0; transform-origin: center center; transition: opacity 100ms linear; }
-        .research-lightbox.active img { opacity: 1; }
-        .research-lightbox.active img.zoomable { transition: none; }
-        .research-lightbox-zoom-controls { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; align-items: center; z-index: 1; }
-        .research-lightbox-zoom-btn { width: 36px; height: 36px; border: 1px solid #636363; background: #0a0a0a; color: #a8a8a8; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; transition: background-color 100ms linear, color 100ms linear; }
-        .research-lightbox-zoom-btn:hover { background: #c8f000; color: #0a0a0a; border-color: #c8f000; }
-        .research-lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 40px; height: 40px; border: 1px solid #636363; background: #0a0a0a; color: #a8a8a8; font-size: 1.25rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear; }
-        .research-lightbox-close:hover { background: #c8f000; color: #0a0a0a; border-color: #c8f000; }
-        .research-main { flex: 1; min-width: 0; max-width: 560px; padding: 2rem 2.5rem 4rem 2rem; overflow-y: auto; }
-        .research-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: #c8f000; margin-bottom: 0.5rem; display: block; }
-        .research-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; color: #dedede; margin-bottom: 0.75rem; }
-        .research-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: #a8a8a8; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2e2e2e; letter-spacing: 0.04em; }
-        .research-block { margin-bottom: 2.25rem; padding-top: 2rem; border-top: 1px solid #2e2e2e; }
-        .research-block:first-of-type { border-top: none; padding-top: 0; }
-        .research-block h3 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #dedede; margin-bottom: 0.75rem; }
-        .research-block p { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; line-height: 1.9; color: #a8a8a8; margin-bottom: 0.9rem; }
-        .research-block ul { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; line-height: 1.9; color: #a8a8a8; margin: 0 0 0.9rem 1.25rem; }
-        .research-block ul li { margin-bottom: 0.3rem; }
-        .research-block img { width: 100%; height: auto; margin: 1.5rem 0; filter: grayscale(15%) contrast(1.04); border: 1px solid #2e2e2e; display: block; }
-        .research-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.63rem; color: #808080; letter-spacing: 0.08em; margin-top: -0.5rem; margin-bottom: 1.75rem; }
-        .back-link { font-family: 'IBM Plex Mono', monospace; display: inline-block; margin-top: 2rem; color: #c8f000; border: 1px solid #c8f000; padding: 0.45rem 1rem; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; transition: background-color 100ms linear, color 100ms linear; text-decoration: none; }
-        .back-link:hover { background: #c8f000; color: #0a0a0a; }
-        .slide-gallery { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; }
-        .slide-gallery-item { position: relative; cursor: pointer; line-height: 0; }
-        .slide-gallery-item img { width: 100%; height: auto; filter: grayscale(10%) contrast(1.04); border: 1px solid #2e2e2e; display: block; transition: border-color 100ms linear; }
-        .slide-gallery-item:hover img { border-color: #c8f000; }
-        .slide-gallery-item .slide-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: #636363; letter-spacing: 0.12em; margin-top: 0.4rem; display: block; line-height: 1; }
-        @media (max-width: 900px) {
-            .research-layout { flex-direction: column; }
-            .research-image-column { position: relative; top: 0; width: 100%; max-width: none; height: auto; padding: 2rem 1.5rem 0; }
-            .research-image-column img { max-height: none; }
-            .research-main { max-width: none; padding: 2rem 1.5rem 3rem; }
+
+        /* ── Page wrapper ── */
+        .project-page { padding-top: 44px; }
+
+        /* ── Project header ── */
+        .project-header {
+            padding: 2.5rem 3rem 2rem;
+            border-bottom: 1px solid #2e2e2e;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
-        @media (max-width: 480px) {
-            .research-layout { padding-top: 40px; }
-            .research-image-column { padding: 1.25rem 1rem 0; }
-            .research-main { padding: 1.5rem 1rem 2.5rem; }
-            .research-title { font-size: 1.3rem; }
-            .research-block h3 { font-size: 1.05rem; }
-            .research-block p { font-size: 0.72rem; }
+        .project-header-left {}
+        .project-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #c8f000;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .project-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            line-height: 1.0;
+            color: #dedede;
+            margin: 0;
+        }
+        .project-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            color: #636363;
+            letter-spacing: 0.1em;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .project-meta span { color: #a8a8a8; }
+
+        /* ── Book reader ── */
+        .book-reader {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 5rem;
+            background: #0a0a0a;
+            min-height: 82vh;
+            border-bottom: 1px solid #2e2e2e;
+        }
+        .book-slide-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            line-height: 0;
+        }
+        .book-slide-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #2e2e2e;
+            filter: contrast(1.03);
+            transition: opacity 120ms steps(4, end);
+        }
+        .book-slide-wrap img.transitioning { opacity: 0; }
+
+        /* nav arrows */
+        .book-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: #0a0a0a;
+            border: 1px solid #2e2e2e;
+            color: #a8a8a8;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear;
+            z-index: 2;
+            user-select: none;
+        }
+        .book-nav:hover { background: #c8f000; color: #0a0a0a; border-color: #c8f000; }
+        .book-nav:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
+        .book-nav-prev { left: 0.75rem; }
+        .book-nav-next { right: 0.75rem; }
+
+        /* HUD bar below slide */
+        .book-hud {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0 0;
+            margin-top: 0.75rem;
+            border-top: 1px solid #2e2e2e;
+            max-width: 1000px;
+            width: 100%;
+        }
+        .book-hud-counter {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            color: #c8f000;
+        }
+        .book-hud-hint {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            color: #3a3a3a;
+            text-transform: uppercase;
+        }
+
+        /* progress strip */
+        .book-progress-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #1a1a1a;
+        }
+        .book-progress-fill {
+            height: 100%;
+            background: #c8f000;
+            transition: width 150ms steps(6, end);
+        }
+
+        /* ── Thumb strip ── */
+        .book-thumbs-section {
+            border-bottom: 1px solid #2e2e2e;
+            padding: 1.25rem 3rem;
+            background: #0d0d0d;
+        }
+        .book-thumbs-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.52rem;
+            letter-spacing: 0.2em;
+            color: #3a3a3a;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .book-thumbs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: #2e2e2e #0a0a0a;
+        }
+        .book-thumb {
+            flex-shrink: 0;
+            width: 72px;
+            cursor: pointer;
+            border: 1px solid #2e2e2e;
+            line-height: 0;
+            transition: border-color 100ms linear;
+            position: relative;
+        }
+        .book-thumb img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(20%) contrast(1.02);
+            transition: filter 100ms linear;
+        }
+        .book-thumb:hover { border-color: #636363; }
+        .book-thumb:hover img { filter: none; }
+        .book-thumb.active { border-color: #c8f000; }
+        .book-thumb.active img { filter: none; }
+
+        /* ── Research notes ── */
+        .research-notes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0;
+            border-bottom: 1px solid #2e2e2e;
+        }
+        .research-note {
+            padding: 2.25rem 3rem;
+            border-right: 1px solid #2e2e2e;
+        }
+        .research-note:last-child { border-right: none; }
+        .research-note h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #dedede;
+            margin-bottom: 0.9rem;
+        }
+        .research-note p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin-bottom: 0.75rem;
+        }
+        .research-note p:last-child { margin-bottom: 0; }
+        .research-note ul {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin: 0 0 0 1.1rem;
+            padding: 0;
+        }
+        .research-note ul li { margin-bottom: 0.2rem; }
+        .research-note strong { color: #dedede; font-weight: 500; }
+        .note-prefix {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.52rem;
+            color: #c8f000;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ── Footer row ── */
+        .project-footer-row {
+            padding: 1.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .back-link {
+            font-family: 'IBM Plex Mono', monospace;
+            display: inline-block;
+            color: #c8f000;
+            border: 1px solid #c8f000;
+            padding: 0.45rem 1rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: background-color 100ms linear, color 100ms linear;
+            text-decoration: none;
+        }
+        .back-link:hover { background: #c8f000; color: #0a0a0a; }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .project-header { padding: 1.75rem 1.5rem 1.5rem; }
+            .book-reader { padding: 2rem 3.5rem; min-height: 60vw; }
+            .book-thumbs-section { padding: 1rem 1.5rem; }
+            .research-notes { grid-template-columns: 1fr; }
+            .research-note { border-right: none; border-bottom: 1px solid #2e2e2e; padding: 1.75rem 1.5rem; }
+            .research-note:last-child { border-bottom: none; }
+            .project-footer-row { padding: 1.25rem 1.5rem; }
+        }
+        @media (max-width: 540px) {
+            .book-reader { padding: 1.5rem 3rem; }
+            .book-nav { width: 36px; height: 36px; font-size: 0.85rem; }
+            .book-nav-prev { left: 0.25rem; }
+            .book-nav-next { right: 0.25rem; }
+            .book-thumb { width: 54px; }
         }
     </style>
 </head>
@@ -75,46 +291,91 @@
         </div>
     </nav>
 
-    <div class="research-layout">
-        <aside class="research-image-column">
-            <button type="button" class="research-main-image-wrap" aria-label="View cover slide at full size">
-                <img src="images/HCDE_519_images/1.png" alt="How Independent Musicians Book Shows — Cover slide" loading="eager">
-            </button>
-        </aside>
+    <div class="project-page">
 
-        <!-- Lightbox for full-size image view -->
-        <div class="research-lightbox" id="research-lightbox" role="dialog" aria-modal="true" aria-label="Full-size slide">
-            <button type="button" class="research-lightbox-close" aria-label="Close">×</button>
-            <div class="research-lightbox-viewer" id="research-lightbox-viewer">
-                <img src="images/HCDE_519_images/1.png" alt="Slide (full size)" id="research-lightbox-img">
+        <!-- Header -->
+        <header class="project-header">
+            <div class="project-header-left">
+                <span class="project-label">+_QUALITATIVE_RESEARCH_+</span>
+                <h1 class="project-title">How Independent<br>Musicians Book Shows</h1>
             </div>
-            <div class="research-lightbox-zoom-controls">
-                <button type="button" class="research-lightbox-zoom-btn" id="research-zoom-out" aria-label="Zoom out">−</button>
-                <button type="button" class="research-lightbox-zoom-btn" id="research-zoom-in" aria-label="Zoom in">+</button>
+            <div class="project-meta">
+                COURSE&nbsp;<span>HCDE 519</span>
+                &nbsp;//&nbsp;
+                METHOD&nbsp;<span>Qualitative Study</span>
+                &nbsp;//&nbsp;
+                SLIDES&nbsp;<span>22</span>
+            </div>
+        </header>
+
+        <!-- Book reader -->
+        <section class="book-reader" id="bookReader" aria-label="Report viewer">
+            <button class="book-nav book-nav-prev" id="bookPrev" aria-label="Previous slide">←</button>
+
+            <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1000px;">
+                <div class="book-slide-wrap">
+                    <img id="bookSlideImg" src="images/HCDE_519_images/1.png" alt="Slide 1 of 22" loading="eager">
+                </div>
+                <div class="book-hud">
+                    <span class="book-hud-counter" id="bookCounter">01 / 22</span>
+                    <span class="book-hud-hint">← → arrow keys to navigate</span>
+                </div>
+            </div>
+
+            <button class="book-nav book-nav-next" id="bookNext" aria-label="Next slide">→</button>
+
+            <div class="book-progress-strip">
+                <div class="book-progress-fill" id="bookProgress" style="width: calc(100% / 22)"></div>
+            </div>
+        </section>
+
+        <!-- Thumbnail strip -->
+        <div class="book-thumbs-section">
+            <span class="book-thumbs-label">+_ALL_PAGES_+</span>
+            <div class="book-thumbs" id="bookThumbs">
+                <div class="book-thumb active" data-n="1"><img src="images/HCDE_519_images/1.png" alt="Slide 1" loading="lazy"></div>
+                <div class="book-thumb" data-n="2"><img src="images/HCDE_519_images/2.png" alt="Slide 2" loading="lazy"></div>
+                <div class="book-thumb" data-n="3"><img src="images/HCDE_519_images/3.png" alt="Slide 3" loading="lazy"></div>
+                <div class="book-thumb" data-n="4"><img src="images/HCDE_519_images/4.png" alt="Slide 4" loading="lazy"></div>
+                <div class="book-thumb" data-n="5"><img src="images/HCDE_519_images/5.png" alt="Slide 5" loading="lazy"></div>
+                <div class="book-thumb" data-n="6"><img src="images/HCDE_519_images/6.png" alt="Slide 6" loading="lazy"></div>
+                <div class="book-thumb" data-n="7"><img src="images/HCDE_519_images/7.png" alt="Slide 7" loading="lazy"></div>
+                <div class="book-thumb" data-n="8"><img src="images/HCDE_519_images/8.png" alt="Slide 8" loading="lazy"></div>
+                <div class="book-thumb" data-n="9"><img src="images/HCDE_519_images/9.png" alt="Slide 9" loading="lazy"></div>
+                <div class="book-thumb" data-n="10"><img src="images/HCDE_519_images/10.png" alt="Slide 10" loading="lazy"></div>
+                <div class="book-thumb" data-n="11"><img src="images/HCDE_519_images/11.png" alt="Slide 11" loading="lazy"></div>
+                <div class="book-thumb" data-n="12"><img src="images/HCDE_519_images/12.png" alt="Slide 12" loading="lazy"></div>
+                <div class="book-thumb" data-n="13"><img src="images/HCDE_519_images/13.png" alt="Slide 13" loading="lazy"></div>
+                <div class="book-thumb" data-n="14"><img src="images/HCDE_519_images/14.png" alt="Slide 14" loading="lazy"></div>
+                <div class="book-thumb" data-n="15"><img src="images/HCDE_519_images/15.png" alt="Slide 15" loading="lazy"></div>
+                <div class="book-thumb" data-n="16"><img src="images/HCDE_519_images/16.png" alt="Slide 16" loading="lazy"></div>
+                <div class="book-thumb" data-n="17"><img src="images/HCDE_519_images/17.png" alt="Slide 17" loading="lazy"></div>
+                <div class="book-thumb" data-n="18"><img src="images/HCDE_519_images/18.png" alt="Slide 18" loading="lazy"></div>
+                <div class="book-thumb" data-n="19"><img src="images/HCDE_519_images/19.png" alt="Slide 19" loading="lazy"></div>
+                <div class="book-thumb" data-n="20"><img src="images/HCDE_519_images/20.png" alt="Slide 20" loading="lazy"></div>
+                <div class="book-thumb" data-n="21"><img src="images/HCDE_519_images/21.png" alt="Slide 21" loading="lazy"></div>
+                <div class="book-thumb" data-n="22"><img src="images/HCDE_519_images/22.png" alt="Slide 22" loading="lazy"></div>
             </div>
         </div>
 
-        <main class="research-main">
-            <p class="research-label">Qualitative Research Study</p>
-            <h1 class="research-title">How Independent Musicians Book Shows</h1>
-            <p class="research-meta">Qualitative research exploring the booking process for independent musicians.</p>
-
-            <div class="research-block">
+        <!-- Research notes grid -->
+        <div class="research-notes">
+            <div class="research-note">
+                <span class="note-prefix">+_01_+</span>
                 <h3>Overview</h3>
                 <p>
                     This qualitative research study examined how independent musicians navigate the process
                     of booking live shows — from identifying venues and reaching out to promoters, to managing
-                    logistics and building ongoing relationships with venues.
+                    logistics and building ongoing relationships.
                 </p>
                 <p>
                     Independent musicians operate without the infrastructure of labels or booking agencies,
-                    relying heavily on personal networks, digital platforms, and self-taught knowledge to
-                    secure performance opportunities. This study set out to understand their workflows,
-                    pain points, and strategies in depth.
+                    relying on personal networks, digital platforms, and self-taught knowledge to
+                    secure performance opportunities.
                 </p>
             </div>
-
-            <div class="research-block">
+            <div class="research-note">
+                <span class="note-prefix">+_02_+</span>
                 <h3>Research Question</h3>
                 <p>
                     How do independent musicians identify, pursue, and manage live show bookings without
@@ -122,86 +383,43 @@
                     that process?
                 </p>
             </div>
-
-            <div class="research-block">
+            <div class="research-note">
+                <span class="note-prefix">+_03_+</span>
                 <h3>Methodology</h3>
                 <p>
-                    The study used a qualitative approach centered on in-depth interviews with independent
-                    musicians. Participants were recruited across genres and career stages to capture a
-                    range of experiences with the booking process.
+                    <strong>Media Elicitation</strong> was used as the primary data collection technique,
+                    prompting participants to bring and discuss screenshots, messages, and other artifacts
+                    tied to their booking experiences.
                 </p>
                 <p>
-                    <strong style="color:#dedede;">Media Elicitation</strong> was used as a primary data
-                    collection technique, prompting participants to bring and discuss images, screenshots,
-                    messages, or other media relevant to their booking experiences. This approach surfaced
-                    rich contextual detail that standard interviewing alone may not have captured — including
-                    specific tools, communication patterns, and emotional responses tied to concrete artifacts.
-                </p>
-                <p>
-                    <strong style="color:#dedede;">Journey Mapping</strong> was applied to synthesize
-                    participant data into a coherent picture of the end-to-end booking process. By mapping
-                    each stage — from identifying a venue to confirming a date and following up after the
-                    show — the team identified where friction, uncertainty, and informal workarounds most
-                    commonly occurred.
+                    <strong>Journey Mapping</strong> synthesized participant data into an end-to-end map
+                    of the booking process, surfacing where friction and informal workarounds most commonly occurred.
                 </p>
                 <ul>
                     <li>Semi-structured interviews</li>
                     <li>Media Elicitation</li>
                     <li>Journey Mapping</li>
-                    <li>Purposive sampling across genre and career stage</li>
+                    <li>Purposive sampling</li>
                 </ul>
             </div>
-
-            <div class="research-block">
+            <div class="research-note">
+                <span class="note-prefix">+_04_+</span>
                 <h3>Key Findings</h3>
                 <p>
-                    Analysis surfaced several core themes around how independent musicians approach
-                    the booking process, including the central role of personal relationships with
-                    venue staff, the challenge of cold outreach, and the use of social media as a
-                    primary discovery and credibility-building tool.
+                    Booking was consistently described as informal and relationship-driven, with personal
+                    connections to venue staff serving as the primary pathway to securing shows.
                 </p>
                 <p>
-                    Participants consistently described booking as an informal, relationship-driven
-                    process with limited standardization — pointing to a gap between how musicians
-                    experience booking and the tools currently available to support it.
+                    Social media functioned as both a discovery and credibility tool, while cold outreach
+                    remained a significant pain point with low response rates and no standardized process.
                 </p>
             </div>
+        </div>
 
-            <div class="research-block">
-                <h3>Outputs</h3>
-                <p>
-                    The research produced a final deliverable summarizing study design, methodology,
-                    findings, and design implications. All slides are shown below — click any to view
-                    at full size.
-                </p>
-                <div class="slide-gallery" id="slideGallery">
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/1.png"><img src="images/HCDE_519_images/1.png" alt="Slide 1" loading="lazy"><span class="slide-num">01 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/2.png"><img src="images/HCDE_519_images/2.png" alt="Slide 2" loading="lazy"><span class="slide-num">02 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/3.png"><img src="images/HCDE_519_images/3.png" alt="Slide 3" loading="lazy"><span class="slide-num">03 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/4.png"><img src="images/HCDE_519_images/4.png" alt="Slide 4" loading="lazy"><span class="slide-num">04 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/5.png"><img src="images/HCDE_519_images/5.png" alt="Slide 5" loading="lazy"><span class="slide-num">05 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/6.png"><img src="images/HCDE_519_images/6.png" alt="Slide 6" loading="lazy"><span class="slide-num">06 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/7.png"><img src="images/HCDE_519_images/7.png" alt="Slide 7" loading="lazy"><span class="slide-num">07 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/8.png"><img src="images/HCDE_519_images/8.png" alt="Slide 8" loading="lazy"><span class="slide-num">08 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/9.png"><img src="images/HCDE_519_images/9.png" alt="Slide 9" loading="lazy"><span class="slide-num">09 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/10.png"><img src="images/HCDE_519_images/10.png" alt="Slide 10" loading="lazy"><span class="slide-num">10 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/11.png"><img src="images/HCDE_519_images/11.png" alt="Slide 11" loading="lazy"><span class="slide-num">11 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/12.png"><img src="images/HCDE_519_images/12.png" alt="Slide 12" loading="lazy"><span class="slide-num">12 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/13.png"><img src="images/HCDE_519_images/13.png" alt="Slide 13" loading="lazy"><span class="slide-num">13 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/14.png"><img src="images/HCDE_519_images/14.png" alt="Slide 14" loading="lazy"><span class="slide-num">14 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/15.png"><img src="images/HCDE_519_images/15.png" alt="Slide 15" loading="lazy"><span class="slide-num">15 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/16.png"><img src="images/HCDE_519_images/16.png" alt="Slide 16" loading="lazy"><span class="slide-num">16 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/17.png"><img src="images/HCDE_519_images/17.png" alt="Slide 17" loading="lazy"><span class="slide-num">17 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/18.png"><img src="images/HCDE_519_images/18.png" alt="Slide 18" loading="lazy"><span class="slide-num">18 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/19.png"><img src="images/HCDE_519_images/19.png" alt="Slide 19" loading="lazy"><span class="slide-num">19 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/20.png"><img src="images/HCDE_519_images/20.png" alt="Slide 20" loading="lazy"><span class="slide-num">20 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/21.png"><img src="images/HCDE_519_images/21.png" alt="Slide 21" loading="lazy"><span class="slide-num">21 / 22</span></div>
-                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/22.png"><img src="images/HCDE_519_images/22.png" alt="Slide 22" loading="lazy"><span class="slide-num">22 / 22</span></div>
-                </div>
-            </div>
-
+        <div class="project-footer-row">
             <a href="./" class="back-link">← Back to home</a>
-        </main>
+        </div>
+
     </div>
 
     <footer class="footer">
@@ -214,86 +432,59 @@
     <script src="script.js"></script>
     <script>
         (function() {
-            var lightbox   = document.getElementById('research-lightbox');
-            var closeBtn   = document.querySelector('.research-lightbox-close');
-            var viewer     = document.getElementById('research-lightbox-viewer');
-            var img        = document.getElementById('research-lightbox-img');
-            var zoomInBtn  = document.getElementById('research-zoom-in');
-            var zoomOutBtn = document.getElementById('research-zoom-out');
+            var TOTAL = 22;
+            var current = 1;
 
-            if (!lightbox || !viewer || !img || !closeBtn || !zoomInBtn || !zoomOutBtn) return;
+            var slideImg  = document.getElementById('bookSlideImg');
+            var counter   = document.getElementById('bookCounter');
+            var progress  = document.getElementById('bookProgress');
+            var prevBtn   = document.getElementById('bookPrev');
+            var nextBtn   = document.getElementById('bookNext');
+            var thumbs    = document.querySelectorAll('.book-thumb');
 
-            var zoom = 1, panX = 0, panY = 0;
-            var minZoom = 1, maxZoom = 4, zoomStep = 0.35;
-            var isDragging = false, startX, startY, startPanX, startPanY;
+            function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
-            function applyTransform() {
-                img.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + zoom + ')';
-                viewer.classList.toggle('zoomed', zoom > 1);
-            }
-            function resetZoom() { zoom = 1; panX = 0; panY = 0; img.classList.remove('zoomable'); applyTransform(); }
-            function openLightbox(src) {
-                img.src = src;
-                resetZoom();
-                img.classList.add('zoomable');
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; resetZoom(); }
-            function doZoom(delta, cx, cy) {
-                var newZoom = Math.min(maxZoom, Math.max(minZoom, zoom + delta));
-                if (newZoom === zoom) return;
-                var factor = newZoom / zoom;
-                panX = cx - (cx - panX) * factor;
-                panY = cy - (cy - panY) * factor;
-                zoom = newZoom;
-                applyTransform();
-            }
+            function goTo(n) {
+                if (n < 1 || n > TOTAL || n === current) return;
+                current = n;
 
-            // Cover image in sticky column
-            var coverBtn = document.querySelector('.research-main-image-wrap');
-            if (coverBtn) {
-                coverBtn.addEventListener('click', function() {
-                    openLightbox('images/HCDE_519_images/1.png');
+                slideImg.classList.add('transitioning');
+                setTimeout(function() {
+                    slideImg.src = 'images/HCDE_519_images/' + current + '.png';
+                    slideImg.alt = 'Slide ' + current + ' of ' + TOTAL;
+                    slideImg.classList.remove('transitioning');
+                }, 80);
+
+                counter.textContent = pad(current) + ' / ' + TOTAL;
+                progress.style.width = (current / TOTAL * 100) + '%';
+
+                thumbs.forEach(function(t) {
+                    t.classList.toggle('active', parseInt(t.getAttribute('data-n')) === current);
                 });
+
+                // scroll active thumb into view
+                var activeThumb = document.querySelector('.book-thumb.active');
+                if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+                prevBtn.disabled = current === 1;
+                nextBtn.disabled = current === TOTAL;
             }
 
-            // All gallery slides
-            document.querySelectorAll('.slide-gallery-item').forEach(function(item) {
-                item.addEventListener('click', function() {
-                    openLightbox(item.getAttribute('data-slide'));
-                });
+            prevBtn.addEventListener('click', function() { goTo(current - 1); });
+            nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+            thumbs.forEach(function(t) {
+                t.addEventListener('click', function() { goTo(parseInt(t.getAttribute('data-n'))); });
             });
 
-            closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeLightbox(); });
-            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
-            zoomInBtn.addEventListener('click', function(e) { e.stopPropagation(); doZoom(zoomStep, 0, 0); });
-            zoomOutBtn.addEventListener('click', function(e) { e.stopPropagation(); doZoom(-zoomStep, 0, 0); });
-
-            viewer.addEventListener('wheel', function(e) {
-                e.preventDefault();
-                var rect = viewer.getBoundingClientRect();
-                var cx = e.clientX - rect.left - rect.width / 2;
-                var cy = e.clientY - rect.top - rect.height / 2;
-                doZoom(e.deltaY > 0 ? -zoomStep : zoomStep, cx, cy);
-            }, { passive: false });
-
-            viewer.addEventListener('mousedown', function(e) {
-                if (zoom <= 1) return;
-                isDragging = true; startX = e.clientX; startY = e.clientY; startPanX = panX; startPanY = panY;
-                viewer.classList.add('dragging');
-            });
-            document.addEventListener('mousemove', function(e) {
-                if (!isDragging) return;
-                panX = startPanX + (e.clientX - startX); panY = startPanY + (e.clientY - startY);
-                applyTransform();
-            });
-            document.addEventListener('mouseup', function() { isDragging = false; viewer.classList.remove('dragging'); });
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                    if (zoom > 1) resetZoom(); else closeLightbox();
-                }
+                if (e.key === 'ArrowLeft')  goTo(current - 1);
+                if (e.key === 'ArrowRight') goTo(current + 1);
             });
+
+            // init state
+            prevBtn.disabled = true;
+            goTo(1);
         })();
     </script>
 </body>
