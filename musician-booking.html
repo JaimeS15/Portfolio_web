@@ -11,51 +11,131 @@
     <style>
         html { background: #0a0a0a; background-image: none; }
 
-        /* ── Page wrapper ── */
-        .project-page { padding-top: 44px; }
-
-        /* ── Project header ── */
-        .project-header {
-            padding: 2.5rem 3rem 2rem;
-            border-bottom: 1px solid #2e2e2e;
+        /* ── Top two-column section ── */
+        .research-layout {
+            padding-top: 44px;
+            min-height: calc(100vh - 44px);
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 2rem;
-            flex-wrap: wrap;
         }
-        .project-header-left {}
-        .project-label {
+        .research-image-column {
+            position: sticky;
+            top: 44px;
+            width: 45%;
+            max-width: 520px;
+            height: calc(100vh - 44px);
+            padding: 2rem 2rem 2rem 2.5rem;
+            flex-shrink: 0;
+        }
+        .research-image-column img {
+            width: 100%;
+            height: auto;
+            max-height: calc(100vh - 100px);
+            object-fit: contain;
+            object-position: left center;
+            filter: grayscale(10%) contrast(1.04);
+            border: 1px solid #2e2e2e;
+            transition: border-color 100ms linear;
+        }
+        .research-main-image-wrap {
+            cursor: pointer;
+            display: block;
+            line-height: 0;
+            background: transparent;
+            border: none;
+            padding: 0;
+            width: 100%;
+        }
+        .research-main-image-wrap:hover img { border-color: #c8f000; }
+        .research-main-image-wrap:focus { outline: 1px solid #c8f000; outline-offset: 2px; }
+
+        .research-main {
+            flex: 1;
+            min-width: 0;
+            max-width: 560px;
+            padding: 2rem 2.5rem 4rem 2rem;
+        }
+        .research-label {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.58rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: #c8f000;
-            display: block;
             margin-bottom: 0.5rem;
+            display: block;
         }
-        .project-title {
+        .research-title {
             font-family: 'Barlow Condensed', sans-serif;
-            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.01em;
             line-height: 1.0;
             color: #dedede;
-            margin: 0;
+            margin-bottom: 0.75rem;
         }
-        .project-meta {
+        .research-meta {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.68rem;
-            color: #636363;
-            letter-spacing: 0.1em;
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
+            font-size: 0.75rem;
+            color: #a8a8a8;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #2e2e2e;
+            letter-spacing: 0.04em;
         }
-        .project-meta span { color: #a8a8a8; }
+        .research-block { margin-bottom: 2.25rem; padding-top: 2rem; border-top: 1px solid #2e2e2e; }
+        .research-block:first-of-type { border-top: none; padding-top: 0; }
+        .research-block h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #dedede;
+            margin-bottom: 0.75rem;
+        }
+        .research-block p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin-bottom: 0.9rem;
+        }
+        .research-block ul {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin: 0 0 0.9rem 1.25rem;
+        }
+        .research-block ul li { margin-bottom: 0.3rem; }
+        .research-block strong { color: #dedede; font-weight: 500; }
 
-        /* ── Book reader ── */
+        /* ── Book reader section ── */
+        .book-section {
+            border-top: 1px solid #2e2e2e;
+        }
+        .book-section-header {
+            padding: 1.75rem 2.5rem 1.25rem;
+            border-bottom: 1px solid #2e2e2e;
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+        }
+        .book-section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            color: #c8f000;
+            text-transform: uppercase;
+        }
+        .book-section-hint {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.52rem;
+            color: #3a3a3a;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
         .book-reader {
             position: relative;
             display: flex;
@@ -63,13 +143,13 @@
             justify-content: center;
             padding: 2.5rem 5rem;
             background: #0a0a0a;
-            min-height: 82vh;
+            min-height: 80vh;
             border-bottom: 1px solid #2e2e2e;
         }
         .book-slide-wrap {
             position: relative;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1060px;
             line-height: 0;
         }
         .book-slide-wrap img {
@@ -78,11 +158,10 @@
             display: block;
             border: 1px solid #2e2e2e;
             filter: contrast(1.03);
-            transition: opacity 120ms steps(4, end);
+            transition: opacity 80ms steps(4, end);
         }
         .book-slide-wrap img.transitioning { opacity: 0; }
 
-        /* nav arrows */
         .book-nav {
             position: absolute;
             top: 50%;
@@ -107,15 +186,14 @@
         .book-nav-prev { left: 0.75rem; }
         .book-nav-next { right: 0.75rem; }
 
-        /* HUD bar below slide */
         .book-hud {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.75rem 0 0;
+            padding-top: 0.75rem;
             margin-top: 0.75rem;
             border-top: 1px solid #2e2e2e;
-            max-width: 1000px;
+            max-width: 1060px;
             width: 100%;
         }
         .book-hud-counter {
@@ -132,7 +210,6 @@
             text-transform: uppercase;
         }
 
-        /* progress strip */
         .book-progress-strip {
             position: absolute;
             bottom: 0;
@@ -147,10 +224,10 @@
             transition: width 150ms steps(6, end);
         }
 
-        /* ── Thumb strip ── */
+        /* thumbnail strip */
         .book-thumbs-section {
             border-bottom: 1px solid #2e2e2e;
-            padding: 1.25rem 3rem;
+            padding: 1.25rem 2.5rem;
             background: #0d0d0d;
         }
         .book-thumbs-label {
@@ -159,7 +236,7 @@
             letter-spacing: 0.2em;
             color: #3a3a3a;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            margin-bottom: 0.9rem;
             display: block;
         }
         .book-thumbs {
@@ -177,13 +254,12 @@
             border: 1px solid #2e2e2e;
             line-height: 0;
             transition: border-color 100ms linear;
-            position: relative;
         }
         .book-thumb img {
             width: 100%;
             height: auto;
             display: block;
-            filter: grayscale(20%) contrast(1.02);
+            filter: grayscale(25%) contrast(1.02);
             transition: filter 100ms linear;
         }
         .book-thumb:hover { border-color: #636363; }
@@ -191,61 +267,11 @@
         .book-thumb.active { border-color: #c8f000; }
         .book-thumb.active img { filter: none; }
 
-        /* ── Research notes ── */
-        .research-notes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 0;
-            border-bottom: 1px solid #2e2e2e;
-        }
-        .research-note {
-            padding: 2.25rem 3rem;
-            border-right: 1px solid #2e2e2e;
-        }
-        .research-note:last-child { border-right: none; }
-        .research-note h3 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #dedede;
-            margin-bottom: 0.9rem;
-        }
-        .research-note p {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            line-height: 1.9;
-            color: #a8a8a8;
-            margin-bottom: 0.75rem;
-        }
-        .research-note p:last-child { margin-bottom: 0; }
-        .research-note ul {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            line-height: 1.9;
-            color: #a8a8a8;
-            margin: 0 0 0 1.1rem;
-            padding: 0;
-        }
-        .research-note ul li { margin-bottom: 0.2rem; }
-        .research-note strong { color: #dedede; font-weight: 500; }
-        .note-prefix {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.52rem;
-            color: #c8f000;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ── Footer row ── */
+        /* footer row */
         .project-footer-row {
-            padding: 1.5rem 3rem;
+            padding: 1.5rem 2.5rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
         .back-link {
             font-family: 'IBM Plex Mono', monospace;
@@ -263,12 +289,13 @@
 
         /* ── Responsive ── */
         @media (max-width: 900px) {
-            .project-header { padding: 1.75rem 1.5rem 1.5rem; }
+            .research-layout { flex-direction: column; }
+            .research-image-column { position: relative; top: 0; width: 100%; max-width: none; height: auto; padding: 2rem 1.5rem 0; }
+            .research-image-column img { max-height: none; }
+            .research-main { max-width: none; padding: 2rem 1.5rem 3rem; }
             .book-reader { padding: 2rem 3.5rem; min-height: 60vw; }
+            .book-section-header { padding: 1.25rem 1.5rem; }
             .book-thumbs-section { padding: 1rem 1.5rem; }
-            .research-notes { grid-template-columns: 1fr; }
-            .research-note { border-right: none; border-bottom: 1px solid #2e2e2e; padding: 1.75rem 1.5rem; }
-            .research-note:last-child { border-bottom: none; }
             .project-footer-row { padding: 1.25rem 1.5rem; }
         }
         @media (max-width: 540px) {
@@ -277,6 +304,14 @@
             .book-nav-prev { left: 0.25rem; }
             .book-nav-next { right: 0.25rem; }
             .book-thumb { width: 54px; }
+        }
+        @media (max-width: 480px) {
+            .research-layout { padding-top: 40px; }
+            .research-image-column { padding: 1.25rem 1rem 0; }
+            .research-main { padding: 1.5rem 1rem 2.5rem; }
+            .research-title { font-size: 1.3rem; }
+            .research-block h3 { font-size: 1.05rem; }
+            .research-block p { font-size: 0.72rem; }
         }
     </style>
 </head>
@@ -291,28 +326,95 @@
         </div>
     </nav>
 
-    <div class="project-page">
+    <!-- Top: image left, text right -->
+    <div class="research-layout">
+        <aside class="research-image-column">
+            <button type="button" class="research-main-image-wrap" id="coverBtn" aria-label="View cover slide at full size">
+                <img src="images/HCDE_519_images/1.png" alt="How Independent Musicians Book Shows — Cover slide" loading="eager">
+            </button>
+        </aside>
 
-        <!-- Header -->
-        <header class="project-header">
-            <div class="project-header-left">
-                <span class="project-label">+_QUALITATIVE_RESEARCH_+</span>
-                <h1 class="project-title">How Independent<br>Musicians Book Shows</h1>
-            </div>
-            <div class="project-meta">
-                COURSE&nbsp;<span>HCDE 519</span>
-                &nbsp;//&nbsp;
-                METHOD&nbsp;<span>Qualitative Study</span>
-                &nbsp;//&nbsp;
-                SLIDES&nbsp;<span>22</span>
-            </div>
-        </header>
+        <main class="research-main">
+            <p class="research-label">Qualitative Research Study</p>
+            <h1 class="research-title">How Independent Musicians Book Shows</h1>
+            <p class="research-meta">Qualitative research exploring the booking process for independent musicians — HCDE 519</p>
 
-        <!-- Book reader -->
-        <section class="book-reader" id="bookReader" aria-label="Report viewer">
+            <div class="research-block">
+                <h3>Overview</h3>
+                <p>
+                    This qualitative research study examined how independent musicians navigate the process
+                    of booking live shows — from identifying venues and reaching out to promoters, to managing
+                    logistics and building ongoing relationships with venues.
+                </p>
+                <p>
+                    Independent musicians operate without the infrastructure of labels or booking agencies,
+                    relying heavily on personal networks, digital platforms, and self-taught knowledge to
+                    secure performance opportunities. This study set out to understand their workflows,
+                    pain points, and strategies in depth.
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>Research Question</h3>
+                <p>
+                    How do independent musicians identify, pursue, and manage live show bookings without
+                    institutional support — and what tools, strategies, and relationships enable or hinder
+                    that process?
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>Methodology</h3>
+                <p>
+                    The study used a qualitative approach centered on in-depth interviews with independent
+                    musicians. Participants were recruited across genres and career stages to capture a
+                    range of experiences with the booking process.
+                </p>
+                <p>
+                    <strong>Media Elicitation</strong> was used as the primary data collection technique,
+                    prompting participants to bring and discuss images, screenshots, messages, or other media
+                    relevant to their booking experiences — surfacing rich contextual detail tied to concrete artifacts.
+                </p>
+                <p>
+                    <strong>Journey Mapping</strong> was applied to synthesize participant data into a
+                    coherent picture of the end-to-end booking process, identifying where friction, uncertainty,
+                    and informal workarounds most commonly occurred.
+                </p>
+                <ul>
+                    <li>Semi-structured interviews</li>
+                    <li>Media Elicitation</li>
+                    <li>Journey Mapping</li>
+                    <li>Purposive sampling across genre and career stage</li>
+                </ul>
+            </div>
+
+            <div class="research-block">
+                <h3>Key Findings</h3>
+                <p>
+                    Analysis surfaced several core themes: the central role of personal relationships with
+                    venue staff, the challenge of cold outreach, and the use of social media as a primary
+                    discovery and credibility-building tool.
+                </p>
+                <p>
+                    Participants consistently described booking as an informal, relationship-driven process
+                    with limited standardization — pointing to a gap between how musicians experience booking
+                    and the tools currently available to support it.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Full report reader -->
+    <div class="book-section">
+        <div class="book-section-header">
+            <span class="book-section-label">+_FULL_REPORT_+</span>
+            <span class="book-section-hint">22 pages — use arrows or keyboard ← → to navigate</span>
+        </div>
+
+        <div class="book-reader" id="bookReader" aria-label="Report viewer">
             <button class="book-nav book-nav-prev" id="bookPrev" aria-label="Previous slide">←</button>
 
-            <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1000px;">
+            <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1060px;">
                 <div class="book-slide-wrap">
                     <img id="bookSlideImg" src="images/HCDE_519_images/1.png" alt="Slide 1 of 22" loading="eager">
                 </div>
@@ -327,9 +429,8 @@
             <div class="book-progress-strip">
                 <div class="book-progress-fill" id="bookProgress" style="width: calc(100% / 22)"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- Thumbnail strip -->
         <div class="book-thumbs-section">
             <span class="book-thumbs-label">+_ALL_PAGES_+</span>
             <div class="book-thumbs" id="bookThumbs">
@@ -358,68 +459,9 @@
             </div>
         </div>
 
-        <!-- Research notes grid -->
-        <div class="research-notes">
-            <div class="research-note">
-                <span class="note-prefix">+_01_+</span>
-                <h3>Overview</h3>
-                <p>
-                    This qualitative research study examined how independent musicians navigate the process
-                    of booking live shows — from identifying venues and reaching out to promoters, to managing
-                    logistics and building ongoing relationships.
-                </p>
-                <p>
-                    Independent musicians operate without the infrastructure of labels or booking agencies,
-                    relying on personal networks, digital platforms, and self-taught knowledge to
-                    secure performance opportunities.
-                </p>
-            </div>
-            <div class="research-note">
-                <span class="note-prefix">+_02_+</span>
-                <h3>Research Question</h3>
-                <p>
-                    How do independent musicians identify, pursue, and manage live show bookings without
-                    institutional support — and what tools, strategies, and relationships enable or hinder
-                    that process?
-                </p>
-            </div>
-            <div class="research-note">
-                <span class="note-prefix">+_03_+</span>
-                <h3>Methodology</h3>
-                <p>
-                    <strong>Media Elicitation</strong> was used as the primary data collection technique,
-                    prompting participants to bring and discuss screenshots, messages, and other artifacts
-                    tied to their booking experiences.
-                </p>
-                <p>
-                    <strong>Journey Mapping</strong> synthesized participant data into an end-to-end map
-                    of the booking process, surfacing where friction and informal workarounds most commonly occurred.
-                </p>
-                <ul>
-                    <li>Semi-structured interviews</li>
-                    <li>Media Elicitation</li>
-                    <li>Journey Mapping</li>
-                    <li>Purposive sampling</li>
-                </ul>
-            </div>
-            <div class="research-note">
-                <span class="note-prefix">+_04_+</span>
-                <h3>Key Findings</h3>
-                <p>
-                    Booking was consistently described as informal and relationship-driven, with personal
-                    connections to venue staff serving as the primary pathway to securing shows.
-                </p>
-                <p>
-                    Social media functioned as both a discovery and credibility tool, while cold outreach
-                    remained a significant pain point with low response rates and no standardized process.
-                </p>
-            </div>
-        </div>
-
         <div class="project-footer-row">
             <a href="./" class="back-link">← Back to home</a>
         </div>
-
     </div>
 
     <footer class="footer">
@@ -435,12 +477,12 @@
             var TOTAL = 22;
             var current = 1;
 
-            var slideImg  = document.getElementById('bookSlideImg');
-            var counter   = document.getElementById('bookCounter');
-            var progress  = document.getElementById('bookProgress');
-            var prevBtn   = document.getElementById('bookPrev');
-            var nextBtn   = document.getElementById('bookNext');
-            var thumbs    = document.querySelectorAll('.book-thumb');
+            var slideImg = document.getElementById('bookSlideImg');
+            var counter  = document.getElementById('bookCounter');
+            var progress = document.getElementById('bookProgress');
+            var prevBtn  = document.getElementById('bookPrev');
+            var nextBtn  = document.getElementById('bookNext');
+            var thumbs   = document.querySelectorAll('.book-thumb');
 
             function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
@@ -462,7 +504,6 @@
                     t.classList.toggle('active', parseInt(t.getAttribute('data-n')) === current);
                 });
 
-                // scroll active thumb into view
                 var activeThumb = document.querySelector('.book-thumb.active');
                 if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
@@ -477,14 +518,20 @@
                 t.addEventListener('click', function() { goTo(parseInt(t.getAttribute('data-n'))); });
             });
 
+            // clicking the cover image in the sticky column jumps to the report reader
+            var coverBtn = document.getElementById('coverBtn');
+            if (coverBtn) {
+                coverBtn.addEventListener('click', function() {
+                    document.querySelector('.book-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'ArrowLeft')  goTo(current - 1);
                 if (e.key === 'ArrowRight') goTo(current + 1);
             });
 
-            // init state
             prevBtn.disabled = true;
-            goTo(1);
         })();
     </script>
 </body>
