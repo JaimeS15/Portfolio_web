@@ -41,10 +41,13 @@
         .research-block ul li { margin-bottom: 0.3rem; }
         .research-block img { width: 100%; height: auto; margin: 1.5rem 0; filter: grayscale(15%) contrast(1.04); border: 1px solid #2e2e2e; display: block; }
         .research-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.63rem; color: #808080; letter-spacing: 0.08em; margin-top: -0.5rem; margin-bottom: 1.75rem; }
-        .research-image-placeholder { width: 100%; aspect-ratio: 3 / 4; background: #141414; border: 1px dashed #2e2e2e; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
-        .research-image-placeholder span { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: #636363; letter-spacing: 0.16em; text-transform: uppercase; text-align: center; }
         .back-link { font-family: 'IBM Plex Mono', monospace; display: inline-block; margin-top: 2rem; color: #c8f000; border: 1px solid #c8f000; padding: 0.45rem 1rem; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; transition: background-color 100ms linear, color 100ms linear; text-decoration: none; }
         .back-link:hover { background: #c8f000; color: #0a0a0a; }
+        .slide-gallery { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; }
+        .slide-gallery-item { position: relative; cursor: pointer; line-height: 0; }
+        .slide-gallery-item img { width: 100%; height: auto; filter: grayscale(10%) contrast(1.04); border: 1px solid #2e2e2e; display: block; transition: border-color 100ms linear; }
+        .slide-gallery-item:hover img { border-color: #c8f000; }
+        .slide-gallery-item .slide-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: #636363; letter-spacing: 0.12em; margin-top: 0.4rem; display: block; line-height: 1; }
         @media (max-width: 900px) {
             .research-layout { flex-direction: column; }
             .research-image-column { position: relative; top: 0; width: 100%; max-width: none; height: auto; padding: 2rem 1.5rem 0; }
@@ -74,21 +77,16 @@
 
     <div class="research-layout">
         <aside class="research-image-column">
-            <!-- Replace the placeholder below with your Canva export image once ready -->
-            <!-- <button type="button" class="research-main-image-wrap" aria-label="View deliverable at full size">
-                <img src="images/musician_booking_images/deliverable.png" alt="How Independent Musicians Book Shows — Research Deliverable" loading="eager">
-            </button> -->
-            <div class="research-image-placeholder">
-                <span>+_DELIVERABLE_IMAGE_+</span>
-                <span>Add your Canva export here</span>
-            </div>
+            <button type="button" class="research-main-image-wrap" aria-label="View cover slide at full size">
+                <img src="images/HCDE_519_images/1.png" alt="How Independent Musicians Book Shows — Cover slide" loading="eager">
+            </button>
         </aside>
 
         <!-- Lightbox for full-size image view -->
-        <div class="research-lightbox" id="research-lightbox" role="dialog" aria-modal="true" aria-label="Full-size deliverable">
+        <div class="research-lightbox" id="research-lightbox" role="dialog" aria-modal="true" aria-label="Full-size slide">
             <button type="button" class="research-lightbox-close" aria-label="Close">×</button>
             <div class="research-lightbox-viewer" id="research-lightbox-viewer">
-                <img src="" alt="Deliverable (full size)" id="research-lightbox-img">
+                <img src="images/HCDE_519_images/1.png" alt="Slide (full size)" id="research-lightbox-img">
             </div>
             <div class="research-lightbox-zoom-controls">
                 <button type="button" class="research-lightbox-zoom-btn" id="research-zoom-out" aria-label="Zoom out">−</button>
@@ -163,9 +161,33 @@
                 <h3>Outputs</h3>
                 <p>
                     The research produced a final deliverable summarizing study design, methodology,
-                    findings, and design implications. The deliverable is shown in the panel on the left
-                    and can be viewed at full size by clicking the image.
+                    findings, and design implications. All slides are shown below — click any to view
+                    at full size.
                 </p>
+                <div class="slide-gallery" id="slideGallery">
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/1.png"><img src="images/HCDE_519_images/1.png" alt="Slide 1" loading="lazy"><span class="slide-num">01 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/2.png"><img src="images/HCDE_519_images/2.png" alt="Slide 2" loading="lazy"><span class="slide-num">02 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/3.png"><img src="images/HCDE_519_images/3.png" alt="Slide 3" loading="lazy"><span class="slide-num">03 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/4.png"><img src="images/HCDE_519_images/4.png" alt="Slide 4" loading="lazy"><span class="slide-num">04 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/5.png"><img src="images/HCDE_519_images/5.png" alt="Slide 5" loading="lazy"><span class="slide-num">05 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/6.png"><img src="images/HCDE_519_images/6.png" alt="Slide 6" loading="lazy"><span class="slide-num">06 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/7.png"><img src="images/HCDE_519_images/7.png" alt="Slide 7" loading="lazy"><span class="slide-num">07 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/8.png"><img src="images/HCDE_519_images/8.png" alt="Slide 8" loading="lazy"><span class="slide-num">08 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/9.png"><img src="images/HCDE_519_images/9.png" alt="Slide 9" loading="lazy"><span class="slide-num">09 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/10.png"><img src="images/HCDE_519_images/10.png" alt="Slide 10" loading="lazy"><span class="slide-num">10 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/11.png"><img src="images/HCDE_519_images/11.png" alt="Slide 11" loading="lazy"><span class="slide-num">11 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/12.png"><img src="images/HCDE_519_images/12.png" alt="Slide 12" loading="lazy"><span class="slide-num">12 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/13.png"><img src="images/HCDE_519_images/13.png" alt="Slide 13" loading="lazy"><span class="slide-num">13 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/14.png"><img src="images/HCDE_519_images/14.png" alt="Slide 14" loading="lazy"><span class="slide-num">14 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/15.png"><img src="images/HCDE_519_images/15.png" alt="Slide 15" loading="lazy"><span class="slide-num">15 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/16.png"><img src="images/HCDE_519_images/16.png" alt="Slide 16" loading="lazy"><span class="slide-num">16 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/17.png"><img src="images/HCDE_519_images/17.png" alt="Slide 17" loading="lazy"><span class="slide-num">17 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/18.png"><img src="images/HCDE_519_images/18.png" alt="Slide 18" loading="lazy"><span class="slide-num">18 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/19.png"><img src="images/HCDE_519_images/19.png" alt="Slide 19" loading="lazy"><span class="slide-num">19 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/20.png"><img src="images/HCDE_519_images/20.png" alt="Slide 20" loading="lazy"><span class="slide-num">20 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/21.png"><img src="images/HCDE_519_images/21.png" alt="Slide 21" loading="lazy"><span class="slide-num">21 / 22</span></div>
+                    <div class="slide-gallery-item" data-slide="images/HCDE_519_images/22.png"><img src="images/HCDE_519_images/22.png" alt="Slide 22" loading="lazy"><span class="slide-num">22 / 22</span></div>
+                </div>
             </div>
 
             <a href="./" class="back-link">← Back to home</a>
@@ -182,15 +204,14 @@
     <script src="script.js"></script>
     <script>
         (function() {
-            var btn = document.querySelector('.research-main-image-wrap');
-            var lightbox = document.getElementById('research-lightbox');
-            var closeBtn = document.querySelector('.research-lightbox-close');
-            var viewer = document.getElementById('research-lightbox-viewer');
-            var img = document.getElementById('research-lightbox-img');
-            var zoomInBtn = document.getElementById('research-zoom-in');
+            var lightbox   = document.getElementById('research-lightbox');
+            var closeBtn   = document.querySelector('.research-lightbox-close');
+            var viewer     = document.getElementById('research-lightbox-viewer');
+            var img        = document.getElementById('research-lightbox-img');
+            var zoomInBtn  = document.getElementById('research-zoom-in');
             var zoomOutBtn = document.getElementById('research-zoom-out');
 
-            if (!btn || !lightbox || !viewer || !img || !closeBtn || !zoomInBtn || !zoomOutBtn) return;
+            if (!lightbox || !viewer || !img || !closeBtn || !zoomInBtn || !zoomOutBtn) return;
 
             var zoom = 1, panX = 0, panY = 0;
             var minZoom = 1, maxZoom = 4, zoomStep = 0.35;
@@ -200,22 +221,40 @@
                 img.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + zoom + ')';
                 viewer.classList.toggle('zoomed', zoom > 1);
             }
-
             function resetZoom() { zoom = 1; panX = 0; panY = 0; img.classList.remove('zoomable'); applyTransform(); }
-            function openLightbox() { resetZoom(); img.classList.add('zoomable'); lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function openLightbox(src) {
+                img.src = src;
+                resetZoom();
+                img.classList.add('zoomable');
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
             function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; resetZoom(); }
-
-            function doZoom(delta, centerX, centerY) {
+            function doZoom(delta, cx, cy) {
                 var newZoom = Math.min(maxZoom, Math.max(minZoom, zoom + delta));
                 if (newZoom === zoom) return;
                 var factor = newZoom / zoom;
-                panX = centerX - (centerX - panX) * factor;
-                panY = centerY - (centerY - panY) * factor;
+                panX = cx - (cx - panX) * factor;
+                panY = cy - (cy - panY) * factor;
                 zoom = newZoom;
                 applyTransform();
             }
 
-            btn.addEventListener('click', openLightbox);
+            // Cover image in sticky column
+            var coverBtn = document.querySelector('.research-main-image-wrap');
+            if (coverBtn) {
+                coverBtn.addEventListener('click', function() {
+                    openLightbox('images/HCDE_519_images/1.png');
+                });
+            }
+
+            // All gallery slides
+            document.querySelectorAll('.slide-gallery-item').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    openLightbox(item.getAttribute('data-slide'));
+                });
+            });
+
             closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeLightbox(); });
             lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
             zoomInBtn.addEventListener('click', function(e) { e.stopPropagation(); doZoom(zoomStep, 0, 0); });
@@ -226,11 +265,7 @@
                 var rect = viewer.getBoundingClientRect();
                 var cx = e.clientX - rect.left - rect.width / 2;
                 var cy = e.clientY - rect.top - rect.height / 2;
-                if (e.ctrlKey || e.metaKey || zoom > 1) {
-                    doZoom(e.deltaY > 0 ? -zoomStep : zoomStep, cx, cy);
-                } else {
-                    doZoom(e.deltaY > 0 ? -zoomStep : zoomStep, cx, cy);
-                }
+                doZoom(e.deltaY > 0 ? -zoomStep : zoomStep, cx, cy);
             }, { passive: false });
 
             viewer.addEventListener('mousedown', function(e) {
