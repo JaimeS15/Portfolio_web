@@ -2,6 +2,63 @@
 // PORTFOLIO WEBSITE JAVASCRIPT
 // ========================================
 
+// ── Boot Loader ──────────────────────────
+(function initBootLoader() {
+    const loader = document.getElementById('boot-loader');
+    if (!loader) return;
+
+    // Lock scroll while loader is active
+    document.body.style.overflow = 'hidden';
+
+    const header   = loader.querySelector('.boot-header');
+    const divider1 = loader.querySelector('.boot-divider');
+    const rows     = loader.querySelectorAll('.boot-row');
+    const divider2 = loader.querySelector('.boot-divider-2');
+    const progRow  = loader.querySelector('.boot-progress-row');
+    const barFill  = document.getElementById('bootBarFill');
+    const pctEl    = document.getElementById('bootPct');
+    const access   = document.getElementById('bootAccess');
+
+    // Build ordered reveal sequence
+    const sequence = [header, divider1, ...rows, divider2];
+    const lineGap  = 120; // ms between each line
+
+    sequence.forEach((el, i) => {
+        setTimeout(() => el.classList.add('boot-visible'), 80 + i * lineGap);
+    });
+
+    // Progress row appears after all lines
+    const progStart = 80 + sequence.length * lineGap + 60;
+    setTimeout(() => {
+        progRow.classList.add('boot-visible');
+
+        // Kick off bar fill after a tick
+        setTimeout(() => {
+            barFill.style.width = '100%';
+
+            // Count percentage in sync with bar (~700ms, 14 steps → ~50ms each)
+            let count = 0;
+            const step = Math.ceil(100 / 14);
+            const ticker = setInterval(() => {
+                count = Math.min(count + step, 100);
+                pctEl.textContent = count + '%';
+                if (count >= 100) clearInterval(ticker);
+            }, 50);
+        }, 60);
+    }, progStart);
+
+    // "ACCESS GRANTED" flashes on when bar is full
+    const accessTime = progStart + 60 + 700 + 120;
+    setTimeout(() => access.classList.add('boot-visible'), accessTime);
+
+    // Wipe loader off screen
+    setTimeout(() => {
+        loader.classList.add('boot-exit');
+        document.body.style.overflow = '';
+        setTimeout(() => loader.remove(), 400);
+    }, accessTime + 450);
+})();
+
 // Navbar scroll effect - hide on scroll down, show on scroll up
 let lastScrollTop = 0;
 
