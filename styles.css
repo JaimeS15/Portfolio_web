@@ -530,13 +530,15 @@ a {
 }
 
 #projImg {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center top;
     display: block;
     filter: grayscale(28%) contrast(1.05) brightness(0.84);
-    transition: opacity 100ms steps(5, end);
+    transition: opacity 180ms steps(6, end);
 }
 
 #projImg.proj-transitioning { opacity: 0; }
@@ -558,7 +560,7 @@ a {
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     opacity: 0;
-    transition: opacity 60ms steps(3, end);
+    transition: opacity 120ms steps(4, end);
 }
 
 .proj-viewer-title {
@@ -571,7 +573,7 @@ a {
     line-height: 1;
     margin-bottom: 0.25rem;
     opacity: 0;
-    transition: opacity 60ms steps(3, end);
+    transition: opacity 120ms steps(4, end);
 }
 
 .proj-viewer-cat {
@@ -582,7 +584,7 @@ a {
     text-transform: uppercase;
     margin-bottom: 0.4rem;
     opacity: 0;
-    transition: opacity 60ms steps(3, end);
+    transition: opacity 120ms steps(4, end);
 }
 
 .proj-viewer-brief {
@@ -591,7 +593,7 @@ a {
     color: var(--clr-gray-lt);
     line-height: 1.65;
     opacity: 0;
-    transition: opacity 60ms steps(3, end);
+    transition: opacity 120ms steps(4, end);
 }
 
 .proj-viewer-cursor {
@@ -601,7 +603,7 @@ a {
     color: var(--clr-accent);
     margin-left: 3px;
     opacity: 0;
-    transition: opacity 60ms steps(3, end);
+    transition: opacity 120ms steps(4, end);
     animation: proj-blink 900ms steps(1, end) infinite;
 }
 
