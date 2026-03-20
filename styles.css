@@ -508,10 +508,11 @@ a {
 }
 
 .proj-viewer-img-wrap {
-    flex: 1;
     position: relative;
     overflow: hidden;
-    min-height: 0;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    max-height: 55vh;
 }
 
 .proj-viewer-img-wrap::after {
