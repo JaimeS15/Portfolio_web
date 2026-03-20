@@ -70,52 +70,25 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="hud-readout">PROJ: 04 // CAT: UX-RESEARCH // STATUS: ACTIVE</div>
-                    <div class="case-grid">
-                        <a href="./runar.html" class="case-card">
-                            <div class="case-card-media">
-                                <img src="images/Frame.jpg" alt="RunAR AR interface concept for runners" loading="eager">
-                                <span class="case-badge">CASE_01</span>
+                    <div class="hud-readout" id="projHud">PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE</div>
+                    <div class="proj-viewer" id="projViewer">
+                        <div class="proj-viewer-img-wrap">
+                            <img id="projImg" src="images/Frame.jpg" alt="RunAR" loading="eager">
+                        </div>
+                        <div class="proj-viewer-body">
+                            <span class="proj-viewer-badge" id="projBadge">+_CASE_01_+</span>
+                            <h2 class="proj-viewer-title" id="projTitle">RunAR</h2>
+                            <p class="proj-viewer-cat" id="projCat">AR / Prototyping</p>
+                            <p class="proj-viewer-brief" id="projBrief">Real-time AR performance insights that keep runners focused on the road.</p>
+                            <span class="proj-viewer-cursor" aria-hidden="true">_</span>
+                        </div>
+                        <div class="proj-viewer-footer">
+                            <span class="proj-viewer-counter" id="projCounter">01 / 04</span>
+                            <div class="proj-viewer-progress">
+                                <div class="proj-viewer-progress-fill" id="projFill"></div>
                             </div>
-                            <div class="case-card-body">
-                                <p class="case-cat">AR / Prototyping</p>
-                                <p class="case-title">RunAR</p>
-                                <p class="case-brief">Real-time AR performance insights that keep runners focused on the road.</p>
-                            </div>
-                        </a>
-                        <a href="./slumberpal.html" class="case-card">
-                            <div class="case-card-media">
-                                <img src="images/slumberpal_images/slumberpal_main.jpg" alt="SlumberPal sleep companion app" loading="lazy">
-                                <span class="case-badge">CASE_02</span>
-                            </div>
-                            <div class="case-card-body">
-                                <p class="case-cat">UX / Design</p>
-                                <p class="case-title">SlumberPal</p>
-                                <p class="case-brief">A calming sleep companion for children — physical product and app in tandem.</p>
-                            </div>
-                        </a>
-                        <a href="./wordstream-research.html" class="case-card">
-                            <div class="case-card-media">
-                                <img src="images/Research_images/Final_research_poster.jpg" alt="Wordstream qualitative research study" loading="lazy">
-                                <span class="case-badge">CASE_03</span>
-                            </div>
-                            <div class="case-card-body">
-                                <p class="case-cat">User Research</p>
-                                <p class="case-title">Wordstream</p>
-                                <p class="case-brief">Evaluating wordstream visualization tools for qualitative text-based research.</p>
-                            </div>
-                        </a>
-                        <a href="./musician-booking.html" class="case-card">
-                            <div class="case-card-media">
-                                <img src="images/HCDE_519_images/1.png" alt="How Independent Musicians Book Shows" loading="lazy">
-                                <span class="case-badge">CASE_04</span>
-                            </div>
-                            <div class="case-card-body">
-                                <p class="case-cat">Qualitative Study</p>
-                                <p class="case-title">Musicians</p>
-                                <p class="case-brief">How independent musicians identify, pursue, and manage live show bookings.</p>
-                            </div>
-                        </a>
+                            <a class="proj-viewer-link" id="projLink" href="./runar.html">View Project →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,5 +106,132 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        (function() {
+            var DWELL = 4800;
+            var projects = [
+                {
+                    img:     'images/Frame.jpg',
+                    badge:   '+_CASE_01_+',
+                    title:   'RunAR',
+                    cat:     'AR / Prototyping',
+                    brief:   'Real-time AR performance insights that keep runners focused on the road.',
+                    href:    './runar.html',
+                    hud:     'PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE',
+                    counter: '01 / 04'
+                },
+                {
+                    img:     'images/slumberpal_images/slumberpal_main.jpg',
+                    badge:   '+_CASE_02_+',
+                    title:   'SlumberPal',
+                    cat:     'UX / Design',
+                    brief:   'A calming sleep companion for children — physical product and app in tandem.',
+                    href:    './slumberpal.html',
+                    hud:     'PROJ: 02 // CAT: UX-DESIGN // STATUS: ACTIVE',
+                    counter: '02 / 04'
+                },
+                {
+                    img:     'images/Research_images/Final_research_poster.jpg',
+                    badge:   '+_CASE_03_+',
+                    title:   'Wordstream',
+                    cat:     'User Research',
+                    brief:   'Evaluating wordstream visualization tools for qualitative text-based research.',
+                    href:    './wordstream-research.html',
+                    hud:     'PROJ: 03 // CAT: USER-RESEARCH // STATUS: ACTIVE',
+                    counter: '03 / 04'
+                },
+                {
+                    img:     'images/HCDE_519_images/1.png',
+                    badge:   '+_CASE_04_+',
+                    title:   'Musicians',
+                    cat:     'Qualitative Study',
+                    brief:   'How independent musicians identify, pursue, and manage live show bookings.',
+                    href:    './musician-booking.html',
+                    hud:     'PROJ: 04 // CAT: QUALITATIVE // STATUS: ACTIVE',
+                    counter: '04 / 04'
+                }
+            ];
+
+            var current = 0;
+            var autoTimer = null;
+
+            var img     = document.getElementById('projImg');
+            var badge   = document.getElementById('projBadge');
+            var title   = document.getElementById('projTitle');
+            var cat     = document.getElementById('projCat');
+            var brief   = document.getElementById('projBrief');
+            var cursor  = document.querySelector('.proj-viewer-cursor');
+            var counter = document.getElementById('projCounter');
+            var fill    = document.getElementById('projFill');
+            var link    = document.getElementById('projLink');
+            var hud     = document.getElementById('projHud');
+
+            var textEls = [badge, title, cat, brief, cursor];
+            if (!img || !fill) return;
+
+            function clearReveal() {
+                textEls.forEach(function(el) { if (el) el.classList.remove('vis'); });
+            }
+
+            function revealSequence() {
+                var gap = 110;
+                textEls.forEach(function(el, i) {
+                    if (!el) return;
+                    setTimeout(function() { el.classList.add('vis'); }, 60 + i * gap);
+                });
+            }
+
+            function startProgress() {
+                fill.style.transition = 'none';
+                fill.style.width = '0%';
+                fill.offsetWidth; // force reflow
+                fill.style.transition = 'width ' + DWELL + 'ms linear';
+                fill.style.width = '100%';
+            }
+
+            function go(idx) {
+                current = ((idx % projects.length) + projects.length) % projects.length;
+                var p = projects[current];
+
+                clearReveal();
+                img.classList.add('proj-transitioning');
+
+                setTimeout(function() {
+                    img.src       = p.img;
+                    img.alt       = p.title;
+                    badge.textContent = p.badge;
+                    title.textContent = p.title;
+                    cat.textContent   = p.cat;
+                    brief.textContent = p.brief;
+                    counter.textContent = p.counter;
+                    link.href = p.href;
+                    if (hud) hud.textContent = p.hud;
+                    img.classList.remove('proj-transitioning');
+                    revealSequence();
+                }, 120);
+
+                startProgress();
+                clearTimeout(autoTimer);
+                autoTimer = setTimeout(function() { go(current + 1); }, DWELL);
+            }
+
+            // click viewer body to advance (not the link)
+            var viewer = document.getElementById('projViewer');
+            if (viewer) {
+                viewer.addEventListener('click', function(e) {
+                    if (e.target.closest('.proj-viewer-link')) return;
+                    clearTimeout(autoTimer);
+                    go(current + 1);
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') { clearTimeout(autoTimer); go(current + 1); }
+                if (e.key === 'ArrowLeft')  { clearTimeout(autoTimer); go(current - 1); }
+            });
+
+            go(0);
+        })();
+    </script>
 </body>
 </html>
