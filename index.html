@@ -70,61 +70,50 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="hud-readout" id="hudReadout">PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE</div>
-                    <div class="project-selector">
-                        <div class="selector-list">
-                            <button class="selector-item active" data-index="0"
-                                data-img="images/Frame.jpg"
-                                data-href="./runar.html"
-                                data-hud="PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE"
-                                data-caption="Real-time AR performance insights that keep runners focused on the road.">
-                                <span class="selector-cursor" aria-hidden="true">›</span>
-                                <span class="selector-num">01</span>
-                                <span class="selector-rule" aria-hidden="true"></span>
-                                <span class="selector-name">RunAR</span>
-                                <span class="selector-cat">AR / Prototyping</span>
-                            </button>
-                            <button class="selector-item" data-index="1"
-                                data-img="images/slumberpal_images/slumberpal_main.jpg"
-                                data-href="./slumberpal.html"
-                                data-hud="PROJ: 02 // CAT: UX-DESIGN // STATUS: ACTIVE"
-                                data-caption="A calming sleep companion for children — physical product and app in tandem.">
-                                <span class="selector-cursor" aria-hidden="true">›</span>
-                                <span class="selector-num">02</span>
-                                <span class="selector-rule" aria-hidden="true"></span>
-                                <span class="selector-name">SlumberPal</span>
-                                <span class="selector-cat">UX / Design</span>
-                            </button>
-                            <button class="selector-item" data-index="2"
-                                data-img="images/Research_images/Final_research_poster.jpg"
-                                data-href="./wordstream-research.html"
-                                data-hud="PROJ: 03 // CAT: USER-RESEARCH // STATUS: ACTIVE"
-                                data-caption="Evaluating wordstream visualization tools for qualitative text-based research.">
-                                <span class="selector-cursor" aria-hidden="true">›</span>
-                                <span class="selector-num">03</span>
-                                <span class="selector-rule" aria-hidden="true"></span>
-                                <span class="selector-name">Wordstream</span>
-                                <span class="selector-cat">User Research</span>
-                            </button>
-                            <button class="selector-item" data-index="3"
-                                data-img="images/HCDE_519_images/1.png"
-                                data-href="./musician-booking.html"
-                                data-hud="PROJ: 04 // CAT: QUALITATIVE // STATUS: ACTIVE"
-                                data-caption="How independent musicians identify, pursue, and manage live show bookings.">
-                                <span class="selector-cursor" aria-hidden="true">›</span>
-                                <span class="selector-num">04</span>
-                                <span class="selector-rule" aria-hidden="true"></span>
-                                <span class="selector-name">Musicians</span>
-                                <span class="selector-cat">Qualitative Study</span>
-                            </button>
-                        </div>
-                        <a class="selector-preview" id="selectorPreview" href="./runar.html">
-                            <div class="selector-preview-img-wrap">
-                                <img id="selectorImg" src="images/Frame.jpg" alt="RunAR project preview" loading="eager">
+                    <div class="hud-readout">PROJ: 04 // CAT: UX-RESEARCH // STATUS: ACTIVE</div>
+                    <div class="case-grid">
+                        <a href="./runar.html" class="case-card">
+                            <div class="case-card-media">
+                                <img src="images/Frame.jpg" alt="RunAR AR interface concept for runners" loading="eager">
+                                <span class="case-badge">CASE_01</span>
                             </div>
-                            <div class="selector-preview-footer">
-                                <span class="selector-preview-caption" id="selectorCaption">Real-time AR performance insights that keep runners focused on the road.</span>
-                                <span class="selector-preview-cta">View Project →</span>
+                            <div class="case-card-body">
+                                <p class="case-cat">AR / Prototyping</p>
+                                <p class="case-title">RunAR</p>
+                                <p class="case-brief">Real-time AR performance insights that keep runners focused on the road.</p>
+                            </div>
+                        </a>
+                        <a href="./slumberpal.html" class="case-card">
+                            <div class="case-card-media">
+                                <img src="images/slumberpal_images/slumberpal_main.jpg" alt="SlumberPal sleep companion app" loading="lazy">
+                                <span class="case-badge">CASE_02</span>
+                            </div>
+                            <div class="case-card-body">
+                                <p class="case-cat">UX / Design</p>
+                                <p class="case-title">SlumberPal</p>
+                                <p class="case-brief">A calming sleep companion for children — physical product and app in tandem.</p>
+                            </div>
+                        </a>
+                        <a href="./wordstream-research.html" class="case-card">
+                            <div class="case-card-media">
+                                <img src="images/Research_images/Final_research_poster.jpg" alt="Wordstream qualitative research study" loading="lazy">
+                                <span class="case-badge">CASE_03</span>
+                            </div>
+                            <div class="case-card-body">
+                                <p class="case-cat">User Research</p>
+                                <p class="case-title">Wordstream</p>
+                                <p class="case-brief">Evaluating wordstream visualization tools for qualitative text-based research.</p>
+                            </div>
+                        </a>
+                        <a href="./musician-booking.html" class="case-card">
+                            <div class="case-card-media">
+                                <img src="images/HCDE_519_images/1.png" alt="How Independent Musicians Book Shows" loading="lazy">
+                                <span class="case-badge">CASE_04</span>
+                            </div>
+                            <div class="case-card-body">
+                                <p class="case-cat">Qualitative Study</p>
+                                <p class="case-title">Musicians</p>
+                                <p class="case-brief">How independent musicians identify, pursue, and manage live show bookings.</p>
                             </div>
                         </a>
                     </div>
@@ -144,57 +133,5 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        (function() {
-            var items   = document.querySelectorAll('.selector-item');
-            var img     = document.getElementById('selectorImg');
-            var preview = document.getElementById('selectorPreview');
-            var caption = document.getElementById('selectorCaption');
-            var hud     = document.getElementById('hudReadout');
-            if (!items.length || !img || !preview) return;
-
-            function activate(item) {
-                items.forEach(function(i) { i.classList.remove('active'); });
-                item.classList.add('active');
-                img.classList.add('changing');
-                var src     = item.getAttribute('data-img');
-                var href    = item.getAttribute('data-href');
-                var cap     = item.getAttribute('data-caption');
-                var hudTxt  = item.getAttribute('data-hud');
-                setTimeout(function() {
-                    img.src = src;
-                    img.classList.remove('changing');
-                }, 80);
-                preview.href = href;
-                if (caption) caption.textContent = cap;
-                if (hud)     hud.textContent     = hudTxt;
-            }
-
-            items.forEach(function(item) {
-                item.addEventListener('mouseenter', function() { activate(item); });
-                item.addEventListener('focus',      function() { activate(item); });
-                item.addEventListener('click',      function(e) {
-                    e.preventDefault();
-                    window.location.href = item.getAttribute('data-href');
-                });
-            });
-
-            document.addEventListener('keydown', function(e) {
-                var active = document.querySelector('.selector-item.active');
-                if (!active) return;
-                var idx = parseInt(active.getAttribute('data-index'));
-                if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    var next = document.querySelector('.selector-item[data-index="' + (idx + 1) + '"]');
-                    if (next) activate(next);
-                }
-                if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    var prev = document.querySelector('.selector-item[data-index="' + (idx - 1) + '"]');
-                    if (prev) activate(prev);
-                }
-            });
-        })();
-    </script>
 </body>
 </html>
