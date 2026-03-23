@@ -174,10 +174,10 @@
             }
 
             function revealSequence() {
-                var gap = 160;
+                var gap = 120;
                 textEls.forEach(function(el, i) {
                     if (!el) return;
-                    setTimeout(function() { el.classList.add('vis'); }, 80 + i * gap);
+                    setTimeout(function() { el.classList.add('vis'); }, 60 + i * gap);
                 });
             }
 
@@ -208,7 +208,7 @@
                     if (hud) hud.textContent = p.hud;
                     img.classList.remove('proj-transitioning');
                     revealSequence();
-                }, 200);
+                }, 420);
 
                 startProgress();
                 clearTimeout(autoTimer);

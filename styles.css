@@ -538,7 +538,7 @@ a {
     object-position: center top;
     display: block;
     filter: grayscale(28%) contrast(1.05) brightness(0.84);
-    transition: opacity 180ms steps(6, end);
+    transition: opacity 500ms ease-out;
 }
 
 #projImg.proj-transitioning { opacity: 0; }
@@ -549,6 +549,7 @@ a {
     background: var(--clr-surface);
     flex-shrink: 0;
     min-height: 6rem;
+    overflow: hidden;
 }
 
 .proj-viewer-badge {
@@ -560,7 +561,8 @@ a {
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     opacity: 0;
-    transition: opacity 120ms steps(4, end);
+    transform: translateY(6px);
+    transition: opacity 350ms ease-out, transform 350ms ease-out;
 }
 
 .proj-viewer-title {
@@ -573,7 +575,8 @@ a {
     line-height: 1;
     margin-bottom: 0.25rem;
     opacity: 0;
-    transition: opacity 120ms steps(4, end);
+    transform: translateY(6px);
+    transition: opacity 350ms ease-out, transform 350ms ease-out;
 }
 
 .proj-viewer-cat {
@@ -584,7 +587,8 @@ a {
     text-transform: uppercase;
     margin-bottom: 0.4rem;
     opacity: 0;
-    transition: opacity 120ms steps(4, end);
+    transform: translateY(6px);
+    transition: opacity 350ms ease-out, transform 350ms ease-out;
 }
 
 .proj-viewer-brief {
@@ -593,7 +597,8 @@ a {
     color: var(--clr-gray-lt);
     line-height: 1.65;
     opacity: 0;
-    transition: opacity 120ms steps(4, end);
+    transform: translateY(6px);
+    transition: opacity 350ms ease-out, transform 350ms ease-out;
 }
 
 .proj-viewer-cursor {
@@ -603,14 +608,18 @@ a {
     color: var(--clr-accent);
     margin-left: 3px;
     opacity: 0;
-    transition: opacity 120ms steps(4, end);
-    animation: proj-blink 900ms steps(1, end) infinite;
+    transition: opacity 350ms ease-out;
+    animation: proj-blink 1100ms ease-in-out infinite;
 }
 
 .proj-viewer-badge.vis,
 .proj-viewer-title.vis,
 .proj-viewer-cat.vis,
-.proj-viewer-brief.vis,
+.proj-viewer-brief.vis {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .proj-viewer-cursor.vis { opacity: 1; }
 
 @keyframes proj-blink {
