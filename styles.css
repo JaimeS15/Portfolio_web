@@ -1796,6 +1796,72 @@ a {
 }
 
 /* ========================================
+   DATA FEED
+   ======================================== */
+
+.data-feed {
+    margin-top: 2rem;
+    border: 1px solid var(--clr-border);
+    padding: 0.75rem 1rem;
+    background: var(--clr-surface);
+    overflow: hidden;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.data-feed-header {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+    color: var(--clr-accent);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    flex-shrink: 0;
+}
+
+.data-feed-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.22rem;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.data-feed-line {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    transform: translateY(4px);
+    animation: feed-in 300ms ease-out forwards;
+}
+
+.data-feed-line.feed-out {
+    animation: feed-out 300ms ease-in forwards;
+}
+
+.data-feed-line .feed-ts   { color: var(--clr-gray); }
+.data-feed-line .feed-type { color: var(--clr-accent); min-width: 3.2rem; display: inline-block; }
+.data-feed-line .feed-type.feed-err  { color: #e05555; }
+.data-feed-line .feed-type.feed-warn { color: #c8a000; }
+.data-feed-line .feed-msg  { color: #808080; }
+.data-feed-line .feed-val  { color: var(--clr-gray-lt); }
+
+@keyframes feed-in {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes feed-out {
+    to { opacity: 0; transform: translateY(-4px); }
+}
+
+/* ========================================
    BOOT LOADER
    ======================================== */
 
