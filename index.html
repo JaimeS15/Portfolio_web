@@ -64,10 +64,6 @@
                         <p class="hero-works-label">Works <span class="hero-works-arrow" aria-hidden="true">→</span></p>
                     </div>
 
-                    <div class="data-feed" aria-hidden="true">
-                        <div class="data-feed-header">+_LIVE_FEED_+</div>
-                        <div class="data-feed-lines" id="dataFeedLines"></div>
-                    </div>
                 </div>
                 <div class="hero-visual">
                     <div class="hud-readout" id="projHud">PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE</div>
@@ -106,116 +102,6 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // ── Data Feed ────────────────────────────
-        (function() {
-            var container = document.getElementById('dataFeedLines');
-            if (!container) return;
-
-            var MAX_LINES = 7;
-            var lines = [];
-
-            var TYPES = [
-                { label: 'SYS ', cls: '' },
-                { label: 'NET ', cls: '' },
-                { label: 'AUTH', cls: '' },
-                { label: 'DATA', cls: '' },
-                { label: 'MEM ', cls: '' },
-                { label: 'ERR ', cls: 'feed-err' },
-                { label: 'WARN', cls: 'feed-warn' },
-            ];
-
-            var MSGS = [
-                ['HEARTBEAT', 'OK'],
-                ['CONN {IP} ESTABLISHED', ''],
-                ['TOKEN VERIFIED', 'LEVEL-3'],
-                ['READ {HEX}', '{BYTES}B'],
-                ['MEMCHK', '{PCT}% OK'],
-                ['ROUTE {IP} → {IP2}', 'TTL {TTL}'],
-                ['CHECKSUM', '{HEX}'],
-                ['SESSION {SID}', 'ACTIVE'],
-                ['PKT RECV {BYTES}B', 'OK'],
-                ['INDEX REBUILT', '{MS}ms'],
-                ['PING {IP}', '{MS}ms'],
-                ['EOF {FILE}', 'CLOSED'],
-                ['WRITE {HEX}', '{BYTES}B'],
-                ['AUTH CHALLENGE', 'PASSED'],
-                ['CPU LOAD', '{PCT}%'],
-                ['WATCHDOG', 'RESET OK'],
-                ['SYNC {HEX}', 'COMPLETE'],
-                ['SIGNAL', '{PCT}% SNR'],
-                ['CACHE HIT', '{HEX}'],
-                ['BUFFER FLUSH', '{BYTES}B'],
-            ];
-
-            function rnd(n) { return Math.floor(Math.random() * n); }
-            function hex() { return '0x' + Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0'); }
-            function ip()  { return [rnd(256), rnd(256), rnd(256), rnd(256)].join('.'); }
-            function pct() { return (60 + rnd(39)) + ''; }
-            function ms()  { return (8 + rnd(120)) + ''; }
-            function bytes(){ return (32 + rnd(480)) + ''; }
-            function sid() { return Math.random().toString(36).substr(2, 6).toUpperCase(); }
-            function file(){ return ['kernel.log','data.bin','index.db','cache.tmp','session.key'][rnd(5)]; }
-            function ttl() { return (32 + rnd(96)) + ''; }
-
-            function stamp() {
-                var d = new Date();
-                var hh = String(d.getHours()).padStart(2,'0');
-                var mm = String(d.getMinutes()).padStart(2,'0');
-                var ss = String(d.getSeconds()).padStart(2,'0');
-                var ms = String(d.getMilliseconds()).padStart(3,'0');
-                return hh + ':' + mm + ':' + ss + '.' + ms;
-            }
-
-            function fill(tpl) {
-                return tpl
-                    .replace('{HEX}',   hex())
-                    .replace('{IP}',    ip())
-                    .replace('{IP2}',   ip())
-                    .replace('{PCT}',   pct())
-                    .replace('{MS}',    ms())
-                    .replace('{BYTES}', bytes())
-                    .replace('{SID}',   sid())
-                    .replace('{FILE}',  file())
-                    .replace('{TTL}',   ttl());
-            }
-
-            function addLine() {
-                var type = TYPES[rnd(TYPES.length)];
-                // reduce error/warn frequency
-                if ((type.label === 'ERR ' || type.label === 'WARN') && Math.random() > 0.15) {
-                    type = TYPES[rnd(5)];
-                }
-                var pair = MSGS[rnd(MSGS.length)];
-                var msg = fill(pair[0]);
-                var val = fill(pair[1]);
-
-                var el = document.createElement('div');
-                el.className = 'data-feed-line';
-                el.innerHTML =
-                    '<span class="feed-ts">[' + stamp() + ']</span> ' +
-                    '<span class="feed-type ' + type.cls + '">' + type.label + '</span> ' +
-                    '<span class="feed-msg">── ' + msg + (val ? ' ' : '') + '</span>' +
-                    (val ? '<span class="feed-val">' + val + '</span>' : '');
-
-                container.appendChild(el);
-                lines.push(el);
-
-                if (lines.length > MAX_LINES) {
-                    var old = lines.shift();
-                    old.classList.add('feed-out');
-                    setTimeout(function() { if (old.parentNode) old.parentNode.removeChild(old); }, 300);
-                }
-            }
-
-            // stagger initial fill
-            for (var i = 0; i < MAX_LINES; i++) {
-                (function(i) { setTimeout(addLine, i * 120); })(i);
-            }
-            // then stream continuously
-            setInterval(addLine, 700 + rnd(400));
-        })();
-    </script>
     <script>
         (function() {
             var DWELL = 6500;
