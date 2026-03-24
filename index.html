@@ -83,6 +83,10 @@
                             <div class="proj-viewer-progress">
                                 <div class="proj-viewer-progress-fill" id="projFill"></div>
                             </div>
+                            <div class="proj-viewer-nav">
+                                <button class="proj-nav-btn" id="projPrev" aria-label="Previous project">←</button>
+                                <button class="proj-nav-btn" id="projNext" aria-label="Next project">→</button>
+                            </div>
                             <a class="proj-viewer-link" id="projLink" href="./runar.html">View Project →</a>
                         </div>
                     </div>
@@ -147,7 +151,7 @@
                     counter: '04 / 05'
                 },
                 {
-                    img:     'images/myuw_images/HomePage.png',
+                    img:     'images/myuw_images/myuw_preview.jpg',
                     badge:   '+_CASE_05_+',
                     title:   'MyUW Redesign',
                     cat:     'App Redesign / UX Design',
@@ -221,11 +225,18 @@
                 autoTimer = setTimeout(function() { go(current + 1); }, DWELL);
             }
 
-            // click viewer body to advance (not the link)
+            // arrow buttons
+            var prevBtn = document.getElementById('projPrev');
+            var nextBtn = document.getElementById('projNext');
+            if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); clearTimeout(autoTimer); go(current - 1); });
+            if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); clearTimeout(autoTimer); go(current + 1); });
+
+            // click viewer body to advance (not the link or nav buttons)
             var viewer = document.getElementById('projViewer');
             if (viewer) {
                 viewer.addEventListener('click', function(e) {
                     if (e.target.closest('.proj-viewer-link')) return;
+                    if (e.target.closest('.proj-nav-btn')) return;
                     clearTimeout(autoTimer);
                     go(current + 1);
                 });

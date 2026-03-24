@@ -658,6 +658,34 @@ a {
     width: 0%;
 }
 
+.proj-viewer-nav {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.proj-nav-btn {
+    background: none;
+    border: 1px solid var(--clr-border);
+    color: var(--clr-gray-lt);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear;
+    flex-shrink: 0;
+}
+
+.proj-nav-btn:hover {
+    background: var(--clr-accent);
+    color: var(--clr-bg);
+    border-color: var(--clr-accent);
+}
+
 .proj-viewer-link {
     font-family: var(--font-mono);
     font-size: 0.52rem;
