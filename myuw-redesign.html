@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyUW App Redesign - Jaime Serrano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html { background: #0a0a0a; background-image: none; }
+
+        /* ── Layout ── */
+        .research-layout {
+            padding-top: 44px;
+            min-height: calc(100vh - 44px);
+            display: flex;
+        }
+        .research-image-column {
+            position: sticky;
+            top: 44px;
+            width: 45%;
+            max-width: 520px;
+            height: calc(100vh - 44px);
+            padding: 2rem 2rem 2rem 2.5rem;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .research-main {
+            flex: 1;
+            min-width: 0;
+            max-width: 560px;
+            padding: 2rem 2.5rem 4rem 2rem;
+            overflow-y: auto;
+        }
+
+        /* ── Phone mockup + screen viewer ── */
+        .phone-viewer {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            align-items: center;
+        }
+        .phone-hud {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #c8f000;
+            width: 100%;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2e2e2e;
+        }
+        .phone-frame {
+            position: relative;
+            width: 100%;
+            max-width: 280px;
+            border: 2px solid #2e2e2e;
+            background: #111;
+            overflow: hidden;
+            /* Approximate 9:19.5 phone ratio */
+            aspect-ratio: 9 / 19.5;
+        }
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.04) 2px,
+                rgba(0,0,0,0.04) 4px
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+        .phone-frame img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            transition: opacity 500ms ease-out;
+        }
+        .phone-frame img.fading { opacity: 0; }
+
+        .phone-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 280px;
+        }
+        .phone-nav-btn {
+            background: none;
+            border: 1px solid #2e2e2e;
+            color: #808080;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear;
+            flex-shrink: 0;
+        }
+        .phone-nav-btn:hover { background: #c8f000; color: #0a0a0a; border-color: #c8f000; }
+        .phone-screen-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            color: #a8a8a8;
+            text-transform: uppercase;
+            flex: 1;
+            text-align: center;
+        }
+        .phone-figma-link {
+            display: inline-block;
+            width: 100%;
+            max-width: 280px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #c8f000;
+            border: 1px solid #2e2e2e;
+            padding: 0.5rem 0.75rem;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear;
+        }
+        .phone-figma-link:hover { background: #c8f000; color: #0a0a0a; border-color: #c8f000; }
+
+        /* ── Text styles ── */
+        .research-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #c8f000;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .research-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            line-height: 1.0;
+            color: #dedede;
+            margin-bottom: 0.75rem;
+        }
+        .research-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: #a8a8a8;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #2e2e2e;
+            letter-spacing: 0.04em;
+        }
+        .research-block {
+            margin-bottom: 2.25rem;
+            padding-top: 2rem;
+            border-top: 1px solid #2e2e2e;
+        }
+        .research-block:first-of-type { border-top: none; padding-top: 0; }
+        .research-block h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #dedede;
+            margin-bottom: 0.75rem;
+        }
+        .research-block p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin-bottom: 0.9rem;
+        }
+        .research-caption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.63rem;
+            color: #808080;
+            letter-spacing: 0.08em;
+            margin-top: -0.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        /* ── Problem pills ── */
+        .problem-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .problem-list li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            color: #a8a8a8;
+            padding: 0.75rem 1rem;
+            border: 1px solid #2e2e2e;
+            border-left: 2px solid #c8f000;
+            background: #111;
+        }
+        .problem-list li strong {
+            color: #dedede;
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        /* ── Decision cards ── */
+        .decision-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin: 1rem 0;
+        }
+        .decision-card {
+            border: 1px solid #2e2e2e;
+            padding: 1rem;
+            background: #0e0e0e;
+        }
+        .decision-card-header {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #c8f000;
+            margin-bottom: 0.5rem;
+        }
+        .decision-card-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #dedede;
+            margin-bottom: 0.5rem;
+        }
+        .decision-card p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            line-height: 1.8;
+            color: #a8a8a8;
+            margin: 0;
+        }
+
+        /* ── Screens gallery ── */
+        .screens-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin: 1rem 0 1.5rem;
+        }
+        .screen-thumb {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #2e2e2e;
+            cursor: pointer;
+            background: #111;
+            aspect-ratio: 9 / 19.5;
+            transition: border-color 100ms linear;
+        }
+        .screen-thumb:hover { border-color: #c8f000; }
+        .screen-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            filter: grayscale(5%) contrast(1.02);
+        }
+        .screen-thumb-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #dedede;
+            background: rgba(10,10,10,0.85);
+            padding: 0.3rem 0.5rem;
+        }
+
+        /* ── Lightbox ── */
+        .screen-lightbox {
+            display: flex;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0,0,0,0);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: zoom-out;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 100ms linear, background 100ms linear, visibility 100ms linear;
+        }
+        .screen-lightbox.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            background: rgba(0,0,0,0.95);
+        }
+        .screen-lightbox img {
+            max-width: min(320px, 90vw);
+            max-height: 90vh;
+            object-fit: contain;
+            border: 1px solid #2e2e2e;
+        }
+        .screen-lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #636363;
+            background: #0a0a0a;
+            color: #a8a8a8;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear;
+        }
+        .screen-lightbox-close:hover { background: #c8f000; color: #0a0a0a; border-color: #c8f000; }
+
+        /* ── Back link ── */
+        .back-link {
+            font-family: 'IBM Plex Mono', monospace;
+            display: inline-block;
+            margin-top: 2rem;
+            color: #c8f000;
+            border: 1px solid #c8f000;
+            padding: 0.45rem 1rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: background-color 100ms linear, color 100ms linear;
+            text-decoration: none;
+        }
+        .back-link:hover { background: #c8f000; color: #0a0a0a; }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .research-layout { flex-direction: column; }
+            .research-image-column {
+                position: relative;
+                top: 0;
+                width: 100%;
+                max-width: none;
+                height: auto;
+                padding: 2rem 1.5rem 0;
+                align-items: center;
+            }
+            .research-main { max-width: none; padding: 2rem 1.5rem 3rem; }
+        }
+        @media (max-width: 480px) {
+            .research-layout { padding-top: 40px; }
+            .research-image-column { padding: 1.25rem 1rem 0; }
+            .research-main { padding: 1.5rem 1rem 2.5rem; }
+            .research-title { font-size: 1.3rem; }
+            .screens-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline-overlay" aria-hidden="true"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="./">Jaime Serrano</a></li>
+            </ul>
+            <span class="nav-sys-readout">SYS: 00.4 // LOC: ACTIVE</span>
+        </div>
+    </nav>
+
+    <div class="research-layout">
+
+        <!-- Left: sticky phone mockup viewer -->
+        <aside class="research-image-column">
+            <div class="phone-viewer">
+                <p class="phone-hud" id="phoneHud">SCREEN: 01/06 // VIEW: HOME</p>
+                <div class="phone-frame">
+                    <img id="phoneImg" src="images/myuw_images/HomePage.png" alt="MyUW Redesign — Home screen" loading="eager">
+                </div>
+                <div class="phone-nav">
+                    <button class="phone-nav-btn" id="phonePrev" aria-label="Previous screen">←</button>
+                    <span class="phone-screen-label" id="phoneLabel">Home</span>
+                    <button class="phone-nav-btn" id="phoneNext" aria-label="Next screen">→</button>
+                </div>
+                <a href="https://www.figma.com/design/6P9wZ4xQfnakncdzFa7Mf1/MyUW-redesign?node-id=0-1" target="_blank" rel="noopener noreferrer" class="phone-figma-link">↗ View Full Design in Figma</a>
+            </div>
+        </aside>
+
+        <!-- Lightbox -->
+        <div class="screen-lightbox" id="screenLightbox" role="dialog" aria-modal="true" aria-label="Screen full view">
+            <button type="button" class="screen-lightbox-close" aria-label="Close">×</button>
+            <img id="lightboxImg" src="" alt="">
+        </div>
+
+        <!-- Right: research + design content -->
+        <main class="research-main">
+            <p class="research-label">App Redesign / UX Design</p>
+            <h1 class="research-title">MyUW Mobile App Redesign</h1>
+            <p class="research-meta">Interaction design &amp; prototyping — Spring 2026 // Solo project — Figma</p>
+
+            <div class="research-block">
+                <h3>Overview</h3>
+                <p>
+                    MyUW is the University of Washington's official student portal app — a hub for academics,
+                    finances, registration, campus events, and more. While it provides access to nearly every
+                    system a student might need, the current design buries critical information behind a
+                    hamburger menu and presents the home screen as an undifferentiated wall of content.
+                </p>
+                <p>
+                    This project is a ground-up redesign of the MyUW mobile experience. The goal was to
+                    reduce cognitive load on the home screen, replace navigational friction with a persistent
+                    bottom tab bar, and establish a clear visual hierarchy that surfaces what matters most
+                    to a student on any given day.
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>The Problem</h3>
+                <p>
+                    Three core usability issues surfaced during heuristic evaluation of the current app:
+                </p>
+                <ul class="problem-list">
+                    <li>
+                        <strong>01 — Information Overload</strong>
+                        The home screen displays every available module simultaneously — balances, notices,
+                        events, links, and widgets — with no prioritization. Students are forced to scan
+                        the entire screen to locate time-sensitive information.
+                    </li>
+                    <li>
+                        <strong>02 — Navigation Friction</strong>
+                        Primary navigation is hidden behind a hamburger menu in the top-left corner.
+                        Switching between sections — Academics, Finances, Calendar — requires two taps
+                        minimum and offers no persistent orientation cues.
+                    </li>
+                    <li>
+                        <strong>03 — Weak Visual Hierarchy</strong>
+                        Content sections share the same visual weight regardless of urgency or relevance.
+                        Action items, informational content, and quick links are styled identically, making
+                        it difficult to distinguish what requires attention from what is merely available.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="research-block">
+                <h3>Approach</h3>
+                <p>
+                    The redesign process began with a heuristic evaluation of the current MyUW app against
+                    Nielsen's 10 usability heuristics, focusing on visibility of system status, recognition
+                    over recall, and flexibility of navigation.
+                </p>
+                <p>
+                    Competitive analysis of peer university apps (UCLA Mobile, CU Boulder Mobile, UMich
+                    App) identified bottom tab navigation as the dominant pattern for student portals,
+                    confirming the hamburger menu as an outlier. All comparators surfaced
+                    time-sensitive content (class schedules, balances, deadlines) in a prioritized home
+                    card hierarchy rather than flat lists.
+                </p>
+                <p>
+                    The redesign was developed as a high-fidelity prototype in Figma, covering six screens
+                    across all five navigation tabs.
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>Design Decisions</h3>
+                <div class="decision-grid">
+                    <div class="decision-card">
+                        <p class="decision-card-header">Decision 01</p>
+                        <p class="decision-card-title">Bottom Tab Navigation</p>
+                        <p>Replaced the hamburger menu with a persistent five-tab bottom nav bar: Home,
+                        Academics, Finances, Calendar, and Profile. This follows platform conventions for
+                        iOS and Android, reduces the tap depth to any top-level section from two to one,
+                        and provides constant orientation context as students move through the app.</p>
+                    </div>
+                    <div class="decision-card">
+                        <p class="decision-card-header">Decision 02</p>
+                        <p class="decision-card-title">Prioritized Home Screen</p>
+                        <p>The home screen now leads with a personalized header and Husky Card balance
+                        widget — two pieces of information students check most frequently. Quick Links
+                        are reorganized into a 3x2 icon grid, collapsing the most-used services into
+                        a scannable pattern. Notifications are surfaced as a single action banner rather
+                        than buried in a menu.</p>
+                    </div>
+                    <div class="decision-card">
+                        <p class="decision-card-header">Decision 03</p>
+                        <p class="decision-card-title">Academics: Tab Toggle for Schedule vs. Finals</p>
+                        <p>The Academics page uses a segmented tab control to switch between the class
+                        schedule and finals schedule — two related but distinct views students need at
+                        different times of the quarter. Each course is presented as a card with a
+                        color-coded course code badge, reducing scanning time for multi-course schedules.</p>
+                    </div>
+                    <div class="decision-card">
+                        <p class="decision-card-header">Decision 04</p>
+                        <p class="decision-card-title">Finances: Hierarchy by Urgency</p>
+                        <p>The Finances page separates content into three distinct sections — Tuition &amp;
+                        Fees, Financial Aid, and Action Items — ordered by urgency. The "Amount Due"
+                        balance is the primary visual element. Financial aid awards are shown as
+                        accepted/pending cards. A dedicated Action Items section surfaces deadlines like
+                        FAFSA submission with explicit due dates and external link affordances.</p>
+                    </div>
+                    <div class="decision-card">
+                        <p class="decision-card-header">Decision 05</p>
+                        <p class="decision-card-title">Calendar: Academic Timeline View</p>
+                        <p>Rather than a generic calendar grid, the Calendar page presents the academic
+                        year as a structured timeline — Quarter Breaks as dividers, key dates as labeled
+                        list items with visual hierarchy (quarter headers in gold, individual events
+                        in purple). This maps to how students actually use the academic calendar:
+                        sequentially, to plan ahead, not to find a specific date.</p>
+                    </div>
+                    <div class="decision-card">
+                        <p class="decision-card-header">Decision 06</p>
+                        <p class="decision-card-title">UW Brand Identity</p>
+                        <p>The redesign uses the official UW color system — Husky Purple (#4B2E83) as
+                        the primary brand color with Husky Gold (#85754D) as an accent. This creates
+                        a more cohesive connection to the UW identity while improving contrast ratios
+                        over the current app's inconsistent palette.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-block">
+                <h3>Redesigned Screens</h3>
+                <p>
+                    Six screens across five navigation tabs — click any screen to expand.
+                </p>
+                <div class="screens-grid" id="screensGrid">
+                    <div class="screen-thumb" data-src="images/myuw_images/HomePage.png" data-label="Home">
+                        <img src="images/myuw_images/HomePage.png" alt="Home screen" loading="lazy">
+                        <span class="screen-thumb-label">Home</span>
+                    </div>
+                    <div class="screen-thumb" data-src="images/myuw_images/AcademicsPage.png" data-label="Academics — Schedule">
+                        <img src="images/myuw_images/AcademicsPage.png" alt="Academics screen — Schedule" loading="lazy">
+                        <span class="screen-thumb-label">Academics / Schedule</span>
+                    </div>
+                    <div class="screen-thumb" data-src="images/myuw_images/AcademicsPage_Finals.png" data-label="Academics — Finals">
+                        <img src="images/myuw_images/AcademicsPage_Finals.png" alt="Academics screen — Finals" loading="lazy">
+                        <span class="screen-thumb-label">Academics / Finals</span>
+                    </div>
+                    <div class="screen-thumb" data-src="images/myuw_images/FinancesPage.png" data-label="Finances">
+                        <img src="images/myuw_images/FinancesPage.png" alt="Finances screen" loading="lazy">
+                        <span class="screen-thumb-label">Finances</span>
+                    </div>
+                    <div class="screen-thumb" data-src="images/myuw_images/CalendarPage.png" data-label="Calendar">
+                        <img src="images/myuw_images/CalendarPage.png" alt="Calendar screen" loading="lazy">
+                        <span class="screen-thumb-label">Calendar</span>
+                    </div>
+                    <div class="screen-thumb" data-src="images/myuw_images/ProfilePage.png" data-label="Profile">
+                        <img src="images/myuw_images/ProfilePage.png" alt="Profile screen" loading="lazy">
+                        <span class="screen-thumb-label">Profile</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-block">
+                <h3>Reflection</h3>
+                <p>
+                    The central insight from this redesign is that the original MyUW app's problems are
+                    not primarily visual — they are structural. The hamburger menu is not a stylistic
+                    choice; it is a navigation architecture that forces students to hold the app's
+                    information hierarchy in memory rather than seeing it. Replacing it with a bottom
+                    tab bar is a single structural change that resolves the core navigation complaint.
+                </p>
+                <p>
+                    The most challenging design decision was the home screen. The original shows everything
+                    because everything in the app is potentially relevant. The redesign makes an editorial
+                    argument: Husky Card balance, Quick Links, notifications, and upcoming events are
+                    the right things to show on arrival. That argument would benefit from validation
+                    through usability testing with current UW students — a natural next step.
+                </p>
+            </div>
+
+            <a href="./" class="back-link">← Back to home</a>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        (function() {
+            var screens = [
+                { src: 'images/myuw_images/HomePage.png',             label: 'Home',                 hud: 'SCREEN: 01/06 // VIEW: HOME' },
+                { src: 'images/myuw_images/AcademicsPage.png',        label: 'Academics / Schedule', hud: 'SCREEN: 02/06 // VIEW: ACADEMICS' },
+                { src: 'images/myuw_images/AcademicsPage_Finals.png', label: 'Academics / Finals',   hud: 'SCREEN: 03/06 // VIEW: FINALS' },
+                { src: 'images/myuw_images/FinancesPage.png',         label: 'Finances',             hud: 'SCREEN: 04/06 // VIEW: FINANCES' },
+                { src: 'images/myuw_images/CalendarPage.png',         label: 'Calendar',             hud: 'SCREEN: 05/06 // VIEW: CALENDAR' },
+                { src: 'images/myuw_images/ProfilePage.png',          label: 'Profile',              hud: 'SCREEN: 06/06 // VIEW: PROFILE' }
+            ];
+
+            var current = 0;
+            var phoneImg   = document.getElementById('phoneImg');
+            var phoneLabel = document.getElementById('phoneLabel');
+            var phoneHud   = document.getElementById('phoneHud');
+            var prevBtn    = document.getElementById('phonePrev');
+            var nextBtn    = document.getElementById('phoneNext');
+
+            function go(idx) {
+                current = ((idx % screens.length) + screens.length) % screens.length;
+                var s = screens[current];
+                phoneImg.classList.add('fading');
+                setTimeout(function() {
+                    phoneImg.src = s.src;
+                    phoneImg.alt = s.label;
+                    phoneLabel.textContent = s.label;
+                    phoneHud.textContent   = s.hud;
+                    phoneImg.classList.remove('fading');
+                }, 280);
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', function() { go(current - 1); });
+            if (nextBtn) nextBtn.addEventListener('click', function() { go(current + 1); });
+
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('screenLightbox').classList.contains('active')) return;
+                if (e.key === 'ArrowRight') go(current + 1);
+                if (e.key === 'ArrowLeft')  go(current - 1);
+            });
+
+            // Screens grid thumbnail click → lightbox
+            var lightbox  = document.getElementById('screenLightbox');
+            var lightboxImg = document.getElementById('lightboxImg');
+            var closeBtn  = lightbox.querySelector('.screen-lightbox-close');
+            var thumbs    = document.querySelectorAll('.screen-thumb');
+
+            thumbs.forEach(function(thumb) {
+                thumb.addEventListener('click', function() {
+                    var src   = this.dataset.src;
+                    var label = this.dataset.label;
+                    lightboxImg.src = src;
+                    lightboxImg.alt = label;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+            });
+        })();
+    </script>
+</body>
+</html>
