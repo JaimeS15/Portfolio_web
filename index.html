@@ -203,6 +203,11 @@
                 current = ((idx % projects.length) + projects.length) % projects.length;
                 var p = projects[current];
 
+                // Update link and counter immediately so clicks always go to the right project
+                link.href = p.href;
+                counter.textContent = p.counter;
+                if (hud) hud.textContent = p.hud;
+
                 clearReveal();
                 img.classList.add('proj-transitioning');
 
@@ -213,9 +218,6 @@
                     title.textContent = p.title;
                     cat.textContent   = p.cat;
                     brief.textContent = p.brief;
-                    counter.textContent = p.counter;
-                    link.href = p.href;
-                    if (hud) hud.textContent = p.hud;
                     img.classList.remove('proj-transitioning');
                     revealSequence();
                 }, 420);
