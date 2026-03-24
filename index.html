@@ -87,7 +87,6 @@
                                 <button class="proj-nav-btn" id="projPrev" aria-label="Previous project">←</button>
                                 <button class="proj-nav-btn" id="projNext" aria-label="Next project">→</button>
                             </div>
-                            <a class="proj-viewer-link" id="projLink" href="./runar.html">View Project →</a>
                         </div>
                     </div>
                 </div>
@@ -163,7 +162,9 @@
             ];
 
             var current = 0;
+            var displayed = 0;
             var autoTimer = null;
+            var transitionTimer = null;
 
             var img     = document.getElementById('projImg');
             var badge   = document.getElementById('projBadge');
@@ -173,7 +174,6 @@
             var cursor  = document.querySelector('.proj-viewer-cursor');
             var counter = document.getElementById('projCounter');
             var fill    = document.getElementById('projFill');
-            var link    = document.getElementById('projLink');
             var hud     = document.getElementById('projHud');
 
             var textEls = [badge, title, cat, brief, cursor];
@@ -201,23 +201,23 @@
 
             function go(idx) {
                 current = ((idx % projects.length) + projects.length) % projects.length;
-                var p = projects[current];
-
-                // Update link and counter immediately so clicks always go to the right project
-                link.href = p.href;
-                counter.textContent = p.counter;
-                if (hud) hud.textContent = p.hud;
+                var nextIndex = current;
 
                 clearReveal();
                 img.classList.add('proj-transitioning');
 
-                setTimeout(function() {
+                clearTimeout(transitionTimer);
+                transitionTimer = setTimeout(function() {
+                    displayed = nextIndex;
+                    var p = projects[displayed];
                     img.src       = p.img;
                     img.alt       = p.title;
                     badge.textContent = p.badge;
                     title.textContent = p.title;
                     cat.textContent   = p.cat;
                     brief.textContent = p.brief;
+                    counter.textContent = p.counter;
+                    if (hud) hud.textContent = p.hud;
                     img.classList.remove('proj-transitioning');
                     revealSequence();
                 }, 420);
@@ -233,11 +233,22 @@
             if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); clearTimeout(autoTimer); go(current - 1); });
             if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); clearTimeout(autoTimer); go(current + 1); });
 
-            // click viewer body to advance (not the link or nav buttons)
+            // clicking the preview image opens the currently displayed project
+            var imgWrap = document.querySelector('.proj-viewer-img-wrap');
+            if (imgWrap) {
+                imgWrap.style.cursor = 'pointer';
+                imgWrap.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = projects[displayed].href;
+                });
+            }
+
+            // click viewer body to advance (not the image or nav buttons)
             var viewer = document.getElementById('projViewer');
             if (viewer) {
                 viewer.addEventListener('click', function(e) {
-                    if (e.target.closest('.proj-viewer-link')) return;
+                    if (e.target.closest('.proj-viewer-img-wrap')) return;
                     if (e.target.closest('.proj-nav-btn')) return;
                     clearTimeout(autoTimer);
                     go(current + 1);

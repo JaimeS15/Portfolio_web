@@ -686,24 +686,6 @@ a {
     border-color: var(--clr-accent);
 }
 
-.proj-viewer-link {
-    font-family: var(--font-mono);
-    font-size: 0.52rem;
-    color: var(--clr-accent);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--clr-accent);
-    padding: 0.22rem 0.6rem;
-    flex-shrink: 0;
-    transition: background-color 100ms linear, color 100ms linear;
-}
-
-.proj-viewer-link:hover {
-    background: var(--clr-accent);
-    color: var(--clr-bg);
-}
-
 /* ========================================
    WORK SECTION
    ======================================== */
