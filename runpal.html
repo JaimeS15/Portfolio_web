@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunPal - Jaime Serrano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html { background: #0a0a0a; background-image: none; }
+        .project-layout { display: flex; min-height: calc(100vh - 44px); padding-top: 44px; }
+        .project-sidebar { position: fixed; left: 0; top: 44px; width: 260px; height: calc(100vh - 44px); padding: 2.5rem 1.75rem; background: #0a0a0a; border-right: 1px solid #636363; overflow-y: auto; }
+        .project-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 2rem; color: #dedede; border-left: 2px solid #c8f000; padding-left: 0.75rem; }
+        .project-nav { list-style: none; padding: 0; margin: 0; }
+        .project-nav li { margin-bottom: 0.4rem; }
+        .project-nav a { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; display: block; padding: 0.35rem 0 0.35rem 0.75rem; border-left: 2px solid transparent; transition: color 100ms linear, border-color 100ms linear, background-color 100ms linear; }
+        .project-nav a:hover { color: #c8f000; border-left-color: #c8f000; }
+        .project-nav a.active { color: #c8f000; border-left-color: #c8f000; background: rgba(200, 240, 0, 0.05); }
+        .project-main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; }
+        .project-hero-image { width: 100%; padding: 2rem 2.5rem 0; }
+        .project-hero-image img { width: 100%; height: auto; filter: grayscale(20%) contrast(1.05); border: 1px solid #2e2e2e; }
+        .project-content { flex: 1; padding: 2.5rem 2.5rem 4rem; max-width: 860px; margin: 0 auto; width: 100%; }
+        .project-section { margin-bottom: 5rem; padding-top: 2.5rem; border-top: 1px solid #2e2e2e; }
+        .project-section:first-child { border-top: none; padding-top: 0; }
+        .project-section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 1.25rem; color: #dedede; }
+        .project-section h3 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.85rem; margin-top: 2rem; color: #dedede; }
+        .project-section h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.22em; color: #c8f000; margin-bottom: 0.6rem; font-weight: 400; }
+        .project-section p { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; line-height: 1.9; color: #a8a8a8; margin-bottom: 1.1rem; }
+        .project-section ul { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; line-height: 1.9; margin-left: 1.25rem; margin-bottom: 1.25rem; font-size: 0.78rem; }
+        .project-section img { width: 100%; height: auto; margin: 1.5rem 0; filter: grayscale(15%) contrast(1.04) brightness(0.92); border: 1px solid #2e2e2e; display: block; }
+        .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 1.5rem 0; }
+        .image-grid img { margin: 0; }
+        .callout { background: #111; padding: 1.25rem; border-left: 2px solid #c8f000; margin: 1.5rem 0; color: #dedede; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; line-height: 1.9; }
+        .callout strong { color: #c8f000; }
+        .state-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .state-list li { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: #a8a8a8; padding: 0.6rem 1rem; border: 1px solid #2e2e2e; border-left: 2px solid #3a3a3a; line-height: 1.7; }
+        .state-list li strong { color: #dedede; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; display: inline-block; margin-right: 0.5rem; }
+        .state-list li.active-state { border-left-color: #c8f000; }
+        .back-link { font-family: 'IBM Plex Mono', monospace; display: inline-block; margin-top: 3rem; color: #c8f000; border: 1px solid #c8f000; padding: 0.45rem 1rem; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; transition: background-color 100ms linear, color 100ms linear; text-decoration: none; }
+        .back-link:hover { background: #c8f000; color: #0a0a0a; }
+        @media (max-width: 768px) {
+            .project-layout { flex-direction: column; }
+            .project-sidebar { position: relative; width: 100%; height: auto; top: 0; border-right: none; border-bottom: 1px solid #636363; padding: 1.5rem; }
+            .project-main { margin-left: 0; }
+            .project-hero-image { padding: 1.5rem 1.25rem 0; }
+            .project-content { padding: 1.5rem 1.25rem 3rem; }
+            .project-section { margin-bottom: 4rem; }
+            .image-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .project-sidebar { padding: 1.1rem 1rem; }
+            .project-title { font-size: 1.35rem; margin-bottom: 1.5rem; }
+            .project-nav a { font-size: 0.6rem; }
+            .project-hero-image { padding: 1.1rem 1rem 0; }
+            .project-content { padding: 1.1rem 1rem 2.5rem; }
+            .project-section { margin-bottom: 3rem; }
+            .project-section h2 { font-size: 1.2rem; }
+            .project-section p { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline-overlay" aria-hidden="true"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="./">Jaime Serrano</a></li>
+            </ul>
+            <span class="nav-sys-readout">SYS: 00.4 // LOC: ACTIVE</span>
+        </div>
+    </nav>
+
+    <div class="project-layout">
+        <aside class="project-sidebar">
+            <h1 class="project-title">RunPal</h1>
+            <ul class="project-nav">
+                <li><a href="#overview" class="nav-link">Overview</a></li>
+                <li><a href="#concept" class="nav-link">Concept</a></li>
+                <li><a href="#implementation" class="nav-link">Implementation</a></li>
+                <li><a href="#software" class="nav-link">Software</a></li>
+                <li><a href="#process" class="nav-link">Process</a></li>
+                <li><a href="#pivot" class="nav-link">The Pivot</a></li>
+                <li><a href="#reflection" class="nav-link">Reflection</a></li>
+            </ul>
+        </aside>
+
+        <main class="project-main">
+            <div class="project-hero-image">
+                <img src="images/RunPal_images/uno_version.jpg" alt="RunPal — Uno version on breadboard" loading="eager">
+            </div>
+
+            <section class="project-content">
+
+                <div class="project-section" id="overview">
+                    <h4>Physical Prototype — HCDE 539</h4>
+                    <h2>RunPal: A wrist-worn running companion</h2>
+                    <p>
+                        RunPal is a wearable device built around an Arduino Nano 33 BLE Sense and a 1.51"
+                        transparent OLED display. A pixel-art cat character animates in real time to reflect
+                        your running state — sitting idle while waiting, counting down, sprinting alongside
+                        you, and showing your final run time on a summary screen.
+                    </p>
+                    <p>
+                        Runs were designed to be started and stopped entirely by voice using an on-device
+                        TFLite machine learning model trained with Edge Impulse, recognizing the keywords
+                        "Hey Ajax" and "Stop run" — no phone or internet required. A passive buzzer provides
+                        audio feedback at the start and end of each run.
+                    </p>
+                    <div class="callout">
+                        <strong>Tagline:</strong> Your pixel pal that runs when you run.
+                    </div>
+                </div>
+
+                <div class="project-section" id="concept">
+                    <h4>Design Concept</h4>
+                    <h2>Motivation through a digital companion</h2>
+                    <p>
+                        Runners consistently identify motivation as one of the biggest challenges in maintaining
+                        training consistency. Prior research from the RunAR project also surfaced a strong preference
+                        for hands-free interaction — runners don't want to use their hands to control devices mid-run.
+                    </p>
+                    <p>
+                        RunPal addresses both of these problems. A pixel-art pet character provides a gamification
+                        layer — it runs when you run, sitting still if you stop — creating a low-stakes sense of
+                        accountability. Voice commands keep the interaction entirely hands-free.
+                    </p>
+                    <p>
+                        The system was designed to be housed in a custom 3D-printed watch case with a standard
+                        20mm watch strap, making it wearable during an actual run.
+                    </p>
+                    <img src="images/RunPal_images/prototype_assembled.jpg" alt="RunPal assembled prototype" loading="lazy">
+                </div>
+
+                <div class="project-section" id="implementation">
+                    <h4>Hardware</h4>
+                    <h2>Components and circuit design</h2>
+                    <p>
+                        The hardware is built around the Arduino Nano 33 BLE Sense — chosen for its onboard
+                        PDM microphone, nRF52840 processor, and TinyML capability. This allowed the voice
+                        recognition model to run entirely on-device without a wireless connection.
+                    </p>
+                    <ul>
+                        <li><strong>Arduino Nano 33 BLE Sense</strong> — Main controller with onboard microphone and nRF52840 processor</li>
+                        <li><strong>1.51" Transparent OLED (SSD1309)</strong> — Connected via SPI for the display and cat animation</li>
+                        <li><strong>Passive Buzzer</strong> — Audio feedback on run start and stop (via D6)</li>
+                        <li><strong>Push Button</strong> — Manual fallback for voice commands (via D2, INPUT_PULLUP)</li>
+                        <li><strong>3.7V 600mAh LiPo Battery</strong> — Portable power via 3.3V pin</li>
+                    </ul>
+                    <p>
+                        The display, microphone, buzzer, and button were wired to specific pins to avoid
+                        conflicts between SPI communication, tone output, and the PDM audio sampling loop.
+                    </p>
+                    <div class="image-grid">
+                        <img src="images/RunPal_images/nano_breadboard.png" alt="Nano 33 BLE Sense circuit diagram" loading="lazy">
+                        <img src="images/RunPal_images/uno_breadboard.png" alt="Uno fallback circuit diagram" loading="lazy">
+                    </div>
+                    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.63rem; color: #808080; letter-spacing: 0.08em; margin-top: -0.5rem;">
+                        Left: Nano 33 BLE Sense circuit (full voice + TinyML version) &nbsp;|&nbsp; Right: Uno fallback circuit (button only)
+                    </p>
+                    <div class="image-grid">
+                        <img src="images/RunPal_images/uno_components.jpg" alt="RunPal components laid out" loading="lazy">
+                        <img src="images/RunPal_images/PXL_20260225_000946819.jpg" alt="RunPal breadboard build" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="project-section" id="software">
+                    <h4>Software Architecture</h4>
+                    <h2>Finite state machine with TinyML voice recognition</h2>
+                    <p>
+                        The firmware is structured around a five-state finite state machine. Each state controls
+                        what is rendered on the OLED, which inputs are accepted, and what audio plays.
+                    </p>
+                    <ul class="state-list">
+                        <li class="active-state"><strong>IDLE</strong> The cat sits and blinks. The system listens continuously for voice input via the onboard PDM microphone, running inference through a TFLite model every loop cycle.</li>
+                        <li><strong>COUNTDOWN</strong> Triggered when "Hey Ajax" is detected above the confidence threshold. Runs a 5-second countdown on screen. Inference is paused during this state to keep the animation smooth.</li>
+                        <li class="active-state"><strong>RUNNING</strong> Elapsed time is calculated each loop and shown at the bottom of the display. The cat animation cycles through 4 frames with bounce physics, speed lines, and a tail wag. The microphone continues listening for "Stop run".</li>
+                        <li><strong>STOPPING</strong> Triggered by voice or button. The timer freezes at the exact millisecond. The buzzer plays two descending beeps. A brief pause screen plays before advancing.</li>
+                        <li><strong>SUMMARY</strong> Displays the final frozen run time for 10 seconds, then automatically resets to IDLE.</li>
+                    </ul>
+                    <p>
+                        Display rendering uses the U8g2 library with a pixel-art drawing approach — all cat graphics
+                        are built from filled rectangles on a 2×2 pixel grid for a chunky 8-bit aesthetic. Button
+                        input uses software debouncing to prevent false triggers.
+                    </p>
+                    <div class="callout">
+                        Voice recognition runs a TFLite model trained via Edge Impulse to identify two keywords:
+                        <strong>"Hey Ajax"</strong> (start run) and <strong>"Stop run"</strong> (end run). The model
+                        runs on-device — no internet, no phone. The pet's name was designed to be user-configurable
+                        with a model retrain.
+                    </div>
+                    <img src="images/RunPal_images/PXL_20260225_000950089.jpg" alt="RunPal OLED display showing cat animation" loading="lazy">
+                </div>
+
+                <div class="project-section" id="process">
+                    <h4>Development Process</h4>
+                    <h2>AI-assisted hardware and firmware development</h2>
+                    <p>
+                        This project was a deliberate exercise in using AI throughout a physical prototyping
+                        workflow — from firmware architecture to 3D-printed enclosure design.
+                    </p>
+                    <p>
+                        I started by getting the OLED display working, using Claude to identify the right
+                        libraries and iterating through prompts until I had a pixel-art cat rendering on screen.
+                        At that point I realized the original screen didn't suit a glasses form factor and
+                        pivoted to a smartwatch concept, which better fit both the display size and the
+                        hands-free use case.
+                    </p>
+                    <p>
+                        I then used Claude to guide the Edge Impulse model training workflow — understanding
+                        how to structure keyword recordings, set confidence thresholds, and integrate the
+                        exported TFLite model into the firmware loop. Claude also wrote and revised the full
+                        state machine code, incorporating the display animations, buzzer feedback, and button
+                        debouncing logic.
+                    </p>
+                    <p>
+                        For the enclosure, I used Claude to generate an OpenSCAD file sized to fit the
+                        exact component dimensions. I imported the resulting model into Rhino, adjusted the
+                        layout, and exported it to Prusa Slicer for 3D printing.
+                    </p>
+                </div>
+
+                <div class="project-section" id="pivot">
+                    <h4>The Pivot</h4>
+                    <h2>The Nano was fried during final assembly</h2>
+                    <p>
+                        During the final assembly step — fitting the components into the 3D-printed case and
+                        connecting the battery — the Arduino Nano 33 BLE Sense was destroyed. The most likely
+                        cause was a voltage issue introduced when adding a power adapter for additional ground
+                        inputs; the buzzer began emitting a high-pitched tone and the board stopped responding.
+                    </p>
+                    <div class="callout">
+                        The Nano is the only component that supports the onboard PDM microphone and TinyML
+                        inference. Losing it meant losing voice control and the ability to fit inside the
+                        designed case.
+                    </div>
+                    <p>
+                        I pivoted to an Arduino Uno, which I used Claude to adapt the firmware for. The Uno
+                        version runs the full OLED animation and state machine but replaces voice commands
+                        with button-only input, and the larger form factor no longer fits the 3D-printed case.
+                    </p>
+                    <p>
+                        The Uno version still demonstrates the core concept — the pixel-art cat animating
+                        in response to a run start and stop — but without the hands-free interaction that
+                        made the original design distinctive.
+                    </p>
+                </div>
+
+                <div class="project-section" id="reflection">
+                    <h4>Reflection</h4>
+                    <h2>What I would do differently</h2>
+                    <p>
+                        The hardware failure came down to component compatibility — specifically, not fully
+                        understanding the power requirements of the battery relative to the adapter and the
+                        Nano's voltage tolerance. Next time I would verify every component in the power chain
+                        before final assembly and bench test battery connections independently before
+                        integrating them with the full circuit.
+                    </p>
+                    <p>
+                        Time management also played a role. Most of the assembly steps were compressed into
+                        a short window near the deadline, which reduced the margin for debugging. A phased
+                        integration plan — testing the battery with a minimal circuit first — would have
+                        caught the issue earlier.
+                    </p>
+                    <p>
+                        The AI-assisted development workflow, however, was a genuine strength. Using Claude
+                        throughout — from library selection to state machine architecture to enclosure design
+                        — compressed what would have been weeks of independent research into a much tighter
+                        iteration cycle. That part of the process I would repeat exactly.
+                    </p>
+
+                    <a href="./" class="back-link">← Back to home</a>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        (function() {
+            var sections = document.querySelectorAll('.project-section');
+            var navLinks = document.querySelectorAll('.project-nav a');
+            if (!sections.length || !navLinks.length) return;
+
+            function getActive() {
+                var scrollY = window.scrollY + 120;
+                var active = sections[0].id;
+                sections.forEach(function(s) {
+                    if (s.offsetTop <= scrollY) active = s.id;
+                });
+                return active;
+            }
+
+            function updateNav() {
+                var active = getActive();
+                navLinks.forEach(function(a) {
+                    var matches = a.getAttribute('href') === '#' + active;
+                    a.classList.toggle('active', matches);
+                });
+            }
+
+            window.addEventListener('scroll', updateNav, { passive: true });
+            updateNav();
+        })();
+    </script>
+</body>
+</html>
