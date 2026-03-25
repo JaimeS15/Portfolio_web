@@ -496,6 +496,19 @@ a {
     min-height: 0;
 }
 
+/* Homepage: let the hero span wider screens, and anchor the viewer to the right edge */
+.page-home .hero-content {
+    max-width: none;
+}
+
+.page-home .hero-inner {
+    justify-content: flex-start;
+}
+
+.page-home .hero-visual {
+    margin-left: auto;
+}
+
 /* ── Project Viewer ─────────────────────── */
 .proj-viewer {
     margin-top: auto;
