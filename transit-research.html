@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riding Unseen: Transit Access for Marginalized Communities - Jaime Serrano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html { background: #0a0a0a; background-image: none; }
+
+        .research-layout {
+            padding-top: 44px;
+            min-height: calc(100vh - 44px);
+            display: flex;
+        }
+        .research-image-column {
+            position: sticky;
+            top: 44px;
+            width: 45%;
+            height: calc(100vh - 44px);
+            padding: 2rem 2rem 2rem 2.5rem;
+            flex-shrink: 0;
+        }
+        .research-image-column img {
+            width: 100%;
+            height: auto;
+            max-height: calc(100vh - 100px);
+            object-fit: contain;
+            object-position: left center;
+            filter: grayscale(10%) contrast(1.04);
+            border: 1px solid #2e2e2e;
+            transition: border-color 100ms linear;
+        }
+        .research-main {
+            flex: 1;
+            min-width: 0;
+            padding: 2rem 2.5rem 4rem 2rem;
+        }
+        .research-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #c8f000;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .research-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            line-height: 1.0;
+            color: #dedede;
+            margin-bottom: 0.75rem;
+        }
+        .research-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: #a8a8a8;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #2e2e2e;
+            letter-spacing: 0.04em;
+        }
+        .research-block {
+            margin-bottom: 2.25rem;
+            padding-top: 2rem;
+            border-top: 1px solid #2e2e2e;
+        }
+        .research-block:first-of-type { border-top: none; padding-top: 0; }
+        .research-block h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #dedede;
+            margin-bottom: 0.75rem;
+        }
+        .research-block p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin-bottom: 0.9rem;
+        }
+        .research-block ul {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.9;
+            color: #a8a8a8;
+            margin: 0.5rem 0 0.9rem 1.25rem;
+        }
+
+        /* Research question callout */
+        .rq-callout {
+            background: #111;
+            border-left: 2px solid #c8f000;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: #dedede;
+        }
+
+        /* Observation cards */
+        .observation-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .observation-list li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.8;
+            color: #a8a8a8;
+            padding: 0.9rem 1.1rem;
+            border: 1px solid #2e2e2e;
+            border-left: 2px solid #c8f000;
+            background: #0e0e0e;
+        }
+        .observation-list li strong {
+            color: #dedede;
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        /* Theme cards */
+        .theme-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            margin: 1rem 0;
+        }
+        .theme-card {
+            border: 1px solid #2e2e2e;
+            padding: 1rem 1.1rem;
+            background: #0e0e0e;
+        }
+        .theme-card-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #c8f000;
+            margin-bottom: 0.35rem;
+        }
+        .theme-card-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #dedede;
+            margin-bottom: 0.45rem;
+        }
+        .theme-card p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            line-height: 1.8;
+            color: #a8a8a8;
+            margin: 0;
+        }
+
+        /* Implication cards */
+        .implication-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .implication-list li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.8;
+            color: #a8a8a8;
+            padding: 0.85rem 1.1rem;
+            border: 1px solid #2e2e2e;
+            background: #0e0e0e;
+        }
+        .implication-list li strong {
+            color: #dedede;
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .back-link {
+            font-family: 'IBM Plex Mono', monospace;
+            display: inline-block;
+            margin-top: 2rem;
+            color: #c8f000;
+            border: 1px solid #c8f000;
+            padding: 0.45rem 1rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: background-color 100ms linear, color 100ms linear;
+            text-decoration: none;
+        }
+        .back-link:hover { background: #c8f000; color: #0a0a0a; }
+
+        @media (max-width: 900px) {
+            .research-layout { flex-direction: column; }
+            .research-image-column {
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                padding: 2rem 1.5rem 0;
+            }
+            .research-image-column img { max-height: none; }
+            .research-main { padding: 2rem 1.5rem 3rem; }
+        }
+        @media (max-width: 480px) {
+            .research-layout { padding-top: 40px; }
+            .research-image-column { padding: 1.25rem 1rem 0; }
+            .research-main { padding: 1.5rem 1rem 2.5rem; }
+            .research-title { font-size: 1.3rem; }
+            .research-block h3 { font-size: 1.05rem; }
+            .research-block p { font-size: 0.72rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline-overlay" aria-hidden="true"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="./">Jaime Serrano</a></li>
+            </ul>
+            <span class="nav-sys-readout">SYS: 00.4 // LOC: ACTIVE</span>
+        </div>
+    </nav>
+
+    <div class="research-layout">
+        <aside class="research-image-column">
+            <img src="images/transit_images/cover.jpg" alt="Riding Unseen — Transit Access for Marginalized Communities, study overview" loading="eager">
+        </aside>
+
+        <main class="research-main">
+            <p class="research-label">Qualitative Research Study</p>
+            <h1 class="research-title">Riding Unseen: Transit Access for Marginalized Communities</h1>
+            <p class="research-meta">Longitudinal naturalistic observation — King County Metro &amp; Sound Transit // Solo project — Fly-on-the-Wall</p>
+
+            <div class="research-block">
+                <h3>Overview</h3>
+                <p>
+                    This study examines how the King County public transportation system serves — and fails —
+                    marginalized communities. Observations were conducted across three interconnected systems:
+                    King County Metro Route 917, which runs through the cities of Algona and Pacific before
+                    terminating at Auburn Station; Sound Transit Route 578, an express coach connecting Auburn
+                    Station to Seattle; and the Sound Transit Sounder commuter rail line at Auburn Station.
+                </p>
+                <p>
+                    The communities I focused on were people whose first language is not English, elderly riders,
+                    and people with disabilities — populations that largely reflect my own local neighborhood.
+                    These riders depend on public transit as a primary mode of access, yet the system's
+                    infrastructure, information design, and service frequency are rarely designed with their
+                    needs as the starting point.
+                </p>
+                <p>
+                    Surveys and structured interviews capture what riders say about their experience. What they
+                    miss is the compounding moment of failure — when a capacity limit, a service gap, and a
+                    transfer window collapse together on a single person. Observation captures that. This study
+                    documents those moments directly.
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>Research Question</h3>
+                <div class="rq-callout">
+                    <strong>How does the King County public transportation system serve marginalized communities — and where does it fail them?</strong>
+                </div>
+            </div>
+
+            <div class="research-block">
+                <h3>Methodology</h3>
+                <p>
+                    This study draws on longitudinal naturalistic observation accumulated through years of
+                    regular transit use across the King County Metro and Sound Transit systems. Rather than
+                    discrete observation sessions, findings are grounded in sustained first-person immersion
+                    in the transit environment — a form of autoethnographic field observation that captures
+                    behavioral patterns and systemic failures that short-term studies cannot replicate.
+                </p>
+                <p>
+                    Observation was conducted across three interconnected systems: King County Metro Route 917,
+                    serving the cities of Algona and Pacific before terminating at Auburn Station; Sound Transit
+                    Route 578, connecting Auburn Station to Seattle; and the Sound Transit Sounder commuter
+                    rail line at Auburn Station.
+                </p>
+                <p>
+                    What I was watching for consistently centered on: how riders with limited mobility, limited
+                    English proficiency, or limited system familiarity navigated each transfer point; where
+                    information gaps caused confusion or distress; and where the physical infrastructure of
+                    stops, sidewalks, and vehicles created barriers rather than access. I was not a detached
+                    observer — I am a regular rider of these routes and a member of the communities they serve.
+                    That proximity is both this study's greatest methodological asset and a limitation
+                    acknowledged in the reflection.
+                </p>
+                <ul>
+                    <li>Longitudinal naturalistic observation (Fly-on-the-Wall)</li>
+                    <li>Autoethnographic field research</li>
+                    <li>Routes observed: King County Metro 917, Sound Transit 578, Sounder commuter rail</li>
+                    <li>Contexts: stops, platforms, vehicles, transfer points, surrounding pedestrian infrastructure</li>
+                </ul>
+            </div>
+
+            <div class="research-block">
+                <h3>Key Observations</h3>
+                <ul class="observation-list">
+                    <li>
+                        <strong>01 — A wheelchair user stranded by capacity, frequency, and transfer dependency</strong>
+                        I observed a wheelchair user navigate a multi-leg trip from Auburn to Seattle and back.
+                        They traveled outbound on Sound Transit Route 578 without issue. On the return, the same
+                        route passed without stopping — the bus had reached its wheelchair capacity. On Route 578,
+                        which runs on hourly headways at certain times, a single missed bus is not a minor delay.
+                        Missing the 578 connection at Auburn Station meant missing the last viable Route 917
+                        departure to their neighborhood. What I observed was not just frustration — it was the
+                        cumulative weight of a system that had been designed without their trip in mind at any
+                        point along it.
+                    </li>
+                    <li>
+                        <strong>02 — A Spanish-speaking rider unable to find the right platform</strong>
+                        At Auburn Station, I observed a rider attempting to board the Sounder commuter train
+                        northbound to Seattle. The station's directional signage is static and English-only.
+                        With no dynamic information and no multilingual wayfinding, this rider could not
+                        determine which side of the tracks they needed. The stress was visible. It was only
+                        when they approached me and asked in Spanish that they were able to confirm their
+                        platform and board without missing their train. The system had offered them nothing.
+                    </li>
+                    <li>
+                        <strong>03 — Route 917's coverage gap isolates elderly and mobility-impaired riders</strong>
+                        Route 917 runs along the main arterials of Algona and Pacific before connecting to
+                        Auburn Station. The route does not serve the residential streets that branch off those
+                        arterials — streets where a significant portion of the community lives. For elderly
+                        riders and people with limited mobility, the distance between their home and the nearest
+                        Route 917 stop is not a minor inconvenience. It is a functional barrier to using the
+                        system at all. The route's coverage area was designed around road infrastructure, not
+                        around where riders actually live or what their physical capacity to reach a stop
+                        actually is.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="research-block">
+                <h3>Analysis &amp; Themes</h3>
+                <div class="theme-grid">
+                    <div class="theme-card">
+                        <p class="theme-card-label">Theme 01</p>
+                        <p class="theme-card-title">Service Design Assumes a Rider Who Does Not Exist</p>
+                        <p>Route frequency, vehicle capacity, and transfer schedules are built around an idealized
+                        average rider who is able-bodied, punctual, and has flexibility in their trip. The
+                        observations in this study repeatedly document what happens when that assumption meets
+                        reality: a wheelchair user left at a stop, a trip chain broken by a missed hourly bus,
+                        a neighborhood made functionally unreachable by a coverage gap. The system was not
+                        designed maliciously — but it was not designed for these riders either.</p>
+                    </div>
+                    <div class="theme-card">
+                        <p class="theme-card-label">Theme 02</p>
+                        <p class="theme-card-title">Information Systems Exclude by Default</p>
+                        <p>Static, English-only signage is not a neutral design choice. In communities where
+                        significant portions of residents are non-native English speakers, it is an active
+                        barrier. Route 917 stops display only a route number. Auburn Station's platform signage
+                        offers no multilingual support. The assumption embedded in these systems is that riders
+                        arrive already knowing what they need to know — an assumption that fails the people who
+                        need transit most.</p>
+                    </div>
+                    <div class="theme-card">
+                        <p class="theme-card-label">Theme 03</p>
+                        <p class="theme-card-title">Infrastructure Investment Tracks Wealth, Not Need</p>
+                        <p>The contrast between Route 917's corridor and transit infrastructure in higher-income
+                        Seattle neighborhoods is not incidental. It reflects a pattern of capital investment
+                        that follows demographics rather than need. The communities served by Route 917 —
+                        Algona, Pacific — are lower-income, less politically visible, and less likely to
+                        generate advocacy pressure for improved stops, sidewalks, or service frequency. The
+                        result is that the riders most dependent on transit receive the least investment in
+                        the conditions that make transit safe and usable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-block">
+                <h3>Design Implications</h3>
+                <ul class="implication-list">
+                    <li>
+                        <strong>01 — Equitable information infrastructure across all routes</strong>
+                        Route 917 stops display only a route number — no schedule, no destination, no
+                        real-time arrival data. Meanwhile, routes serving higher-income corridors in Seattle
+                        have full information kiosks at most stops. Deploying low-cost e-ink digital kiosks
+                        at underserved stops — with multilingual support — would directly address the
+                        information gap observed repeatedly during this study. E-ink displays are
+                        cost-effective, low-power, and weatherproof, making them feasible at scale across
+                        the Metro network.
+                    </li>
+                    <li>
+                        <strong>02 — Wheelchair capacity redesign on fixed-route buses</strong>
+                        Current Metro buses accommodate a fixed, limited number of wheelchair users per
+                        vehicle. When that capacity is reached, the next rider using a wheelchair is passed.
+                        On low-frequency routes running on hourly headways, a single missed bus can mean a
+                        missed connection and a failed trip entirely. Modular seating — interior
+                        configurations that allow standard seats to fold or be removed — would increase
+                        wheelchair capacity without requiring entirely new fleets. A phased retrofit program
+                        could prioritize routes with the lowest frequency and highest documented disability
+                        ridership.
+                    </li>
+                    <li>
+                        <strong>03 — Service frequency on community-dependent routes</strong>
+                        Hourly headways on routes serving transit-dependent communities create compounding
+                        vulnerability. A missed bus is not an inconvenience — it is a broken chain. Increasing
+                        service frequency on routes like 917, particularly during off-peak hours when
+                        vulnerable riders are most likely to travel to appointments, services, or community
+                        events, is the highest-impact policy change this study points toward.
+                    </li>
+                    <li>
+                        <strong>04 — Further research: equity mapping across the Metro network</strong>
+                        The contrast between information infrastructure on wealthy corridors versus Route 917
+                        suggests a systematic pattern worth quantifying. A follow-up study mapping stop-level
+                        infrastructure quality against neighborhood income and demographic data across the
+                        full Metro network would provide the evidence base for an equity-driven capital
+                        investment argument to Metro leadership.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="research-block">
+                <h3>Reflection</h3>
+                <p>
+                    What observation captured that interviews alone could not is the full architecture of a
+                    failed trip. An interview might ask a rider whether they felt the system was accessible —
+                    and they might say yes, or they might struggle to articulate the specific moment things
+                    went wrong. Observation documents the chain: the bus that passed, the hour wait, the
+                    missed connection. It captures frustration without requiring the rider to perform or
+                    recall it. It also surfaces experiences that riders may not have wanted to revisit in a
+                    formal interview setting — or simply would not have thought to mention without the right
+                    prompts.
+                </p>
+                <p>
+                    A follow-up study would pair this observational foundation with structured methods to
+                    fill the gaps observation cannot reach. Interviews with Route 917 riders — particularly
+                    elderly residents and people with disabilities — would surface the experiences and trip
+                    decisions that could not be observed directly, including the trips people chose not to
+                    take because the system was not built for them. Extending observation to other routes
+                    serving similar demographics elsewhere in King County would allow for comparison and
+                    help distinguish local failures from systemic ones. Together, those methods would build
+                    the evidence base this study points toward but cannot complete alone.
+                </p>
+
+                <a href="./" class="back-link">← Back to home</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
