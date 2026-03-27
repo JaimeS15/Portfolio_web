@@ -143,6 +143,7 @@
             border-radius: 50%;
             border: 2px solid #0a0a0a;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);
+            transform: translate(-50%, -50%);
         }
         .transit-dot.a { background: #ffffff; animation: moveA 11s linear infinite; }
         .transit-dot.b { background: #c8f000; animation: moveB 8.8s linear infinite reverse; }
@@ -151,26 +152,26 @@
         .transit-dot.e { background: #c8f000; animation: moveE 10.2s linear infinite; }
 
         @keyframes moveA {
-            0%   { left: 9%;  top: 11%; }
-            48%  { left: 9%;  top: 89%; }
-            100% { left: 88%; top: 89%; }
+            0%   { left: 10.0%; top: 10.8%; }
+            48%  { left: 10.0%; top: 90.0%; }
+            100% { left: 88.9%; top: 90.0%; }
         }
         @keyframes moveB {
-            0%   { left: 13%; top: 18.5%; }
-            44%  { left: 77.5%; top: 18.5%; }
-            100% { left: 77.5%; top: 78%; }
+            0%   { left: 13.3%; top: 18.3%; }
+            44%  { left: 77.8%; top: 18.3%; }
+            100% { left: 77.8%; top: 79.2%; }
         }
         @keyframes moveC {
-            0%   { left: 6.8%;  top: 43.2%; }
-            100% { left: 93.2%; top: 43.2%; }
+            0%   { left: 6.7%;  top: 43.3%; }
+            100% { left: 93.3%; top: 43.3%; }
         }
         @keyframes moveD {
-            0%   { left: 14.2%; top: 72.8%; }
-            100% { left: 86.8%; top: 20.8%; }
+            0%   { left: 14.4%; top: 73.3%; }
+            100% { left: 86.7%; top: 20.8%; }
         }
         @keyframes moveE {
-            0%   { left: 39.3%; top: 8.5%; }
-            100% { left: 39.3%; top: 94.6%; }
+            0%   { left: 40.0%; top: 7.5%; }
+            100% { left: 40.0%; top: 95.0%; }
         }
         .research-main {
             flex: 1;
@@ -401,7 +402,7 @@
                 <div class="transit-map-grid" aria-hidden="true"></div>
                 <span class="transit-map-label">Live Transit Grid</span>
                 <span class="transit-map-sub">Lines + Moving Vehicles</span>
-                <svg class="transit-map-svg" viewBox="0 0 900 1200" role="img" aria-label="Animated transit route diagram">
+                <svg class="transit-map-svg" viewBox="0 0 900 1200" preserveAspectRatio="none" role="img" aria-label="Animated transit route diagram">
                     <path class="line line-a" d="M90 130 L90 1080 L800 1080" />
                     <path class="line line-b" d="M120 220 L700 220 L700 950" />
                     <path class="line line-c" d="M210 90 L210 980 L620 980" />
