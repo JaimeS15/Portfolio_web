@@ -398,32 +398,12 @@
                     <path id="routeD" class="route" d="M130 880 L780 250" />
                     <path id="routeE" class="route" d="M360 90 L360 1140" />
 
-                    <!-- Moving vehicles -->
-                    <circle class="vehicle">
-                        <animateMotion dur="11s" repeatCount="indefinite" rotate="auto">
-                            <mpath href="#routeA" />
-                        </animateMotion>
-                    </circle>
-                    <circle class="vehicle vehicle-v2">
-                        <animateMotion dur="8.8s" repeatCount="indefinite" rotate="auto" keyPoints="1;0" keyTimes="0;1">
-                            <mpath href="#routeB" />
-                        </animateMotion>
-                    </circle>
-                    <circle class="vehicle vehicle-v3">
-                        <animateMotion dur="7.2s" repeatCount="indefinite" rotate="auto">
-                            <mpath href="#routeC" />
-                        </animateMotion>
-                    </circle>
-                    <circle class="vehicle">
-                        <animateMotion dur="9.6s" repeatCount="indefinite" rotate="auto" keyPoints="1;0" keyTimes="0;1">
-                            <mpath href="#routeD" />
-                        </animateMotion>
-                    </circle>
-                    <circle class="vehicle vehicle-v2">
-                        <animateMotion dur="10.2s" repeatCount="indefinite" rotate="auto">
-                            <mpath href="#routeE" />
-                        </animateMotion>
-                    </circle>
+                    <!-- Moving vehicles (animated via JavaScript for cross-browser reliability) -->
+                    <circle id="vehA" class="vehicle" cx="90" cy="130" />
+                    <circle id="vehB" class="vehicle vehicle-v2" cx="120" cy="220" />
+                    <circle id="vehC" class="vehicle vehicle-v3" cx="60" cy="520" />
+                    <circle id="vehD" class="vehicle" cx="130" cy="880" />
+                    <circle id="vehE" class="vehicle vehicle-v2" cx="360" cy="90" />
                 </svg>
             </div>
         </aside>
@@ -650,5 +630,50 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        (function() {
+            var configs = [
+                { vehicleId: 'vehA', routeId: 'routeA', durationMs: 11000, reverse: false, offset: 0.00 },
+                { vehicleId: 'vehB', routeId: 'routeB', durationMs: 8800,  reverse: true,  offset: 0.15 },
+                { vehicleId: 'vehC', routeId: 'routeC', durationMs: 7200,  reverse: false, offset: 0.32 },
+                { vehicleId: 'vehD', routeId: 'routeD', durationMs: 9600,  reverse: true,  offset: 0.58 },
+                { vehicleId: 'vehE', routeId: 'routeE', durationMs: 10200, reverse: false, offset: 0.76 }
+            ];
+
+            var animItems = configs.map(function(c) {
+                var vehicle = document.getElementById(c.vehicleId);
+                var path = document.getElementById(c.routeId);
+                if (!vehicle || !path || typeof path.getTotalLength !== 'function') return null;
+                return {
+                    vehicle: vehicle,
+                    path: path,
+                    len: path.getTotalLength(),
+                    durationMs: c.durationMs,
+                    reverse: c.reverse,
+                    offset: c.offset
+                };
+            }).filter(Boolean);
+
+            if (!animItems.length) return;
+
+            var startTs = null;
+            function tick(ts) {
+                if (startTs === null) startTs = ts;
+                var elapsed = ts - startTs;
+
+                animItems.forEach(function(item) {
+                    var t = ((elapsed / item.durationMs) + item.offset) % 1;
+                    if (item.reverse) t = 1 - t;
+                    var p = item.path.getPointAtLength(item.len * t);
+                    item.vehicle.setAttribute('cx', p.x.toFixed(2));
+                    item.vehicle.setAttribute('cy', p.y.toFixed(2));
+                });
+
+                window.requestAnimationFrame(tick);
+            }
+
+            window.requestAnimationFrame(tick);
+        })();
+    </script>
 </body>
 </html>
