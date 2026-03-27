@@ -632,22 +632,66 @@
     <script src="script.js"></script>
     <script>
         (function() {
+            // Browser-safe animation: move vehicles along explicit polyline points,
+            // avoiding SVG path API differences across Safari/Firefox.
+            var routes = {
+                routeA: [{x:90,y:130},{x:90,y:1080},{x:800,y:1080}],
+                routeB: [{x:120,y:220},{x:700,y:220},{x:700,y:950}],
+                routeC: [{x:60,y:520},{x:840,y:520}],
+                routeD: [{x:130,y:880},{x:780,y:250}],
+                routeE: [{x:360,y:90},{x:360,y:1140}]
+            };
+
+            function segmentLength(a, b) {
+                var dx = b.x - a.x;
+                var dy = b.y - a.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            function buildRouteData(points) {
+                var segLens = [];
+                var total = 0;
+                for (var i = 0; i < points.length - 1; i++) {
+                    var len = segmentLength(points[i], points[i + 1]);
+                    segLens.push(len);
+                    total += len;
+                }
+                return { points: points, segLens: segLens, total: total };
+            }
+
+            function pointOnRoute(route, t) {
+                var target = route.total * t;
+                var acc = 0;
+                for (var i = 0; i < route.segLens.length; i++) {
+                    var seg = route.segLens[i];
+                    if (target <= acc + seg || i === route.segLens.length - 1) {
+                        var local = seg === 0 ? 0 : (target - acc) / seg;
+                        var a = route.points[i];
+                        var b = route.points[i + 1];
+                        return {
+                            x: a.x + (b.x - a.x) * local,
+                            y: a.y + (b.y - a.y) * local
+                        };
+                    }
+                    acc += seg;
+                }
+                return route.points[route.points.length - 1];
+            }
+
             var configs = [
-                { vehicleId: 'vehA', routeId: 'routeA', durationMs: 11000, reverse: false, offset: 0.00 },
-                { vehicleId: 'vehB', routeId: 'routeB', durationMs: 8800,  reverse: true,  offset: 0.15 },
-                { vehicleId: 'vehC', routeId: 'routeC', durationMs: 7200,  reverse: false, offset: 0.32 },
-                { vehicleId: 'vehD', routeId: 'routeD', durationMs: 9600,  reverse: true,  offset: 0.58 },
-                { vehicleId: 'vehE', routeId: 'routeE', durationMs: 10200, reverse: false, offset: 0.76 }
+                { vehicleId: 'vehA', route: buildRouteData(routes.routeA), durationMs: 11000, reverse: false, offset: 0.00 },
+                { vehicleId: 'vehB', route: buildRouteData(routes.routeB), durationMs: 8800,  reverse: true,  offset: 0.15 },
+                { vehicleId: 'vehC', route: buildRouteData(routes.routeC), durationMs: 7200,  reverse: false, offset: 0.32 },
+                { vehicleId: 'vehD', route: buildRouteData(routes.routeD), durationMs: 9600,  reverse: true,  offset: 0.58 },
+                { vehicleId: 'vehE', route: buildRouteData(routes.routeE), durationMs: 10200, reverse: false, offset: 0.76 }
             ];
 
             var animItems = configs.map(function(c) {
                 var vehicle = document.getElementById(c.vehicleId);
-                var path = document.getElementById(c.routeId);
-                if (!vehicle || !path || typeof path.getTotalLength !== 'function') return null;
+                if (!vehicle) return null;
                 return {
                     vehicle: vehicle,
-                    path: path,
-                    len: path.getTotalLength(),
+                    route: c.route,
                     durationMs: c.durationMs,
                     reverse: c.reverse,
                     offset: c.offset
@@ -661,13 +705,14 @@
                 if (startTs === null) startTs = ts;
                 var elapsed = ts - startTs;
 
-                animItems.forEach(function(item) {
+                for (var i = 0; i < animItems.length; i++) {
+                    var item = animItems[i];
                     var t = ((elapsed / item.durationMs) + item.offset) % 1;
                     if (item.reverse) t = 1 - t;
-                    var p = item.path.getPointAtLength(item.len * t);
+                    var p = pointOnRoute(item.route, t);
                     item.vehicle.setAttribute('cx', p.x.toFixed(2));
                     item.vehicle.setAttribute('cy', p.y.toFixed(2));
-                });
+                }
 
                 window.requestAnimationFrame(tick);
             }
