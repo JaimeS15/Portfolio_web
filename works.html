@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — Jaime Serrano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Page layout ── */
+        .works-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6.5rem 2rem 5rem;
+        }
+
+        /* ── Page header ── */
+        .works-header {
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--clr-border);
+            margin-bottom: 3rem;
+        }
+
+        .works-header-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--clr-accent);
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .works-headline {
+            font-family: var(--font-head);
+            font-size: clamp(4.5rem, 10vw, 8rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 0.88;
+            color: var(--clr-white);
+            border-left: 3px solid var(--clr-accent);
+            padding-left: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .works-header-meta {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--clr-gray);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        /* ── Two-column grid ── */
+        .works-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* ── Project card ── */
+        .work-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--clr-border);
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: border-color 120ms linear;
+        }
+
+        .work-card:hover {
+            border-color: var(--clr-accent);
+        }
+
+        /* Image */
+        .work-card-img-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: var(--clr-dim);
+            flex-shrink: 0;
+        }
+
+        /* CRT scanline overlay */
+        .work-card-img-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.09) 2px,
+                rgba(0, 0, 0, 0.09) 3px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .work-card-img-wrap img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            filter: grayscale(30%) contrast(1.05) brightness(0.82);
+            transition: filter 200ms ease-out, transform 300ms ease-out;
+        }
+
+        .work-card:hover .work-card-img-wrap img {
+            filter: grayscale(10%) contrast(1.05) brightness(0.9);
+            transform: scale(1.02);
+        }
+
+        /* Body */
+        .work-card-body {
+            padding: 1.1rem 1.3rem 1.25rem;
+            background: var(--clr-surface);
+            border-top: 1px solid var(--clr-border);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .work-card-badge {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--clr-accent);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .work-card-type {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--clr-accent);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .work-card-type::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--clr-accent);
+            opacity: 0.2;
+        }
+
+        .work-card-title {
+            font-family: var(--font-head);
+            font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            color: var(--clr-white);
+            margin-bottom: 0.55rem;
+        }
+
+        .work-card-brief {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--clr-gray-lt);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .work-card-link {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: var(--clr-gray);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            transition: color 120ms linear;
+            align-self: flex-start;
+        }
+
+        .work-card:hover .work-card-link {
+            color: var(--clr-accent);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .works-page {
+                padding: 5rem 1.25rem 4rem;
+            }
+
+            .works-grid {
+                grid-template-columns: 1fr;
+                gap: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body class="page-works">
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="./">Jaime Serrano</a></li>
+            </ul>
+            <span class="nav-sys-readout">SYS: 00.4 // LOC: ACTIVE</span>
+        </div>
+    </nav>
+
+    <main class="works-page">
+
+        <!-- Page header -->
+        <header class="works-header">
+            <span class="works-header-label">+_CASE_INDEX_+</span>
+            <h1 class="works-headline">Works</h1>
+            <p class="works-header-meta">07 Cases &nbsp;//&nbsp; UX Research · Prototyping · Design</p>
+        </header>
+
+        <!-- Project grid -->
+        <div class="works-grid">
+
+            <a class="work-card" href="./musician-booking.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/HCDE_519_images/1.png" alt="Musicians booking study">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_01_+</span>
+                    <p class="work-card-type">// Qualitative Study</p>
+                    <h2 class="work-card-title">Musicians</h2>
+                    <p class="work-card-brief">How independent musicians identify, pursue, and manage live show bookings — a qualitative investigation into self-promotion and venue relationships.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+            <a class="work-card" href="./runar.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/Frame.jpg" alt="RunAR AR prototype">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_02_+</span>
+                    <p class="work-card-type">// AR Prototyping</p>
+                    <h2 class="work-card-title">RunAR</h2>
+                    <p class="work-card-brief">Real-time AR performance insights delivered through a heads-up display, keeping runners informed without breaking their focus on the road ahead.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+            <a class="work-card" href="./transit-research.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/transit_images/home-cover.png" alt="Riding Unseen transit research">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_03_+</span>
+                    <p class="work-card-type">// Qualitative Research</p>
+                    <h2 class="work-card-title">Riding Unseen</h2>
+                    <p class="work-card-brief">A fly-on-the-wall study examining how King County Metro transit infrastructure fails marginalized and low-income communities.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+            <a class="work-card" href="./slumberpal.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/slumberpal_images/slumberpal_main.jpg" alt="SlumberPal sleep companion">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_04_+</span>
+                    <p class="work-card-type">// UX / Product Design</p>
+                    <h2 class="work-card-title">SlumberPal</h2>
+                    <p class="work-card-brief">A calming sleep companion for children — a paired physical product and mobile app designed to ease bedtime anxiety through routine and interaction.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+            <a class="work-card" href="./myuw-redesign.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/myuw_images/myuw_preview.jpg" alt="MyUW redesign">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_05_+</span>
+                    <p class="work-card-type">// App Redesign</p>
+                    <h2 class="work-card-title">MyUW Redesign</h2>
+                    <p class="work-card-brief">Redesigning the University of Washington student portal app to reduce cognitive load, surface critical information faster, and eliminate navigational friction.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+            <a class="work-card" href="./wordstream-research.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/Research_images/Final_research_poster.jpg" alt="Wordstream research poster">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_06_+</span>
+                    <p class="work-card-type">// User Research</p>
+                    <h2 class="work-card-title">Wordstream</h2>
+                    <p class="work-card-brief">Evaluating wordstream visualization tools as a method for making qualitative text-based research faster to analyze and easier to communicate.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+            <a class="work-card" href="./runpal.html">
+                <div class="work-card-img-wrap">
+                    <img src="images/RunPal_images/summary_sheet.jpg" alt="RunPal physical prototype">
+                </div>
+                <div class="work-card-body">
+                    <span class="work-card-badge">+_CASE_07_+</span>
+                    <p class="work-card-type">// Physical Prototype</p>
+                    <h2 class="work-card-title">RunPal</h2>
+                    <p class="work-card-brief">A wrist-worn running companion featuring a pixel-art pet, a voice-controlled interval timer, and live pace feedback built on Arduino hardware.</p>
+                    <span class="work-card-link">View Project →</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024</p>
+            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

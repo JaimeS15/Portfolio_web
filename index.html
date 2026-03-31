@@ -61,25 +61,25 @@
                     </div>
                     <div class="hero-cta-row" style="margin-top: 1.5rem;">
                         <a href="./about.html" class="btn-secondary">About</a>
-                        <p class="hero-works-label">Works <span class="hero-works-arrow" aria-hidden="true">→</span></p>
+                        <a href="./works.html" class="hero-works-label">Works <span class="hero-works-arrow" aria-hidden="true">→</span></a>
                     </div>
 
                 </div>
                 <div class="hero-visual">
-                    <div class="hud-readout" id="projHud">PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE</div>
+                    <div class="hud-readout" id="projHud">PROJ: 01 // CAT: QUAL-STUDY // STATUS: ACTIVE</div>
                     <div class="proj-viewer" id="projViewer">
                         <div class="proj-viewer-img-wrap">
-                            <img id="projImg" src="images/Frame.jpg" alt="RunAR" loading="eager">
+                            <img id="projImg" src="images/HCDE_519_images/1.png" alt="Musicians" loading="eager">
                         </div>
                         <div class="proj-viewer-body">
                             <span class="proj-viewer-badge" id="projBadge">+_CASE_01_+</span>
-                            <h2 class="proj-viewer-title" id="projTitle">RunAR</h2>
-                            <p class="proj-viewer-cat" id="projCat">AR / Prototyping</p>
-                            <p class="proj-viewer-brief" id="projBrief">Real-time AR performance insights that keep runners focused on the road.</p>
+                            <p class="proj-viewer-cat" id="projCat">// Qualitative Study</p>
+                            <h2 class="proj-viewer-title" id="projTitle">Musicians</h2>
+                            <p class="proj-viewer-brief" id="projBrief">How independent musicians identify, pursue, and manage live show bookings.</p>
                             <span class="proj-viewer-cursor" aria-hidden="true">_</span>
                         </div>
                         <div class="proj-viewer-footer">
-                            <span class="proj-viewer-counter" id="projCounter">01 / 07</span>
+                            <span class="proj-viewer-counter" id="projCounter">01 / 03</span>
                             <div class="proj-viewer-progress">
                                 <div class="proj-viewer-progress-fill" id="projFill"></div>
                             </div>
@@ -106,82 +106,42 @@
 
     <script src="script.js"></script>
     <script>
-        (function() {
+        (function () {
             var DWELL = 6500;
             var projects = [
                 {
-                    img:     'images/Frame.jpg',
-                    badge:   '+_CASE_01_+',
-                    title:   'RunAR',
-                    cat:     'AR / Prototyping',
-                    brief:   'Real-time AR performance insights that keep runners focused on the road.',
-                    href:    './runar.html',
-                    hud:     'PROJ: 01 // CAT: AR-RESEARCH // STATUS: ACTIVE',
-                    counter: '01 / 07'
-                },
-                {
-                    img:     'images/slumberpal_images/slumberpal_main.jpg',
-                    badge:   '+_CASE_02_+',
-                    title:   'SlumberPal',
-                    cat:     'UX / Design',
-                    brief:   'A calming sleep companion for children — physical product and app in tandem.',
-                    href:    './slumberpal.html',
-                    hud:     'PROJ: 02 // CAT: UX-DESIGN // STATUS: ACTIVE',
-                    counter: '02 / 07'
-                },
-                {
-                    img:     'images/Research_images/Final_research_poster.jpg',
-                    badge:   '+_CASE_03_+',
-                    title:   'Wordstream',
-                    cat:     'User Research',
-                    brief:   'Evaluating wordstream visualization tools for qualitative text-based research.',
-                    href:    './wordstream-research.html',
-                    hud:     'PROJ: 03 // CAT: USER-RESEARCH // STATUS: ACTIVE',
-                    counter: '03 / 07'
-                },
-                {
                     img:     'images/HCDE_519_images/1.png',
-                    badge:   '+_CASE_04_+',
+                    badge:   '+_CASE_01_+',
                     title:   'Musicians',
-                    cat:     'Qualitative Study',
+                    cat:     '// Qualitative Study',
                     brief:   'How independent musicians identify, pursue, and manage live show bookings.',
                     href:    './musician-booking.html',
-                    hud:     'PROJ: 04 // CAT: QUALITATIVE // STATUS: ACTIVE',
-                    counter: '04 / 07'
+                    hud:     'PROJ: 01 // CAT: QUAL-STUDY // STATUS: ACTIVE',
+                    counter: '01 / 03'
                 },
                 {
-                    img:     'images/myuw_images/myuw_preview.jpg',
-                    badge:   '+_CASE_05_+',
-                    title:   'MyUW Redesign',
-                    cat:     'App Redesign / UX Design',
-                    brief:   'Redesigning the UW student portal app to reduce cognitive load and navigational friction.',
-                    href:    './myuw-redesign.html',
-                    hud:     'PROJ: 05 // CAT: UX-DESIGN // STATUS: ACTIVE',
-                    counter: '05 / 07'
-                },
-                {
-                    img:     'images/RunPal_images/summary_sheet.jpg',
-                    badge:   '+_CASE_06_+',
-                    title:   'RunPal',
-                    cat:     'Physical Prototype / Arduino',
-                    brief:   'A wrist-worn running companion with a pixel-art pet and voice-controlled timer.',
-                    href:    './runpal.html',
-                    hud:     'PROJ: 06 // CAT: PHYSICAL-PROTOTYPE // STATUS: ACTIVE',
-                    counter: '06 / 07'
+                    img:     'images/Frame.jpg',
+                    badge:   '+_CASE_02_+',
+                    title:   'RunAR',
+                    cat:     '// AR Prototyping',
+                    brief:   'Real-time AR performance insights that keep runners focused on the road.',
+                    href:    './runar.html',
+                    hud:     'PROJ: 02 // CAT: AR-PROTOTYPE // STATUS: ACTIVE',
+                    counter: '02 / 03'
                 },
                 {
                     img:     'images/transit_images/home-cover.png',
-                    badge:   '+_CASE_07_+',
+                    badge:   '+_CASE_03_+',
                     title:   'Riding Unseen',
-                    cat:     'Qualitative Research',
+                    cat:     '// Qualitative Research',
                     brief:   'Fly-on-the-wall study of how King County transit fails marginalized communities.',
                     href:    './transit-research.html',
-                    hud:     'PROJ: 07 // CAT: QUALITATIVE // STATUS: ACTIVE',
-                    counter: '07 / 07'
+                    hud:     'PROJ: 03 // CAT: QUAL-RESEARCH // STATUS: ACTIVE',
+                    counter: '03 / 03'
                 }
             ];
 
-            var current = 0;
+            var current  = 0;
             var displayed = 0;
             var autoTimer = null;
             var transitionTimer = null;
@@ -196,18 +156,18 @@
             var fill    = document.getElementById('projFill');
             var hud     = document.getElementById('projHud');
 
-            var textEls = [badge, title, cat, brief, cursor];
+            // reveal order: badge → type → title → brief → cursor
+            var textEls = [badge, cat, title, brief, cursor];
             if (!img || !fill) return;
 
             function clearReveal() {
-                textEls.forEach(function(el) { if (el) el.classList.remove('vis'); });
+                textEls.forEach(function (el) { if (el) el.classList.remove('vis'); });
             }
 
             function revealSequence() {
-                var gap = 120;
-                textEls.forEach(function(el, i) {
+                textEls.forEach(function (el, i) {
                     if (!el) return;
-                    setTimeout(function() { el.classList.add('vis'); }, 60 + i * gap);
+                    setTimeout(function () { el.classList.add('vis'); }, 60 + i * 110);
                 });
             }
 
@@ -221,20 +181,20 @@
 
             function go(idx) {
                 current = ((idx % projects.length) + projects.length) % projects.length;
-                var nextIndex = current;
+                var next = current;
 
                 clearReveal();
                 img.classList.add('proj-transitioning');
 
                 clearTimeout(transitionTimer);
-                transitionTimer = setTimeout(function() {
-                    displayed = nextIndex;
+                transitionTimer = setTimeout(function () {
+                    displayed = next;
                     var p = projects[displayed];
-                    img.src       = p.img;
-                    img.alt       = p.title;
+                    img.src           = p.img;
+                    img.alt           = p.title;
                     badge.textContent = p.badge;
-                    title.textContent = p.title;
                     cat.textContent   = p.cat;
+                    title.textContent = p.title;
                     brief.textContent = p.brief;
                     counter.textContent = p.counter;
                     if (hud) hud.textContent = p.hud;
@@ -244,30 +204,30 @@
 
                 startProgress();
                 clearTimeout(autoTimer);
-                autoTimer = setTimeout(function() { go(current + 1); }, DWELL);
+                autoTimer = setTimeout(function () { go(current + 1); }, DWELL);
             }
 
-            // arrow buttons
+            // Nav buttons
             var prevBtn = document.getElementById('projPrev');
             var nextBtn = document.getElementById('projNext');
-            if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); clearTimeout(autoTimer); go(current - 1); });
-            if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); clearTimeout(autoTimer); go(current + 1); });
+            if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); clearTimeout(autoTimer); go(current - 1); });
+            if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); clearTimeout(autoTimer); go(current + 1); });
 
-            // clicking the preview image opens the currently displayed project
+            // Click image → open project
             var imgWrap = document.querySelector('.proj-viewer-img-wrap');
             if (imgWrap) {
                 imgWrap.style.cursor = 'pointer';
-                imgWrap.addEventListener('click', function(e) {
+                imgWrap.addEventListener('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     window.location.href = projects[displayed].href;
                 });
             }
 
-            // click viewer body to advance (not the image or nav buttons)
+            // Click viewer body to advance
             var viewer = document.getElementById('projViewer');
             if (viewer) {
-                viewer.addEventListener('click', function(e) {
+                viewer.addEventListener('click', function (e) {
                     if (e.target.closest('.proj-viewer-img-wrap')) return;
                     if (e.target.closest('.proj-nav-btn')) return;
                     clearTimeout(autoTimer);
@@ -275,9 +235,14 @@
                 });
             }
 
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'ArrowRight') { clearTimeout(autoTimer); go(current + 1); }
                 if (e.key === 'ArrowLeft')  { clearTimeout(autoTimer); go(current - 1); }
+            });
+
+            // Resume auto-play on bfcache restore (back button)
+            window.addEventListener('pageshow', function (e) {
+                if (e.persisted) { clearTimeout(autoTimer); go(current); }
             });
 
             go(0);
