@@ -230,11 +230,60 @@
 
         .timeline-desc,
         .education-school,
-        .project-desc {
+        .project-desc,
+        .about-prose {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.73rem;
             color: #a8a8a8;
             line-height: 1.9;
+        }
+
+        .about-prose {
+            max-width: 640px;
+        }
+
+        .about-prose p { margin-bottom: 1.1rem; }
+        .about-prose p:last-child { margin-bottom: 0; }
+
+        .about-prose h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #c8f000;
+            margin: 1.75rem 0 0.65rem;
+        }
+
+        .about-prose h3:first-child { margin-top: 0; }
+
+        .about-focus-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 640px;
+        }
+
+        .about-focus-list li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.73rem;
+            color: #a8a8a8;
+            line-height: 1.9;
+            margin-bottom: 0.85rem;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .about-focus-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #c8f000;
+        }
+
+        .about-focus-list li strong {
+            color: #dedede;
+            font-weight: 500;
         }
 
         .section-bottom-rule {
@@ -282,10 +331,8 @@
                 <span class="about-section-label">+_PERSONNEL_FILE_+</span>
                 <h1 class="about-headline">JAIME<br>SERRANO</h1>
                 <p class="about-bio">
-                    Researcher, designer, and developer pursuing a Master of Science in Information 
-                    Management at the University of Washington. Work spans UX research, prototyping, 
-                    geospatial data visualization, and AR design — combining quantitative analysis 
-                    with qualitative insight to build purposeful, user-centered solutions.
+                    UX researcher and graduate student at the University of Washington — studying how people
+                    navigate complex systems and turning that understanding into clearer, more equitable experiences.
                 </p>
                 <div class="hud-meta">
                     <div class="hud-meta-item">
@@ -308,10 +355,57 @@
             </div>
         </div>
 
-        <!-- Skills -->
+        <!-- About -->
         <div class="about-section">
             <div class="about-section-header">
                 <span class="about-section-prefix">// SECTION_01 //</span>
+                <h2 class="about-section-title">About</h2>
+            </div>
+            <div class="about-prose">
+                <p>
+                    I came to UX through research, not the other way around. I earned a B.A. in Science,
+                    Technology &amp; Society at the University of Washington, then spent over a year as a
+                    research analyst in environmental health labs — using R and ArcGIS to analyze large datasets
+                    and build geospatial visualizations. The work was rigorous, but numbers described patterns,
+                    not why people made the choices they did. That gap pulled me toward qualitative inquiry and
+                    human-centered design. I'm now pursuing an M.S. in Information Management at the UW iSchool,
+                    connecting analytical habits with empathic research and prototyping.
+                </p>
+
+                <h3>What drives my work</h3>
+                <p>
+                    I'm motivated by making opaque systems legible — especially for people overlooked when
+                    products and services get designed. I care about listening before prescribing, staying close
+                    to participants' language and lived experience, and being honest about what evidence does and
+                    does not support. Good design, for me, is clarity, access, and respect for the people on the
+                    other side of the screen.
+                </p>
+
+                <h3>How I work</h3>
+                <p>
+                    I treat design as a research practice: start with a clear question, gather evidence, synthesize
+                    patterns, and test before committing to solutions. I move through <strong style="color:#dedede;">Discover</strong>
+                    (interviews, contextual inquiry, observation), <strong style="color:#dedede;">Synthesize</strong>
+                    (thematic analysis, journey maps), <strong style="color:#dedede;">Explore</strong> (Figma, Wizard of Oz,
+                    physical prototypes), and <strong style="color:#dedede;">Validate</strong> (user testing and
+                    evidence-backed recommendations) — looping back whenever findings challenge assumptions.
+                </p>
+
+                <h3>What I'm most passionate about</h3>
+                <ul class="about-focus-list">
+                    <li><strong>Qualitative &amp; mixed-methods research</strong> — Interview design, thematic analysis, and triangulating what people say with what they do.</li>
+                    <li><strong>Service &amp; systems design</strong> — End-to-end journeys in civic, education, and community-facing products.</li>
+                    <li><strong>Equity &amp; access</strong> — Research with marginalized communities and designing for constraints mainstream products ignore.</li>
+                    <li><strong>Prototyping &amp; interaction design</strong> — From Figma flows to AR and wearables — testing ideas early.</li>
+                    <li><strong>Research-to-design translation</strong> — Turning findings into journey maps, principles, and actionable recommendations.</li>
+                </ul>
+            </div>
+            <hr class="section-bottom-rule">
+        </div>
+
+        <div class="about-section">
+            <div class="about-section-header">
+                <span class="about-section-prefix">// SECTION_02 //</span>
                 <h2 class="about-section-title">Skills & Expertise</h2>
             </div>
             <div class="skills-grid">
@@ -356,7 +450,7 @@
         <!-- Education -->
         <div class="about-section">
             <div class="about-section-header">
-                <span class="about-section-prefix">// SECTION_02 //</span>
+                <span class="about-section-prefix">// SECTION_03 //</span>
                 <h2 class="about-section-title">Education</h2>
             </div>
 
@@ -377,7 +471,7 @@
         <!-- Experience -->
         <div class="about-section">
             <div class="about-section-header">
-                <span class="about-section-prefix">// SECTION_03 //</span>
+                <span class="about-section-prefix">// SECTION_04 //</span>
                 <h2 class="about-section-title">Experience</h2>
             </div>
 
@@ -398,7 +492,7 @@
         <!-- Projects -->
         <div class="about-section">
             <div class="about-section-header">
-                <span class="about-section-prefix">// SECTION_04 //</span>
+                <span class="about-section-prefix">// SECTION_05 //</span>
                 <h2 class="about-section-title">University Projects</h2>
             </div>
 
