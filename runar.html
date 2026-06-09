@@ -28,8 +28,8 @@
         .project-section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.0; margin-bottom: 1.25rem; color: #dedede; }
         .project-section h3 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.85rem; margin-top: 2rem; color: #dedede; }
         .project-section h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.22em; color: #c8f000; margin-bottom: 0.6rem; font-weight: 400; }
-        .project-section p { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; line-height: 1.9; color: #a8a8a8; margin-bottom: 1.1rem; }
-        .project-section ul { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; line-height: 1.9; margin-left: 1.25rem; margin-bottom: 1.25rem; font-size: 0.78rem; }
+        .project-section p { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; line-height: 1.9; color: #a8a8a8; margin-bottom: 1.1rem; }
+        .project-section ul { font-family: 'IBM Plex Mono', monospace; color: #a8a8a8; line-height: 1.9; margin-left: 1.25rem; margin-bottom: 1.25rem; font-size: 0.88rem; }
         .project-section img { width: 100%; height: auto; margin: 1.5rem 0; filter: grayscale(15%) contrast(1.04) brightness(0.92); border: 1px solid #2e2e2e; display: block; }
         .project-section .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin: 1.5rem 0; }
         .project-section .image-grid img { margin: 0; }
@@ -51,7 +51,8 @@
             .project-content { padding: 1.1rem 1rem 2.5rem; }
             .project-section { margin-bottom: 3rem; }
             .project-section h2 { font-size: 1.2rem; }
-            .project-section p { font-size: 0.75rem; }
+            .project-section p,
+            .project-section ul { font-size: 0.84rem; }
         }
     </style>
 </head>
@@ -94,10 +95,10 @@
             <section class="project-content">
         <div class="project-section" id="executive-summary">
             <h4>Executive Summary</h4>
-            <h2>RunAR: AR glasses concept for runners</h2>
+            <h2>RunAR: Augmented Reality glasses concept for runners</h2>
             <img src="images/Screenshot 2026-01-31 at 00-29-51 RunAR_report.pdf.png" alt="RunAR Project Overview" loading="lazy">
             <p>
-                RunAR is an AR glasses concept that delivers real-time performance metrics hands-free. It pairs key running data with an AR ghost runner for motivation—addressing current solutions that disrupt focus and require constant device interaction.
+                RunAR is an academic Augmented Reality (AR) glasses concept that delivers real-time performance metrics hands-free. It pairs key running data with an AR ghost runner for motivation — addressing current solutions that disrupt focus and require constant device interaction.
             </p>
             <p>
                 We used structured ideation and an Impact–Effort Matrix to evaluate concepts by usability, feasibility, desirability, and potential impact. After selecting AR glasses as the platform, we validated direction through iterative prototyping—wireframes, cardboard models, and a Wizard of Oz flow tested with real runners.
@@ -126,6 +127,9 @@
             <h2>Scenario-Based Design approach combining surveys and interviews</h2>
             <p>
                 We used a Scenario-Based Design approach combining surveys and interviews to understand how runners track performance, stay motivated, and interact with technology during training. These findings informed five semi-structured interviews focused on training habits, motivation, and technology frustrations.
+            </p>
+            <p>
+                We started with a survey because we needed a quick read on common devices, metrics, and training pain points. We followed with interviews because motivation and in-run frustration are contextual; the team needed to hear how runners made tradeoffs during actual training rather than only ranking features in a form.
             </p>
             
             <h3>Key Findings</h3>
@@ -344,6 +348,10 @@
                 second-round testing to evaluate the updated UI's readability during movement and validate 
                 cognitive load reduction.
             </p>
+            <h3>Conclusion</h3>
+            <p>
+                The biggest design lesson was that hands-free does not automatically mean low-friction. Runners valued immediate guidance, but only when the interface stayed narrow, readable, and relevant to the moment. Future iterations should treat attention as the core constraint: show less, time it better, and let motivation support the run instead of competing with it.
+            </p>
             <img src="images/Screenshot 2026-01-31 at 00-34-01 RunAR_report.pdf.png" alt="Future Design Work and Roadmap" loading="lazy">
         </div>
 
@@ -356,7 +364,11 @@
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024</p>
-            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+            <div class="footer-links">
+                <a href="mailto:jaimeserrano32@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/jaime-serrano-248327239/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a>
+            </div>
         </div>
     </footer>
 

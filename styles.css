@@ -1589,10 +1589,17 @@ a {
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     color: var(--clr-gray);
     letter-spacing: 0.12em;
     text-transform: uppercase;
+}
+
+.footer-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .footer-content a {

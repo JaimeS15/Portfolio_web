@@ -54,7 +54,7 @@
         }
         .research-label {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.58rem;
+            font-size: 0.68rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: #c8f000;
@@ -73,7 +73,7 @@
         }
         .research-meta {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.88rem;
             color: #a8a8a8;
             margin-bottom: 2rem;
             padding-bottom: 1.5rem;
@@ -93,20 +93,63 @@
         }
         .research-block p {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.78rem;
+            font-size: 0.9rem;
             line-height: 1.9;
             color: #a8a8a8;
             margin-bottom: 0.9rem;
         }
         .research-block ul {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.78rem;
+            font-size: 0.9rem;
             line-height: 1.9;
             color: #a8a8a8;
             margin: 0 0 0.9rem 1.25rem;
         }
         .research-block ul li { margin-bottom: 0.3rem; }
         .research-block strong { color: #dedede; font-weight: 500; }
+
+        .case-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1px;
+            border: 1px solid #2e2e2e;
+            margin: 1.25rem 0 2rem;
+            background: #2e2e2e;
+        }
+
+        .case-fact {
+            background: #0a0a0a;
+            padding: 0.85rem;
+        }
+
+        .case-fact span {
+            display: block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #808080;
+            margin-bottom: 0.35rem;
+        }
+
+        .case-fact strong {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.86rem;
+            line-height: 1.5;
+            color: #dedede;
+            font-weight: 500;
+        }
+
+        .insight-list {
+            list-style: none;
+            margin-left: 0 !important;
+        }
+
+        .insight-list li {
+            border-left: 2px solid #c8f000;
+            padding-left: 1rem;
+            margin-bottom: 0.9rem !important;
+        }
 
         /* ── Book reader section ── */
         .book-section {
@@ -313,7 +356,8 @@
             .research-main { padding: 1.5rem 1rem 2.5rem; }
             .research-title { font-size: 1.3rem; }
             .research-block h3 { font-size: 1.05rem; }
-            .research-block p { font-size: 0.72rem; }
+            .research-block p,
+            .research-block ul { font-size: 0.84rem; }
         }
     </style>
 </head>
@@ -339,15 +383,37 @@
         <main class="research-main">
             <p class="research-label">Qualitative Research Study</p>
             <h1 class="research-title">How Independent Musicians Book Shows</h1>
-            <p class="research-meta">Qualitative research exploring the booking process for independent musicians — HCDE 519</p>
+            <p class="research-meta">Academic qualitative research project for Human Centered Design &amp; Engineering (HCDE) 519.</p>
+
+            <div class="case-facts" aria-label="Project facts">
+                <div class="case-fact">
+                    <span>Role</span>
+                    <strong>UX researcher on student team</strong>
+                </div>
+                <div class="case-fact">
+                    <span>Methods</span>
+                    <strong>Interviews, media elicitation, journey mapping</strong>
+                </div>
+                <div class="case-fact">
+                    <span>Users</span>
+                    <strong>Independent musicians booking live shows</strong>
+                </div>
+                <div class="case-fact">
+                    <span>Output</span>
+                    <strong>Journey map, themes, and design opportunities</strong>
+                </div>
+            </div>
 
             <div class="research-block">
                 <h3>Overview</h3>
                 <p>
-                    This qualitative study examined how independent musicians navigate live show booking—from finding venues and reaching out to promoters to coordinating logistics and sustaining relationships.
+                    This academic project examined how independent musicians navigate live show booking — from finding venues and reaching out to promoters to coordinating logistics and sustaining relationships.
                 </p>
                 <p>
-                    Without label or agency support, musicians rely on personal networks, digital tools, and self-taught knowledge. The research focused on their workflows, pain points, and decision-making strategies.
+                    The domain matters because independent musicians often operate without label, agency, or dedicated booking support. They are responsible for both the creative work of performing and the administrative work of finding venues, proving credibility, negotiating logistics, and maintaining relationships. For a recruiter skimming this case study, the key takeaway is that our team was studying a service workflow, not simply a music app idea.
+                </p>
+                <p>
+                    Our goal was to understand the decision-making behind booking: what musicians do, why they do it that way, where the process breaks down, and what support might reduce uncertainty without replacing the relationship-building that makes booking work.
                 </p>
             </div>
 
@@ -361,13 +427,13 @@
             <div class="research-block">
                 <h3>Methodology</h3>
                 <p>
-                    We used in-depth interviews to capture end-to-end booking experiences across genres and career stages.
+                    We chose in-depth interviews because the booking process is informal, relationship-driven, and difficult to observe in a single session. A survey could have counted tools or pain points, but it would not have captured the reasoning behind outreach decisions, follow-up timing, or how musicians judge whether a venue is worth pursuing.
                 </p>
                 <p>
-                    <strong>Media Elicitation</strong> was the primary data collection technique. Participants brought and discussed artifacts—images, screenshots, messages, and other relevant materials—from their own booking experiences.
+                    <strong>Media elicitation</strong> was the primary data collection technique. Participants brought and discussed artifacts — images, screenshots, messages, and other relevant materials — from their own booking experiences. We used this method because it grounded the conversation in real materials instead of relying only on memory.
                 </p>
                 <p>
-                    <strong>Journey Mapping</strong> was used to synthesize accounts into a cohesive process model, highlighting where friction, uncertainty, and informal workarounds most often emerged.
+                    <strong>Journey mapping</strong> was used to synthesize accounts into a cohesive process model, highlighting where friction, uncertainty, and informal workarounds most often emerged. This helped the team move from a list of anecdotes to a shared view of the booking workflow.
                 </p>
                 <ul>
                     <li>Semi-structured interviews</li>
@@ -378,12 +444,44 @@
             </div>
 
             <div class="research-block">
+                <h3>Constraints &amp; Tradeoffs</h3>
+                <p>
+                    Because this was a course project, our timeline and recruitment pool were limited. We prioritized depth over sample size, choosing methods that let us learn how musicians think through booking decisions rather than trying to generalize across the entire music industry.
+                </p>
+                <p>
+                    We also avoided starting with a product concept. The risk was that a tool-first approach could flatten the domain into "make booking easier" without understanding the trust, reputation, and relationship work that musicians rely on. Keeping the study exploratory helped us identify where technology might support the workflow and where human relationships needed to remain central.
+                </p>
+            </div>
+
+            <div class="research-block">
                 <h3>Key Findings</h3>
                 <p>
                     Analysis revealed three dominant themes: the centrality of relationships with venue staff, the difficulty of cold outreach, and social media as both a discovery channel and a credibility signal.
                 </p>
+                <ul class="insight-list">
+                    <li><strong>Relationships reduce uncertainty.</strong> Musicians relied on known venue staff, other artists, and promoters because warm connections made outreach feel more credible and less risky.</li>
+                    <li><strong>Cold outreach is emotionally and logistically expensive.</strong> Participants described uncertainty around who to contact, what information to send, when to follow up, and whether silence meant rejection.</li>
+                    <li><strong>Social media works as both discovery and proof.</strong> Platforms helped musicians find venues and demonstrate audience fit, but they also added pressure to constantly package themselves as bookable.</li>
+                </ul>
                 <p>
-                    Across interviews, booking was consistently described as informal and relationship-driven, with limited standardization—exposing a gap between how musicians experience the process and the tools available to support it.
+                    Across interviews, booking was consistently described as informal and relationship-driven, with limited standardization — exposing a gap between how musicians experience the process and the tools available to support it.
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>Design Opportunities</h3>
+                <p>
+                    Rather than proposing a tool that fully automates booking, the research pointed toward support for the parts of the workflow musicians found hardest to track: organizing venue contacts, preparing outreach materials, remembering follow-ups, and understanding what information venues expect.
+                </p>
+                <p>
+                    The strongest opportunity is a system that helps musicians manage booking as a relationship pipeline — surfacing context, next steps, and credibility signals while still allowing each artist to preserve their voice and personal connections.
+                </p>
+            </div>
+
+            <div class="research-block">
+                <h3>Conclusion</h3>
+                <p>
+                    The main lesson from this project is that independent music booking is not just a scheduling problem. It is a trust-building process shaped by informal networks, uneven access to information, and the emotional labor of self-promotion. Any design intervention should make that hidden work easier to manage without stripping away the relationships that make bookings possible.
                 </p>
             </div>
         </main>
@@ -392,8 +490,8 @@
     <!-- Full report reader -->
     <div class="book-section">
         <div class="book-section-header">
-            <span class="book-section-label">+_FULL_REPORT_+</span>
-            <span class="book-section-hint">22 pages — use arrows or keyboard ← → to navigate</span>
+            <span class="book-section-label">+_REPORT_ARTIFACTS_+</span>
+            <span class="book-section-hint">22 embedded pages — no download required — use arrows or keyboard ← → to navigate</span>
         </div>
 
         <div class="book-reader" id="bookReader" aria-label="Report viewer">
@@ -452,7 +550,11 @@
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024</p>
-            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+            <div class="footer-links">
+                <a href="mailto:jaimeserrano32@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/jaime-serrano-248327239/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a>
+            </div>
         </div>
     </footer>
 

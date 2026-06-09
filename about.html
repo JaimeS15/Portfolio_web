@@ -67,7 +67,7 @@
 
         .about-bio {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             line-height: 1.95;
             color: #a8a8a8;
             max-width: 520px;
@@ -100,15 +100,22 @@
 
         .hud-meta-value {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             color: #a8a8a8;
             letter-spacing: 0.04em;
+        }
+
+        .about-contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
         }
 
         .resume-btn {
             display: inline-block;
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.62rem;
+            font-size: 0.68rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: #c8f000;
@@ -118,9 +125,23 @@
             transition: background-color 100ms linear, color 100ms linear;
         }
 
-        .resume-btn:hover {
+        .resume-btn:hover,
+        .contact-btn:hover {
             background-color: #c8f000;
             color: #0a0a0a;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #dedede;
+            border: 1px solid #636363;
+            padding: 0.5rem 1.1rem;
+            text-decoration: none;
+            transition: background-color 100ms linear, color 100ms linear, border-color 100ms linear;
         }
 
         /* ── Sections ── */
@@ -171,7 +192,7 @@
 
         .skill-card h3 {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.56rem;
+            font-size: 0.65rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: #c8f000;
@@ -183,7 +204,7 @@
 
         .skill-card li {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.73rem;
+            font-size: 0.84rem;
             color: #a8a8a8;
             line-height: 1.85;
             margin-bottom: 0.2rem;
@@ -209,7 +230,7 @@
         .education-date,
         .project-date {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             color: #808080;
             letter-spacing: 0.16em;
             text-transform: uppercase;
@@ -233,7 +254,7 @@
         .project-desc,
         .about-prose {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.73rem;
+            font-size: 0.86rem;
             color: #a8a8a8;
             line-height: 1.9;
         }
@@ -247,7 +268,7 @@
 
         .about-prose h3 {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -266,7 +287,7 @@
 
         .about-focus-list li {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.73rem;
+            font-size: 0.86rem;
             color: #a8a8a8;
             line-height: 1.9;
             margin-bottom: 0.85rem;
@@ -337,7 +358,7 @@
                 <div class="hud-meta">
                     <div class="hud-meta-item">
                         <span class="hud-meta-label">Status</span>
-                        <span class="hud-meta-value">MS Student — UW iSchool</span>
+                        <span class="hud-meta-value">MS Student — UW Information School</span>
                     </div>
                     <div class="hud-meta-item">
                         <span class="hud-meta-label">Domain</span>
@@ -347,6 +368,10 @@
                         <span class="hud-meta-label">Location</span>
                         <span class="hud-meta-value">Seattle, WA</span>
                     </div>
+                </div>
+                <div class="about-contact-row" aria-label="Contact links">
+                    <a href="mailto:jaimeserrano32@gmail.com" class="contact-btn">Email</a>
+                    <a href="https://www.linkedin.com/in/jaime-serrano-248327239/" target="_blank" rel="noopener noreferrer" class="contact-btn">LinkedIn</a>
                 </div>
                 <a href="Jaime Serrano_12_2025.pdf" target="_blank" class="resume-btn">↓ Download Resume</a>
             </div>
@@ -368,8 +393,9 @@
                     research analyst in environmental health labs — using R and ArcGIS to analyze large datasets
                     and build geospatial visualizations. The work was rigorous, but numbers described patterns,
                     not why people made the choices they did. That gap pulled me toward qualitative inquiry and
-                    human-centered design. I'm now pursuing an M.S. in Information Management at the UW iSchool,
-                    connecting analytical habits with empathic research and prototyping.
+                    human-centered design. I'm now pursuing a Master of Science in Information Management at the
+                    University of Washington Information School, where I connect analytical habits with empathic
+                    research and prototyping.
                 </p>
 
                 <h3>What drives my work</h3>
@@ -396,7 +422,7 @@
                     <li><strong>Qualitative &amp; mixed-methods research</strong> — Interview design, thematic analysis, and triangulating what people say with what they do.</li>
                     <li><strong>Service &amp; systems design</strong> — End-to-end journeys in civic, education, and community-facing products.</li>
                     <li><strong>Equity &amp; access</strong> — Research with marginalized communities and designing for constraints mainstream products ignore.</li>
-                    <li><strong>Prototyping &amp; interaction design</strong> — From Figma flows to AR and wearables — testing ideas early.</li>
+                    <li><strong>Prototyping &amp; interaction design</strong> — From Figma flows to augmented reality and wearables — testing ideas early.</li>
                     <li><strong>Research-to-design translation</strong> — Turning findings into journey maps, principles, and actionable recommendations.</li>
                 </ul>
             </div>
@@ -410,13 +436,24 @@
             </div>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h3>Programming</h3>
+                    <h3>Research Methods</h3>
                     <ul>
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Python (pandas)</li>
-                        <li>R (tidyverse, dplyr, ggplot2, shinyapp)</li>
+                        <li>Semi-structured interviews</li>
+                        <li>Media elicitation</li>
+                        <li>Journey mapping</li>
+                        <li>Thematic analysis</li>
+                        <li>Usability testing</li>
+                        <li>Wizard of Oz testing</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Design & Prototyping</h3>
+                    <ul>
+                        <li>Figma</li>
+                        <li>Interaction design</li>
+                        <li>Low-fi prototyping</li>
+                        <li>Adobe Illustrator</li>
+                        <li>Rhino</li>
                     </ul>
                 </div>
                 <div class="skill-card">
@@ -425,23 +462,17 @@
                         <li>Tableau</li>
                         <li>ArcGIS</li>
                         <li>Dedoose</li>
+                        <li>R (tidyverse, dplyr, ggplot2)</li>
+                        <li>Python (pandas)</li>
                     </ul>
                 </div>
                 <div class="skill-card">
-                    <h3>Design & Prototyping</h3>
+                    <h3>Programming</h3>
                     <ul>
-                        <li>Figma</li>
-                        <li>Adobe Illustrator</li>
-                        <li>Rhino</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
                         <li>Cursor</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Methodologies</h3>
-                    <ul>
-                        <li>Thematic Analysis</li>
-                        <li>Systems Thinking</li>
-                        <li>Design Thinking</li>
                     </ul>
                 </div>
             </div>
@@ -478,13 +509,13 @@
             <div class="timeline-item">
                 <div class="timeline-date">Jan 2024 – Mar 2025</div>
                 <div class="timeline-title">Research Analyst — Casey Lab</div>
-                <div class="timeline-desc">University of Washington, Dept. of Environmental & Occupational Health Sciences. Utilized R (tidyverse) for evaluative data analysis on large environmental datasets. Created 100+ ArcGIS map files from R-filtered data, delivering geospatial insights that informed research direction. Constructed multiple line grids within ArcGIS for Seattle and Chicago. Co-authored research paper with cross-functional teams.</div>
+                <div class="timeline-desc">University of Washington, Department of Environmental & Occupational Health Sciences. Analyzed large environmental datasets in R to identify participants' lived environments with greater precision. Created 100+ ArcGIS map files and multiple city-scale line grids for Seattle and Chicago, giving the research team clearer geospatial evidence for cohort analysis. Built R scripts to merge and clean county-level files, reducing manual prep work and supporting a co-authored research paper.</div>
             </div>
 
             <div class="timeline-item">
                 <div class="timeline-date">Jul 2023 – Sep 2023</div>
                 <div class="timeline-title">Research Assistant — THINK Lab</div>
-                <div class="timeline-desc">University of Washington, Dept. of Civil & Environmental Engineering. Reviewed 10+ quantitative methodologies. Fabricated 20+ ArcGIS ellipses using confidence intervals and Python (pandas)-filtered datasets to reveal behavioral patterns. Developed Python scripts that automated ellipse creation across multiple files.</div>
+                <div class="timeline-desc">University of Washington, Department of Civil & Environmental Engineering. Reviewed 10+ quantitative methodologies to help researchers compare possible study approaches. Produced an explanatory research graphic and built 20+ ArcGIS confidence ellipses from Python-filtered datasets, surfacing behavioral patterns that informed lab analysis. Automated ellipse creation across files so the team could iterate faster.</div>
             </div>
             <hr class="section-bottom-rule">
         </div>
@@ -499,7 +530,7 @@
             <div class="project-item">
                 <div class="project-date">Sep 2025 – Dec 2025</div>
                 <div class="project-title">RunAR</div>
-                <div class="project-desc">Conducted user interviews for a hands-free AR running solution, identifying key user wants and needs. Created 2 low-fi UI prototypes for AR running glasses. Recorded Wizard of Oz user testing sessions documenting prototype strengths and weaknesses.</div>
+                <div class="project-desc">Conducted user interviews for a hands-free augmented reality running solution, identifying key user wants and needs. Created 2 low-fi UI prototypes for running glasses. Recorded Wizard of Oz user testing sessions documenting prototype strengths and weaknesses.</div>
             </div>
 
             <div class="project-item">
@@ -515,7 +546,11 @@
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024</p>
-            <p><a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a></p>
+            <div class="footer-links">
+                <a href="mailto:jaimeserrano32@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/jaime-serrano-248327239/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="Jaime Serrano_12_2025.pdf" target="_blank">Resume</a>
+            </div>
         </div>
     </footer>
 
